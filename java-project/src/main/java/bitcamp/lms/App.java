@@ -11,7 +11,7 @@ public class App {
     System.out.print("시작일: ");
     System.out.println("2019-01-02");
     System.out.print("종료일: ");
-    System.out.print("2019-01-02\n");
+    System.out.print("2019-05-28\n");
     System.out.print("총수업시간: ");
     System.out.print(1000);
     System.out.print(" 시간");
