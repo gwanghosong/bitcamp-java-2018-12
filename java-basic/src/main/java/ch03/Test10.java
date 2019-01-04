@@ -11,6 +11,7 @@ public class Test10 {
     String name = keyboard.next();
     
     System.out.printf("%d(%s)\n", age, name);
+    System.out.println(age + "(" + name + ")");
     
     
     
