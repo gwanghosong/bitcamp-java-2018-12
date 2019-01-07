@@ -12,6 +12,7 @@ public class Test12 {
     
     // 변수의 들어 있는 값의 한계를 구해 보자!
     int sum1 = a1 + a2 + a3 + a4 + a5;
+    System.out.println(sum1);
     
     int[] arr1;
     arr1 = new int[5];
@@ -26,7 +27,7 @@ public class Test12 {
     for (int item : arr1) {
       sum2 = sum2 + item;
     }
-    
+    System.out.println(sum2);
      
   }
 }
