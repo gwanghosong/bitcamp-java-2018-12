@@ -6,7 +6,7 @@ package bitcamp.lms;
 public class App {
   public static void main(String[] args) {
     java.util.Scanner keyboard = new java.util.Scanner(System.in);
-    
+
     System.out.print("번호? ");
     int no = keyboard.nextInt();
     
@@ -29,6 +29,8 @@ public class App {
     
     System.out.println("일수업시간? ");
     int dayhours = keyboard.nextInt();
+    
+    keyboard.close();
     
     System.out.printf("번호: %d\n", no);
     System.out.printf("수업명: %s\n", name);

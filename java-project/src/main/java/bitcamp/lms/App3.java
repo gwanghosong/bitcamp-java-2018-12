@@ -13,6 +13,8 @@ public class App3 {
     
     keyboard.nextLine();
     
+    keyboard.close();
+    
     System.out.print("내용? ");
     String contents = keyboard.nextLine();
     

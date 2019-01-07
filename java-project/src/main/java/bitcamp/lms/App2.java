@@ -6,7 +6,6 @@ package bitcamp.lms;
 public class App2 {
   public static void main(String[] args) {
     java.util.Scanner keyboard = new java.util.Scanner(System.in);
-    java.util.Date today = new java.util.Date();
     
     System.out.print("번호? ");
     int no = keyboard.nextInt();
@@ -23,6 +22,8 @@ public class App2 {
     int password = keyboard.nextInt();
     
     keyboard.nextLine();
+    
+    keyboard.close();
     
     System.out.print("사진? ");
     String picture = keyboard.nextLine();
