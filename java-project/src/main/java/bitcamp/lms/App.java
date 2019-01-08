@@ -3,60 +3,108 @@
  */
 package bitcamp.lms;
 
+import java.sql.Date;
+import java.util.Scanner;
+
 public class App {
   public static void main(String[] args) {
-    java.util.Scanner keyboard = new java.util.Scanner(System.in);
-
-    System.out.print("번호? ");
-    int no = keyboard.nextInt();
     
-    keyboard.nextLine();
+    Scanner keyboard = new Scanner(System.in);
+    
+    final int LENGTH = 10;
+    
+    int[] no = new int[LENGTH];
+    String[] name = new String[LENGTH];
+    String[] contents = new String[LENGTH];
+    Date[] startDate = new Date[LENGTH];
+    Date[] endDate = new Date[LENGTH];
+    int[] totalhours = new int[LENGTH];
+    int[] dayhours = new int[LENGTH];
+    
+    int i = 0; // 인덱스 0부터시작
+    while (i < LENGTH) {
+    System.out.print("번호? ");
+    no[i] = Integer.parseInt(keyboard.nextLine());
     
     System.out.print("수업명? ");
-    String name = keyboard.nextLine();
+    name[i] = keyboard.nextLine();
     
     System.out.print("수업내용? ");
-    String contents = keyboard.nextLine();
+    contents[i] = keyboard.nextLine();
     
     System.out.print("시작일? ");
-    String startday = keyboard.nextLine();
+    startDate[i] = Date.valueOf(keyboard.nextLine());
     
     System.out.print("종료일? ");
-    String endday = keyboard.nextLine();
+    endDate[i] = Date.valueOf(keyboard.nextLine());
     
     System.out.print("총수업시간? ");
-    int totalhours = keyboard.nextInt();
+    totalhours[i] = Integer.parseInt(keyboard.nextLine());
     
     System.out.println("일수업시간? ");
-    int dayhours = keyboard.nextInt();
+    dayhours[i] = Integer.parseInt(keyboard.nextLine());
     
+    i++;
+    
+    System.out.print("\n계속 하시겠습니까?(Y/N)");
+    String answer = keyboard.nextLine().toLowerCase();
+    // toLowerCase() 문자열을 소문자로 변환
+    
+    if (!answer.equals("y") && answer.length() > 0) {
+      break;
+    }
+   
+    System.out.println();
+  }
+   
+ 
     keyboard.close();
     
-    System.out.printf("번호: %d\n", no);
-    System.out.printf("수업명: %s\n", name);
-    System.out.printf("수업내용: %s\n", contents);
-    System.out.printf("기간: %s ~ %s\n", startday, endday);
-    System.out.printf("총수업시간: %d\n", totalhours);
-    System.out.printf("일수업시간: %d\n", dayhours);
+    System.out.println();
     
+    for (int j = 0; j < i; j++) {
+      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n",
+          no[j], name[j], startDate[j], endDate[j], totalhours[j]);
+    }
+  }
+}    
     
     /*
-        번호? 1
-        수업명? 자바 프로젝트 실습
-        수업내용? 자바 프로젝트를 통한 자바 언어 활용법 익히기
-        시작일? 2019-01-02
-        종료일? 2019-05-28
-        총수업시간? 1000
-        일수업시간? 8
+번호? 1
+수업명? 자바 프로젝트 실습
+수업내용? 자바 프로젝트를 통한 자바 언어 활용법 익히기
+시작일? 2019-01-02
+종료일? 2019-05-28
+총수업시간? 1000
+일수업시간? 8
 
-        번호: 1
-        수업명: 자바 프로젝트 실습
-        수업내용: 자바 프로젝트를 통한 자바 언어 활용법 익히기
-        기간: 2019-01-02 ~ 2019-05-28
-        총수업시간: 1000 시간
-        일수업시간: 8 시간
+계속 입력하시겠습니까?(Y/n) y
+
+번호? 2
+수업명? 자바 프로그래밍 기초
+수업내용? 자바 언어 기초 문법을 학습하기
+시작일? 2019-02-01
+종료일? 2019-02-28
+총수업시간? 160
+일수업시간? 8
+
+계속 입력하시겠습니까?(Y/n) y
+
+번호? 3
+수업명? 자바 프로그래밍 고급
+수업내용? 디자인 패턴과 리랙토링 기법 학습하기
+시작일? 2019-03-02
+종료일? 2019-03-30
+총수업시간? 160
+일수업시간? 8
+
+계속 입력하시겠습니까?(Y/n) n
+
+1, 자바 프로젝트 실습     , 2019-01-02 ~ 2019-05-28, 1000
+2, 자바 프로그래밍 기초    , 2019-02-01 ~ 2019-02-28,  160
+3, 자바 프로그래밍 고급    , 2019-03-02 ~ 2019-03-30,  160
+```
   */
     
   
-    }
-}
+   
