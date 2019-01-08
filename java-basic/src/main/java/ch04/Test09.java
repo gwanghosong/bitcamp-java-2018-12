@@ -14,6 +14,11 @@ public class Test09 {
     a = 5;
     a = a++;
     System.out.println(a);
+    
+    int x = 5;
+    int y = 10;
+    int z = ++x * y--;
+    System.out.println(z);
    
   }
 }

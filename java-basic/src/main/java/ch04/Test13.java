@@ -12,6 +12,7 @@ public class Test13 {
     //0xee = 16 * 14 + 14 = 238  
     System.out.println(a ^ b); // 0000 0000 0000 0000 000  0000 1010 1100
     //0xac = 16 * 10 + 12 = 172
+    System.out.println(a);
     System.out.println(~a); // 1111 1111 1111 1111 1111 1111 0011 0101
     //0xffffff35
     // 0000 0000 0000 0000 0000 0000 1100 1011 = 203
