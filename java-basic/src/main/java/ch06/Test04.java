@@ -15,7 +15,7 @@ public class Test04 {
   }
   
   static int plus(int a, int b) {
-    return a + 100;
+    return a + b;
   }
 }
 

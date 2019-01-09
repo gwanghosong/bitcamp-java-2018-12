@@ -3,12 +3,10 @@
  */
 package practice;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import java.util.Scanner;
+import java.sql.Date;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    public static void main(String[] args) {
     }
 }
