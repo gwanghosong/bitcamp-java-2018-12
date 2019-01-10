@@ -5,7 +5,6 @@ package bitcamp.lms;
 
 import java.util.Scanner;
 import java.sql.Date;
-import bitcamp.lms.Board;
 
 public class App3 {
   public static void main(String[] args) {
@@ -13,24 +12,23 @@ public class App3 {
    
     final int LENGTH = 10;
     
-    Board[] boards = new Board[LENGTH];
+    int[] no = new int[LENGTH];
+    String[] contents = new String[LENGTH];
+    Date[] createdDate = new Date[LENGTH];
+    int[] viewCount = new int[LENGTH];
     
     int i = 0;
     while (i < LENGTH) {
-     
-      Board board = new Board();
-      
     System.out.print("번호? ");
-    board.no = Integer.parseInt(keyboard.nextLine());
+    no[i] = Integer.parseInt(keyboard.nextLine());
     
     System.out.print("내용? ");
-    board.contents = keyboard.nextLine();
+    contents[i] = keyboard.nextLine();
     
-    board.createdDate = new Date(System.currentTimeMillis());
+    createdDate[i] = new Date(System.currentTimeMillis());
     
-    board.viewCount = 0;
+    viewCount[i] = 0;
     
-    boards[i] = board;
     i++;
     
     System.out.print("\n계속 입력하시겠습니까?(Y/n)");
@@ -48,7 +46,17 @@ public class App3 {
     
     for (int j = 0; j < i; j++) {
       System.out.printf("%3d, %-20s, %s, %d\n",
-          boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
+          no[j], contents[j], createdDate[j], viewCount[j]);
     }
   }
 }
+/*
+번호? 1
+내용? 게시글입니다.
+
+번호: 1
+내용: 게시글입니다.
+작성일: 2019-01-01
+조회수: 0
+ */
+   

@@ -5,7 +5,6 @@ package bitcamp.lms;
 
 import java.util.Scanner;
 import java.sql.Date;
-import bitcamp.lms.Member;
 
 public class App2 {
   public static void main(String[] args) {
@@ -13,36 +12,38 @@ public class App2 {
     
     final int LENGTH = 10;
     
-   Member[] members = new Member[LENGTH];
+    int[] no = new int[LENGTH];
+    String[] name = new String[LENGTH];
+    String[] email = new String[LENGTH];
+    int[] password = new int[LENGTH];
+    String[] picture = new String[LENGTH];
+    String[] phoneNumber = new String[LENGTH];
+    Date[] enterDate = new Date[LENGTH];
     
     int i = 0;
     
     while (i < LENGTH) {
-      
-     Member member = new Member();
-     
     System.out.print("번호? ");
-    member.no = Integer.parseInt(keyboard.nextLine());
+    no[i] = Integer.parseInt(keyboard.nextLine());
     
     System.out.print("이름? ");
-    member.name = keyboard.nextLine();
+    name[i] = keyboard.nextLine();
     
     System.out.print("이메일? ");
-    member.email = keyboard.nextLine();
+    email[i] = keyboard.nextLine();
     
     System.out.print("암호? ");
-    member.password = Integer.parseInt(keyboard.nextLine());
+    password[i] = Integer.parseInt(keyboard.nextLine());
     
     System.out.print("사진? ");
-    member.picture = keyboard.nextLine();
+    picture[i] = keyboard.nextLine();
     
     System.out.print("전화? ");
-    member.phoneNumber = keyboard.nextLine();
+    phoneNumber[i] = keyboard.nextLine();
     
     System.out.print("가입일? ");
-    member.enterDate = Date.valueOf(keyboard.nextLine());
+    enterDate[i] = Date.valueOf(keyboard.nextLine());
     
-    members[i] = member;
     i++;
     
     System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
@@ -61,7 +62,24 @@ public class App2 {
     
     for (int j = 0; j < i; j++) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
-          members[j].no, members[j].name, members[j].email, members[j].phoneNumber, members[j].enterDate);
+          no[j], name[j], email[j], phoneNumber[j], enterDate[j]);
     }
-  }    
+    
+/*
+번호? 1
+이름? 홍길동
+이메일? hong@test.com
+암호? 1111
+사진? hong.png
+전화? 1111-2222
+
+번호: 1
+이름: 홍길동
+이메일: hong@test.com
+암호: 1111
+사진: hong.png
+전화: 1111-2222
+가입일: 2019-01-01
+ */
+    }
 }
