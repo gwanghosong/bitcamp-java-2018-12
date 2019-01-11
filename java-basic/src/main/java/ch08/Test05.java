@@ -1,9 +1,12 @@
 // 클래스 필드 공유
 package ch08;
 
+// class A {
+// static int a;
+//  } 안되는 이유? 같은 클래스에서 선언되지 않아 같은 소속 멤버가 아니다.
 public class Test05 {
   
-  static int a; // 클래스가 로딩될 때 Method Area에 a라는 이름의 변수를 만들라는 명령이다!
+ static int a;// 클래스가 로딩될 때 Method Area에 a라는 이름의 변수를 만들라는 명령이다!
   
   public static void main(String[] args) {
     a = 100; // 같은 클래스에 소속된 멤버이기 때문에 클래스명을 생략해도 된다.
