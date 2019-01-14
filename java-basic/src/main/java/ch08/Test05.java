@@ -3,7 +3,7 @@ package ch08;
 
 // class A {
 // static int a;
-//  } 안되는 이유? 같은 클래스에서 선언되지 않아 같은 소속 멤버가 아니다.
+//  } 인식이 안되는 이유? 같은 클래스에서 선언되지 않아 같은 소속 멤버가 아니다.
 public class Test05 {
   
  static int a;// 클래스가 로딩될 때 Method Area에 a라는 이름의 변수를 만들라는 명령이다!

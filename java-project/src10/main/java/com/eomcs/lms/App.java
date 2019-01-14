@@ -3,12 +3,11 @@ package com.eomcs.lms;
 import java.util.Scanner;
 
 public class App {
-
+ // 이 둘은 밑에서도 쓰기때문에 여기 놔둠.
   static Scanner keyboard = new Scanner(System.in);
+  public static void main(String[] args) { 
 
-  public static void main(String[] args) {
-
-    LessonHandler.keyboard = keyboard;
+    LessonHandler.keyboard = keyboard; 
     MemberHandler.keyboard = keyboard;
     BoardHandler.keyboard = keyboard;
 
@@ -51,5 +50,5 @@ public class App {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
   }
-
+ 
 }

@@ -4,19 +4,19 @@ import java.util.Scanner;
 import java.sql.Date;
 
 public class LessonHandler {
-  static Scanner keyboard = new Scanner(System.in);
+  static Scanner keyboard; // 키보드 메서드를 인스턴스마다 중복하기 싫을경우
   static final int LENGTH = 10;
   static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
 
-  static void listLesson() {
+  public static void listLesson() {
     for (int j = 0; j < lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lessons[j].no, lessons[j].title, lessons[j].startDate, 
           lessons[j].endDate, lessons[j].totalHours);
     }
   }
-  static void addLesson() {
+  public static void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");

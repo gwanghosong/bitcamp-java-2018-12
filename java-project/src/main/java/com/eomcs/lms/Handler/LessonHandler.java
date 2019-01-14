@@ -1,25 +1,23 @@
-package com.eomcs.lms;
+package com.eomcs.lms.Handler;
 
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
-
-  static Scanner keyboard;
+  public static Scanner keyboard;
   static final int LENGTH = 10;
   static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
-
-  static void listLesson() {
+  
+  public static void listLesson() {
     for (int j = 0; j < lessonIdx; j++) {
-      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n",
-          lessons[j].no, lessons[j].title, lessons[j].startDate,
+      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
+          lessons[j].no, lessons[j].title, lessons[j].startDate, 
           lessons[j].endDate, lessons[j].totalHours);
     }
   }
-
-  static void addLesson() {
+  public static void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
