@@ -4,40 +4,33 @@ import java.util.Scanner;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 import com.eomcs.lms.handler.BoardHandler;
+import com.eomcs.lms.handler.BoardHandler2;
 
 public class App {
   static Scanner keyboard = new Scanner(System.in);
+  static final int LENGTH = 10;
 
   public static void main(String[] args) {
-    BoardHandler Board1 = new BoardHandler();
-    Board1.keyboard = keyboard; 
-    BoardHandler Board2 = new BoardHandler();
-    Board2.keyboard = keyboard; 
-    LessonHandler Lesson1 = new LessonHandler();
-    Lesson1.keyboard = keyboard;
-    MemberHandler Member1 = new MemberHandler();
-    Member1.keyboard = keyboard;
-    
 
     while (true) {
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
-        Lesson1.addLesson();
+        LessonHandler.addLesson();
       } else if (command.equals("/lesson/list")) {
-        Lesson1.listLesson();
+        LessonHandler.listLesson();
       } else if (command.equals("/member/add")) {
-        Member1.addMember();
+        MemberHandler.addMember();
       } else if (command.equals("/member/list")) {
-        Member1.listMember();
+        MemberHandler.listMember();
       } else if (command.equals("/board/add")) {
-        Board1.addBoard();
+        BoardHandler.addBoard();
       } else if (command.equals("/board/list")) {
-        Board1.listBoard();
+        BoardHandler.listBoard();
       } else if (command.equals("/board2/add")) {
-        Board2.addBoard();
+        BoardHandler2.addBoard();
       } else if (command.equals("/board2/list")) {
-        Board2.listBoard();
+        BoardHandler2.listBoard();
       }else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;

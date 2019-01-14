@@ -36,7 +36,7 @@ public class Test06 {
     // 인스턴스 메서드는 인스턴스 주소없이 호출할 수 없다.
     // Calculator4.plus(3); 컴파일 오류!
     
-    Calculator4 c3 = null;
+    Calculator4 c3 = null; // <c3가 가리키는 주소가 null>이니까 오류발생!
     c3.plus(3); // 런타임(run-time) 오류. 실행할 때 드는 오류.
     // NullPonterException 에러
   }

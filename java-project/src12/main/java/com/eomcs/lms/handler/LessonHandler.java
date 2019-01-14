@@ -1,15 +1,15 @@
-package com.eomcs.lms.Handler;
+package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
-  public static Scanner keyboard;
+  static Scanner keyboard = new Scanner(System.in);
   static final int LENGTH = 10;
   static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
-  
+
   public static void listLesson() {
     for (int j = 0; j < lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
@@ -46,5 +46,6 @@ public class LessonHandler {
     lessonIdx++;
 
     System.out.println("저장하였습니다.");
+
   }
 }
