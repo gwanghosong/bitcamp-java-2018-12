@@ -7,7 +7,7 @@ public class Test14 {
     // String 인스턴스 생성
     String s1 = new String();
     // => 내부적으로 문자의 코드 값을 저장할 char 배열(버전 1.8까지) 
-    // 또는 byte 배열(버전 1.9부터)을 생성한다. UTF-8
+    // 또는 byte 배열(버전 1.9부터)을 생성한다.
     // 생성자에서 넘겨주는 값을 배열에 저장한다.
     // 만약 생성자에 아무것도 넘겨주지 않으면 빈 배열이 생성된다.
     
@@ -17,9 +17,10 @@ public class Test14 {
     
     char[] chars = {'H', 'e', 'l', 'l', 'o'};
     String s3 = new String(chars); // char 배열로 String 인스턴스 생성
-    
-    byte[] bytes = {(byte)0xb0, (byte)0xa1, (byte)0xb0, (byte)0xa2, 
-        0x30, 0x31, 0x32, 0x41, 0x42, 0x43};
+    byte[] bytes = {(byte)0xb0, (byte)0xa1, (byte)0xb1, (byte)0xa2, 
+        0x30, 0x31, 0x32, 0x41, 0x42, 0x43, };
+
+    // 자바의 문자 기본 저장은 UTF-16으로 한다.
     // 문자 코드 값이 저장된 바이트 배열로 String 인스턴스 생성
     String s4 = new String(bytes);
     // 한글이 깨진다. 이유?

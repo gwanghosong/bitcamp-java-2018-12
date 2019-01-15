@@ -12,7 +12,7 @@ public class Test15 {
     // 현재 시간을 저장한다.
     System.out.println(d1);
     
-    // Date(long) : 1970-01-01 00:00:00 부터 지금까지 경과된 밀리초
+    // Date(long) : 1970-01-01 00:00:00 부터 해당 값(long)까지 경과된 밀리초
     Date d2 = new Date(1000);
     System.out.println(d2);
     

@@ -48,6 +48,7 @@ public class Test11 {
     new Monitor9(50, 50, 1920, 1080); // Monitor9(int, int, int, int) 생성자를 지정한다.
     
     // 파라미터 타입이나 개수가 일치하지 않는 생성자는 호출할 수 없다.
-    // new Monitor9(50); // 컴파일 오류!
+    // new Monitor9(50); // 컴파일 오류! 개수불일치
+    // new Monitor9(true, false); 컴파일 오류! 타입불일치
   }
 }

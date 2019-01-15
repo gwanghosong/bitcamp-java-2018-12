@@ -11,8 +11,9 @@ class Monitor10 {
   Monitor10() {
     //다른 생성자를 호출할 수 있다.
     // 단 반드시 첫번째 문장으로 작성해야 한다.
+    // 즉, 한번만 가능한 것 같다.
     this(50, 50, 2560, 1200); 
-    
+    // this(50,50); 컴파일 오류! 첫번째 문장이아님.
     System.out.println("Monitor10()");
   }
   //
@@ -32,7 +33,7 @@ class Monitor10 {
   public void on() {
     // 주의!
     // 일반 메서드는 생성자를 호출할 수 없다.
-    // this(); 컴파일 오류
+    //this(); 컴파일 오류! 생성자는 반드시 생성자 내에서 첫번째 문장으로 호출해야한다.
     
     // 모니터를 켜면 bright, contrast, widthRes, heightRes 값에 맞춰서 
     // LCD의 불을 밝힌다.
@@ -54,7 +55,7 @@ public class Test12 {
     // 주의!
     // 일반메서드처럼 임의로 생성자를 호출할 수는 없다.
     Monitor10 obj1 = new Monitor10();
-    // obj1.Monitor(); 컴파일오류!
+    //obj1.Monitor(); 컴파일오류! 인스턴스메서드처럼 레퍼런스.인스턴스메서드();같이 할 수 없다.
     
   }
 }

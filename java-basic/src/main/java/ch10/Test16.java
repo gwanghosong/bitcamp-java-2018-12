@@ -10,7 +10,7 @@ public class Test16 {
     Calendar c1;
     
     // 생성자가 있다하더라도 접근 권한이 없으면 호출할 수 없다.
-    //c1 = new Calendar(); //컴파일 오류 protected
+    // c1 = new Calendar(); //컴파일 오류 protected
     
     // Calendar는 인스턴스 생성을 도와주는 별도의 클래스 메서드(스태틱 메서드)를 제공한다.
     c1 = Calendar.getInstance();
