@@ -5,47 +5,53 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
-  public Scanner keyboard = new Scanner(System.in);
-  static final int LENGTH = 10;
-  static Lesson[] lessons = new Lesson[LENGTH];
-  static int lessonIdx = 0;
 
+  static final int LENGTH = 10;
+  
+  Scanner keyboard;
+  Lesson[] lessons = new Lesson[LENGTH];
+  int lessonIdx = 0;
+  
+  public LessonHandler(Scanner keyboard) {
+    this.keyboard = keyboard;
+  }
+  
   public void listLesson() {
-    for (int j = 0; j < lessonIdx; j++) {
+    for (int j = 0; j < this.lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          lessons[j].no, lessons[j].title, lessons[j].startDate, 
-          lessons[j].endDate, lessons[j].totalHours);
+          this.lessons[j].no, this.lessons[j].title, this.lessons[j].startDate, 
+          this.lessons[j].endDate, this.lessons[j].totalHours);
     }
   }
+
   public void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
-    lesson.no = Integer.parseInt(keyboard.nextLine());
+    lesson.no = Integer.parseInt(this.keyboard.nextLine());
 
     System.out.print("수업명? ");
-    lesson.title = keyboard.nextLine();
+    lesson.title = this.keyboard.nextLine();
 
     System.out.print("설명? ");
-    lesson.contents = keyboard.nextLine();
+    lesson.contents = this.keyboard.nextLine();
 
     System.out.print("시작일? ");
-    lesson.startDate = Date.valueOf(keyboard.nextLine());
+    lesson.startDate = Date.valueOf(this.keyboard.nextLine());
 
     System.out.print("종료일? ");
-    lesson.endDate = Date.valueOf(keyboard.nextLine());
+    lesson.endDate = Date.valueOf(this.keyboard.nextLine());
 
     System.out.print("총수업시간? ");
-    lesson.totalHours = Integer.parseInt(keyboard.nextLine());
+    lesson.totalHours = Integer.parseInt(this.keyboard.nextLine());
 
     System.out.print("일수업시간? ");
-    lesson.dayHours = Integer.parseInt(keyboard.nextLine());
+    lesson.dayHours = Integer.parseInt(this.keyboard.nextLine());
 
     // i 번째 배열에 수업 정보를 담고 있는 Lesson 객체(의 주소)를 보관한다.
-    lessons[lessonIdx] = lesson;
-    lessonIdx++;
+    this.lessons[this.lessonIdx] = lesson;
+    this.lessonIdx++;
 
     System.out.println("저장하였습니다.");
-
   }
 }
