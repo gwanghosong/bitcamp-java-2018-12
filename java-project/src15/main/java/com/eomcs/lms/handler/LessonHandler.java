@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 
+
 public class LessonHandler {
 
   //없어진것static final int LENGTH = 10;
@@ -37,7 +38,7 @@ public class LessonHandler {
     Lesson[] lessons = list.toArray();
     for (Lesson lesson : lessons) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n",
-          lesson.getNo(), lesson.getTitle(),
+          lesson.getNo, lesson.getTitle(),
            lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
     }
   }

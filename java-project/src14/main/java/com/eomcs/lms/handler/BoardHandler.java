@@ -11,16 +11,16 @@ public class BoardHandler {
   Scanner keyboard;
   Board[] boards = new Board[LENGTH];
   int boardIdx = 0;
-
+  
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
   }
-  
+
   public void listBoard() {
     for (int j = 0; j < this.boardIdx; j++) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
-          this.boards[j].getNo(), this.boards[j].getContents(), 
-          this.boards[j].getCreatedDate(), this.boards[j].getViewCount());
+          this.boards[j].no, this.boards[j].contents, 
+          this.boards[j].createdDate, this.boards[j].viewCount);
     }
   }
 
@@ -28,14 +28,14 @@ public class BoardHandler {
     Board board = new Board();
     
     System.out.print("번호? ");
-    board.setNo(Integer.parseInt(keyboard.nextLine()));
+    board.no = Integer.parseInt(this.keyboard.nextLine());
     
     System.out.print("내용? ");
-    board.setContents(keyboard.nextLine());
+    board.contents = this.keyboard.nextLine();
     
-    board.setCreatedDate(new Date(System.currentTimeMillis())); 
+    board.createdDate = new Date(System.currentTimeMillis()); 
     
-    board.setViewCount(0);
+    board.viewCount = 0;
     
     this.boards[this.boardIdx] = board;
     this.boardIdx++;
