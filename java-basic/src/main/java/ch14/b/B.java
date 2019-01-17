@@ -12,20 +12,20 @@ public class B extends A {
   // @Override int m1(int a) {} // 컴파일 오류
   
   // 파라미터의 타입이 다르면 안된다.
-  //@Override void m1(long a) {} //컴파일 오류
+  // @Override void m1(long a) {} //컴파일 오류
   
   // 파라미터의 개수가 다르면 안된다.
   // @Override void m1(int a, int b) {} //컴파일 오류
   
   // 접근 범위를 축소하는 것은 안된다.
-  //@Override private void m1(int a) {} //컴파일 오류
+  // @Override private void m1(int a) {} //컴파일 오류
   
   // 접근 범위를 확대하는 것은 괜찮다.
   //@Override protected void m1(int a) {} // OK! 
-  @Override public void m1(int a) {} // OK!
+   @Override public void m1(int a) {} // OK!
   
   // 접근 범위를 축소하는 것은 안된다
-  //@Override void m2(String a, int b) {} //컴파일 오류
+  // @Override void m2(String a, int b) {} //컴파일 오류
   
   @Override public void m2(String a, int b) {} //OK!
   

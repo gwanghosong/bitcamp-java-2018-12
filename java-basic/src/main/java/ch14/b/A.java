@@ -8,6 +8,7 @@ public class A {
   
   protected void m2(String a, int b) {
     System.out.println("A.m2()");
+    System.out.printf("%s, %d", a, b);
   }
   
   public void m3() {

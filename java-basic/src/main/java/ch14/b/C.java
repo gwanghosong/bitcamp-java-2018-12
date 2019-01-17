@@ -2,7 +2,7 @@
 package ch14.b;
 
 public class C extends A {
-
+// 수퍼클래스 A임
   @Override public void m1(int a) {
     // 오버라이딩 전의 메서드를 호출하고 싶다면 super 레퍼런스를 사용하라
     
