@@ -1,4 +1,5 @@
 // Wrapper 클래스
+// 원시타입값도 인스턴스처럼 다루고 싶어서 필요
 package ch11;
 
 import java.util.Date;
