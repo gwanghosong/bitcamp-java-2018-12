@@ -1,27 +1,25 @@
 package com.eomcs.lms.handler;
-
 import java.sql.Date;
 import java.util.Scanner;
+import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
 
-  static final int LENGTH = 10;
-  
   Scanner keyboard;
-  Lesson[] lessons = new Lesson[LENGTH];
-  int lessonIdx = 0;
-  
+  ArrayList<Lesson> list;
+
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
+    this.list = new ArrayList<>();
   }
-  
+
   public void listLesson() {
-    for (int j = 0; j < lessonIdx; j++) {
+    Lesson[] lessons = list.toArray(new Lesson[0]);
+    for (Lesson lesson : lessons) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          lessons[j].getNo(), lessons[j].getTitle(), 
-          lessons[j].getStartDate(), lessons[j].getEndDate(),
-          lessons[j].getTotalHours());
+          lesson.getNo(), lesson.getTitle(), 
+          lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
     }
   }
 
@@ -49,8 +47,7 @@ public class LessonHandler {
     System.out.print("일수업시간? ");
     lesson.setDayHours(Integer.parseInt(keyboard.nextLine()));
 
-    lessons[lessonIdx] = lesson;
-    lessonIdx++;
+    list.add(lesson);
 
     System.out.println("저장하였습니다.");
   }
