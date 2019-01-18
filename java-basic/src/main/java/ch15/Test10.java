@@ -36,7 +36,7 @@ public class Test10 {
     map.put(k4, new Student("안중근", 24, true));
     map.put(k5, new Student("윤봉길", 22, false));
     
-    System.out.println(k3.hashCode());
+    System.out.println(map.get(k3));
     
 
     
@@ -44,8 +44,8 @@ public class Test10 {
     Key k6 = new Key("haha");
     
     System.out.println(k3 == k6); // 인스턴스는 다르다.
-    System.out.println(k3.hashCode()); // hashCode는 같다.
-    System.out.println(k6.hashCode()); // hashCode는 같다.
+    System.out.println(k3.hashCode()); // hashCode는 다르다.
+    System.out.println(k6.hashCode()); // hashCode는 다르다.
     System.out.println(k3.equals(k6)); // equals()의 비교 결과도 다르다.
     
     
