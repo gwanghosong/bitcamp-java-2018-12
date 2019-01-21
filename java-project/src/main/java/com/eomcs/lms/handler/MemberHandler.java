@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.util.ArrayList;
 
 public class MemberHandler {
   
