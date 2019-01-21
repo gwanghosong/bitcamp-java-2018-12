@@ -106,7 +106,7 @@ public class LessonHandler {
     System.out.printf("수업내용?");
     input = (keyboard.nextLine());
     temp.setContents(input.length() > 0 ? input : lesson.getContents());
-    // true 면  a:b에서 a, false면 b
+    // true 면  a:b에서 a, false면 b 
     System.out.printf("시작일(%s)?", lesson.getStartDate());
     
     input = (keyboard.nextLine());
