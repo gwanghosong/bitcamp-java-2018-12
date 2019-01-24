@@ -15,7 +15,7 @@ public class LessonHandler {
   }
 
   public void listLesson() {
-    Lesson[] lessons = list.toArray(new Lesson[] {});
+    Lesson[] lessons = list.toArray(new Lesson[0]);
     for (Lesson lesson : lessons) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lesson.getNo(), lesson.getTitle(), 

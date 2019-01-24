@@ -9,7 +9,8 @@ import com.eomcs.util.Stack;
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
-  
+
+  // 사용자가 입력한 명령을 보관할 스택 준비
   static Stack<String> commandHistory = new Stack<>();
 
   public static void main(String[] args) {
@@ -19,9 +20,11 @@ public class App {
     BoardHandler boardHandler1 = new BoardHandler(keyboard);
     BoardHandler boardHandler2 = new BoardHandler(keyboard);
     
+    
     while (true) {
       String command = prompt();
       
+      // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
 
       if (command.equals("/lesson/add")) {
@@ -88,9 +91,10 @@ public class App {
         System.out.println("안녕!");
         break;
         
-      } else if (command.equals("history")) {    
-          printCommandHistory();
-    } else {
+      }else if (command.equals("history")) {
+        printCommandHistory();
+        
+      } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
       
@@ -99,15 +103,16 @@ public class App {
 
     keyboard.close();
   }
-  
+
   private static void printCommandHistory() {
     try {
-      Stack<String> temp = commandHistory.clone();
-      while (!temp.empty()) {
-        System.out.println(temp.pop());
-      }
-      } catch (Exception e) {
-        e.printStackTrace();
+    // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
+    Stack<String> temp = commandHistory.clone();
+    while (!temp.empty()) {
+      System.out.println(temp.pop());
+    }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
