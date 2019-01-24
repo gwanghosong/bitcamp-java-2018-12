@@ -16,7 +16,15 @@ public class ArrayList {
     else
       arr = new Object[DEFAULT_SIZE];
   }
-  
+  // add는 length고 toArray는 size인 이유
+  // add는 배열이 꽉차면 배열을 증가시킨 곳에 arr 값을 넣기때문에
+  // size로 하면 원래 배열 size == arr.length == 4일때
+  // 4 + 2 즉 6개를 집어넣어야되는데 5,6번째값은 존재하지가 않는다.
+  // 즉 성립자체가 안되기때문에 arr.length를 넣어야하고
+  // toArray는 해당 배열을 리턴하는 것이기때문에
+  // 즉, add처럼 증가하는 함수가 없어서
+  // size만큼 리턴하면 딱 맞는다.
+  // 그래서 add는 arr.length, toArray는 size를 써서 for문을 돌린다.
   public void add(Object value) {
     // 현재 배열이 꽉 찼다면(==) 현재 배열 크기의 50%만큼 증가시켜라.
     if (arr.length == this.size) {

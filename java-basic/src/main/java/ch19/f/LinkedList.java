@@ -144,9 +144,9 @@ public class LinkedList {
   private class Array {
     // 이제 Array클래스는 LinkedList의 인스턴스 멤버가 되었다.
     // 즉 , 인스턴스 필드나, 메서드처럼 특정 인스턴스에 대해 주소를 받는다는 것이다.
-    // 따라서 바깥 클래스의 인스턴스를 마응대로 사용할 수 있다. 그냥 인스턴스 메서드라 생각하라!
+    // 따라서 바깥 클래스의 인스턴스를 마음대로 사용할 수 있다. 그냥 인스턴스 메서드라 생각하라!
     //
-    // LinkedList list; 이 코드 필요 없다.
+    // LinkedList list; //이 코드 필요 없다.
     /* 같은 인스턴스 멤버기 때문에 생성자에서 주소를 받을 필요 없다.
     public Array(LinkedList list) {
       this.list = list;

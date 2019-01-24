@@ -23,6 +23,6 @@ public class Test13 {
     
     double[] obj5 = new double[10];
     classInfo = obj5.getClass();
-    System.out.println(classInfo.getName()); //[D
+    System.out.println(obj5.getClass().getName()); //[D
   }
 }

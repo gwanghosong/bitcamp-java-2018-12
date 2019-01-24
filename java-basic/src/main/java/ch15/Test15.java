@@ -26,7 +26,8 @@ public class Test15 {
 
     @Override
     public String toString() {
-      return "Score [name=" + name + ", kor=" + kor + ", eng=" + eng + ", math=" + math + ", sum="
+      return "Score [name=" + name + ", kor=" + kor + ","
+          + " eng=" + eng + ", math=" + math + ", sum="
           + sum + ", aver=" + aver + "]";
     }
     

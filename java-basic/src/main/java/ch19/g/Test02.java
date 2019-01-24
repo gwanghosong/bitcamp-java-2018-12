@@ -21,6 +21,7 @@ public class Test02 {
     // 그 클래스의 인스턴스를 생성한 후 
     // list()메서드에 전달하면 된다.
     String[] names = dir.list(new MyFilenameFilter());
+    // list(); 찾아보면 true값이여야만 값 리턴하도록 되있음.
     
     // 몇 일, 몇 달, 몇 년이 지난 후 
     // 도대체 저 필터가 무엇을 걸러내는지 알려면 

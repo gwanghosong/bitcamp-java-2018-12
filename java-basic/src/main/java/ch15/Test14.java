@@ -18,16 +18,5 @@ public class Test14 {
     // 메서드 호출하고 리턴값으로 다시 메서드 호출하고 또 다시 그 리턴값으로 메서드 호출하는방식
     System.out.println(obj2.getClass().getComponentType().getName()); //java.lang.String;
     
-    int[] obj3 = new int[10];
-    classInfo = obj3.getClass();
-    System.out.println(classInfo.getName()); //[I
-    
-    float[] obj4 = new float[10];
-    classInfo = obj4.getClass();
-    System.out.println(classInfo.getName()); //[F
-    
-    double[] obj5 = new double[10];
-    classInfo = obj5.getClass();
-    System.out.println(classInfo.getName()); //[D
   }
 }

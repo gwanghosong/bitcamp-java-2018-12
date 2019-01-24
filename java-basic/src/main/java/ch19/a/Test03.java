@@ -19,6 +19,7 @@ public class Test03 {
   public static void main(String[] args) {
     // 로컬 클래스는 로컬 변수와 같은 조건을 갖는다. 
     class C1 {}
+    // private int a;
     // private class C2 {} // 컴파일 오류! 로컬 변수에 접근 제한자를 붙일 수 없듯이 로컬 클래스도 불가능하다.
   }
 }
