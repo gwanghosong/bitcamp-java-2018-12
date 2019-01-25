@@ -1,5 +1,5 @@
 // 제네릭 적용하기
-package algorithm.data_structure.linkedlist3;
+package design_pattern.iterator;
 
 // LinkedList에 보관되는 값의 타입을 E라고 가정한다.
 // E타입이라고 가정하고 코드를 작성한다.
@@ -38,7 +38,7 @@ public class LinkedList<E> {
     for (int i = 1; i <= index; i++ ) {
       cursor = cursor.next;
     }
-    
+
     return cursor.value; 
   }
 
@@ -46,7 +46,7 @@ public class LinkedList<E> {
     Object[] arr = new Object[size()];
     Node<E> cursor = head;
     int i = 0;
-    
+
     while (cursor != tail) {
       arr[i++] = cursor.value;
       cursor = cursor.next;
@@ -134,7 +134,30 @@ public class LinkedList<E> {
       this.value = value;
     }
   }
+
+  // 자신이 보유한 데이터를 대신 꺼내주는 일을 하는 객체를 리턴한다.
+  public Iterator<E> iterator() {
+    return new Iterator<E>() {
+      int index = 0;
+
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public E next() {
+        return (E) get(index++);
+      }
+
+    };
+  }
 }
+
+
+
+
 
 
 

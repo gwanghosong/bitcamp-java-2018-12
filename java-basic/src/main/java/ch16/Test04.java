@@ -72,7 +72,7 @@ public class Test04 {
     String y3 = x3.getValue();
     
     Box2<Date> x4 = new Box2<>(new Date());
-    Date y4 = x4.getValue(); // 형변활 할 필요가 없다.
+    Date y4 = x4.getValue(); // 형변환 할 필요가 없다.
     // 마치 Date를 리턴하는 getValu 메서드가 있는 것같다.
     
     // 제네릭은 다형성의 유연함을 그대로 유지하면서 특정타입의 데이터를 다루도록

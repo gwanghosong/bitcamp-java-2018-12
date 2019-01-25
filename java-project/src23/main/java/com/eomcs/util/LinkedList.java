@@ -1,4 +1,4 @@
-// 제네릭 적용하기
+// List 사용규칙에 따라 LinkedList를 만든다.
 package com.eomcs.util;
 
 import java.lang.reflect.Array;
@@ -7,11 +7,11 @@ import java.lang.reflect.Array;
 // E타입이라고 가정하고 코드를 작성한다.
 // E가 무슨 타입인지는 LinkedList를 사용할 때 결정된다.
 //
-public class LinkedList<E> {
+public class LinkedList<E> implements Cloneable, List<E> {
   protected Node<E> head;
   protected Node<E> tail;
   protected int size;
-
+//
   public LinkedList() {
     head = new Node<>();
     tail = head;

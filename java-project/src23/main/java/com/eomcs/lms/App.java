@@ -1,24 +1,26 @@
 package com.eomcs.lms;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Stack;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
+import com.eomcs.util.Queue;
+import com.eomcs.util.Stack;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
 
   static Stack<String> commandHistory = new Stack<>();
-  static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
 
+  static Queue<String> commandHistory2 = new Queue<>();
+  
   public static void main(String[] args) {
 
+    // 핸들러가 필요로하는 의존 객체를 이 클래스에서 만들어주입해준다.
+    // 의존객체 주입(Dependency Injection ; DI)"이라 한다.
     LessonHandler lessonHandler = new LessonHandler(keyboard, new ArrayList<>());
     MemberHandler memberHandler = new MemberHandler(keyboard, new ArrayList<>());
     BoardHandler boardHandler1 = new BoardHandler(keyboard, new LinkedList<>());
@@ -28,6 +30,8 @@ public class App {
       String command = prompt();
 
       commandHistory.push(command);
+
+      // 사용자가 입력한 명령을 큐에 보관한다.
       commandHistory2.offer(command);
 
       if (command.equals("/lesson/add")) {
@@ -90,16 +94,14 @@ public class App {
       } else if (command.equals("/board2/delete")) {
         boardHandler2.deleteBoard();
 
-      } else if (command.equals("history")) {
-        printCommandHistory(commandHistory.iterator());
-
-      } else if (command.equals("history2")) {
-        printCommandHistory(commandHistory2.iterator());
-
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
 
+      } else if (command.equals("history")) {    
+        printCommandHistory();
+      } else if (command.equals("history2")) {    
+        printCommandHistory2();
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
@@ -110,18 +112,14 @@ public class App {
     keyboard.close();
   }
 
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
-  }
-
-  private static void printCommandHistory(Iterator<String> iterator) {
+  private static void printCommandHistory() {
     try {
+      Stack<String> temp = commandHistory.clone();
       int count = 0;
-      while (iterator.hasNext()) {
-        System.out.println(iterator.next());
+      while (!temp.empty()) {
+        System.out.println(temp.pop());
         if (++count % 5 == 0) {
-          System.out.println(":");
+          System.out.print(":");
           String input = keyboard.nextLine();
           if (input.equalsIgnoreCase("q"))
             break;
@@ -130,5 +128,28 @@ public class App {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+  
+  private static void printCommandHistory2() {
+    try {
+      Queue<String> temp = commandHistory2.clone();
+      int count = 0;
+      while (!temp.empty()) {
+        System.out.println(temp.poll());
+        if (++count % 5 == 0) {
+          System.out.print(":");
+          String input = keyboard.nextLine();
+          if (input.equalsIgnoreCase("q"))
+            break;
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static String prompt() {
+    System.out.print("명령> ");
+    return keyboard.nextLine().toLowerCase();
   }
 }

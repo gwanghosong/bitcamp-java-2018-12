@@ -1,6 +1,6 @@
-package com.eomcs.util;
+package design_pattern.iterator;
 
-public class Stack<E> implements Cloneable {
+public class Stack<E> {
   
   public static final int DEFAULT_SIZE = 5;
   Object[] list;
@@ -49,10 +49,23 @@ public class Stack<E> implements Cloneable {
   public int size() {
     return this.size;
   }
-  @SuppressWarnings("unchecked")
-  @Override
-  public Stack<E> clone() throws CloneNotSupportedException {
-    // TODO Auto-generated method stub
-    return (Stack<E>) super.clone();
+  
+  // 자신이 보유한 데이터를 대신 꺼내주는 일을 하는 객체를 리턴한다.
+  public Iterator<E> iterator() {
+    return new Iterator<E>() {
+    int index = 0;
+    
+    @Override
+    public boolean hasNext() {
+      return index < size();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public E next() {
+      int lastIndex = size - 1;
+      return (E) list[lastIndex - (index++)];
+    }
+    };
   }
 }
