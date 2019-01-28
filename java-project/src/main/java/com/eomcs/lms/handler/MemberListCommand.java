@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
-public class MemberListCommand implements Command{
+public class MemberListCommand implements Command {
 
   Scanner keyboard;
   List<Member> list;

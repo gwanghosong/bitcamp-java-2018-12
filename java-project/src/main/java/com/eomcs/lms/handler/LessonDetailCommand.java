@@ -31,6 +31,7 @@ public class LessonDetailCommand implements Command {
     System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
     System.out.printf("일수업시간: %d\n", lesson.getDayHours());
   }
+
   private int indexOfLesson(int no) {
     for (int i = 0; i < list.size(); i++) {
       Lesson l = list.get(i);

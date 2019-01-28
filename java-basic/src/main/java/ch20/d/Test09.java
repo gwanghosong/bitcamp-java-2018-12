@@ -31,7 +31,7 @@ public class Test09 {
     map.put("ccc", s);
     map.put("ddd", s);
 
-    // value 목록 꺼내기
+    // value 목록 꺼내기 Enumeration:열거, 목록
     Enumeration<Student> values = map.elements();
     // for ( a : b) b에는 java.util.Collection 하위 배열만 가능.
     while (values.hasMoreElements()) {

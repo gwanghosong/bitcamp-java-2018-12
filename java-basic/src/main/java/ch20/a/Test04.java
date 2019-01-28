@@ -15,11 +15,12 @@ public class Test04 {
         this.name = name;
         this.age = age;
       }
-      /*
+      
       @Override
       public String toString() {
         return "Student [name=" + name + ", age=" + age + "]";
       }
+      /*
       @Override
       public int hashCode() {
         final int prime = 31;
@@ -58,6 +59,9 @@ public class Test04 {
     System.out.println(s2==s4);
     System.out.println(s2.equals(s4));
     System.out.println(s2.hashCode() == s4.hashCode());
+    // 다른 이유? hashCode()는 오버라이딩 하지않는다면
+    // 인스턴스자체를 기준으로 해시코드를 리턴한다.
+    // 오버라이딩해야지만 인스턴스 필드 값으로 해시코드를 리턴한다.
     
     ArrayList<Student> list = new ArrayList<>();
     list.add(s1);

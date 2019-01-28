@@ -30,14 +30,12 @@ import com.eomcs.lms.handler.MemberUpdateCommand;
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
-
   static Stack<String> commandHistory = new Stack<>();
   static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
 
   public static void main(String[] args) {
-
-    ArrayList<Board> boardList = new ArrayList<>();
     ArrayList<Lesson> lessonList = new ArrayList<>();
+    ArrayList<Board> boardList = new ArrayList<>();
     LinkedList<Member> memberList = new LinkedList<>();
     HashMap<String, Command> commandMap = new HashMap<>();
 
@@ -57,23 +55,37 @@ public class App {
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberList));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberList));
 
-
     while (true) {
       String command = prompt();
 
+      // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
       commandHistory2.offer(command);
 
       if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
+
       } else if (command.equals("history")) {
-        printCommandHistory(commandHistory.iterator());
+        printCommandHistory(new Iterator<String>() {
+          int index = commandHistory.size() -1;
+
+          @Override
+          public boolean hasNext() {
+            return index >= 0;
+          }
+
+          @Override
+          public String next() {
+            return commandHistory.get(index--);
+          }
+        });
+
       } else if (command.equals("history2")) {
         printCommandHistory(commandHistory2.iterator());
+
       } else {
         Command commandHandler = commandMap.get(command);
-        //Command commandHandler1 = new MemberDeleteCommand(keyboard, memberList);
         if (commandHandler == null)
           System.out.println("실행할 수 없는 명령입니다.");
         else
@@ -86,18 +98,13 @@ public class App {
     keyboard.close();
   }
 
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
-  }
-
   private static void printCommandHistory(Iterator<String> iterator) {
     try {
       int count = 0;
       while (iterator.hasNext()) {
         System.out.println(iterator.next());
         if (++count % 5 == 0) {
-          System.out.println(":");
+          System.out.println(".");
           String input = keyboard.nextLine();
           if (input.equalsIgnoreCase("q"))
             break;
@@ -106,5 +113,10 @@ public class App {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private static String prompt() {
+    System.out.print("명령> ");
+    return keyboard.nextLine().toLowerCase();
   }
 }

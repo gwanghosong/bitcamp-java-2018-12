@@ -4,10 +4,10 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 
 public class BoardDeleteCommand implements Command {
-  
+
   Scanner keyboard;
   List<Board> list;
-  
+
   public BoardDeleteCommand(Scanner keyboard, List<Board> list) {
     this.keyboard = keyboard;
     this.list = list;
@@ -22,12 +22,12 @@ public class BoardDeleteCommand implements Command {
       System.out.println("해당 게시글을 찾을 수 없습니다.");
       return;
     }
-    
+
     list.remove(index);
-    
+
     System.out.println("게시글을 삭제했습니다.");
   }
-  
+
   private int indexOfBoard(int no) {
     for (int i = 0; i < list.size(); i++) {
       Board b = list.get(i);

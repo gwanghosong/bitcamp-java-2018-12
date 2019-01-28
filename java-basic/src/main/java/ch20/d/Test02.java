@@ -28,6 +28,7 @@ public class Test02 {
 
     // HashMap과 Hashtable은 기본 사용법이 같다.
     // 차이점 해시맵은 키와 밸류에 null 허용, 해시테이블은 불허
+    // 맵은 좌표 0.0 있음. 테이블은 1부터시작이라고 암기하자
     map.put("aaa", new Student("홍길동", 20));
     table.put("aaa", new Student("홍길동", 20));
 

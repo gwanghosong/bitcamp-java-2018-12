@@ -13,7 +13,7 @@ public class LessonAddCommand implements Command {
     this.keyboard = keyboard;
     this.list = list;
   }
-  
+
   public void execute() {
     Lesson lesson = new Lesson();
 

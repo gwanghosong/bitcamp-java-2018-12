@@ -15,11 +15,13 @@ public class Test05 {
         this.name = name;
         this.age = age;
       }
-      /*
+      
       @Override
       public String toString() {
         return "Student [name=" + name + ", age=" + age + "]";
       }
+      
+      /*
       @Override
       public int hashCode() {
         final int prime = 31;

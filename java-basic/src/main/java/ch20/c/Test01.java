@@ -8,7 +8,7 @@ public class Test01 {
 
   public static void main(String[] args) {
     HashSet<String> set = new HashSet<>();
-   
+    
     // Set에 값 추가하기
     set.add("aaa");
     set.add("bbb");
@@ -19,7 +19,7 @@ public class Test01 {
     set.add("aaa");
     set.add("bbb");
     
-    // null을 넣을 수 있다. 단 중보해서 넣을 수 없다.
+    // null을 넣을 수 있다. 단 중복해서 넣을 수 없다.
     set.add(null);
     set.add(null);
     
@@ -49,7 +49,7 @@ public class Test01 {
     // 파라미터로 넘겨 준 배열이 값을 담을 만큼 크지 않다면, 새 배열을 만들어 
     // 새 배열의 주소를 리턴한다.
     String[] temp = new String[0];
-    String[] values2 = set.toArray(new String[0]);
+    String[] values2 = set.toArray(temp);
     System.out.println(temp == values2); // false
     for (String value : values2) {
       System.out.println(value);

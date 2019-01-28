@@ -22,12 +22,12 @@ public class LessonDeleteCommand implements Command {
       System.out.println("해당 수업을 찾을 수 없습니다.");
       return;
     }
-    
+
     list.remove(index);
-    
+
     System.out.println("수업을 삭제했습니다.");
   }
-  
+
   private int indexOfLesson(int no) {
     for (int i = 0; i < list.size(); i++) {
       Lesson l = list.get(i);
