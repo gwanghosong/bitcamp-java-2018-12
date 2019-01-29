@@ -30,8 +30,10 @@ public class Test02 {
         // 모든 예외마다 설정해야 그 예외를 처리할 수 있다.
       } catch (NullPointerException e) {
         System.out.println("해당 명령이 존재하지 않습니다.");
+        // key값을 잘못입력할시 그 key에 해당하는 값이 없어서 생기는 오류
       } catch (NumberFormatException e) {
         System.out.println("숫자를 입력하세요.");
+        // 숫자를 입력해야하는데 다른 형태를 입력했을 경우 생기는 오류
       }
     }
 

@@ -37,7 +37,7 @@ public class Test03 {
       // throw 명령으로 전달된 예외 정보는 catch 블록을 통해 별개의 경로로 받을 수 있다.
       // 따라서 예전처럼 리턴 값으로 받을 때의 문제점이 없다.
       //
-      int result = divide(1919191919, -1); 
+      int result = divide(1919191919, 0); 
       System.out.println(result);
     } catch (Exception e) {
       System.out.println("나누기 오류 입니다.");

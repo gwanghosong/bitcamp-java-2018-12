@@ -34,7 +34,7 @@ public class Test01 {
     // ClassNotFoundException, CloneNotSupportedException,
     // NullPointerException, IOException, SQLException,
     // FileNotFoundException, SocketException, MalformedURLException
-    // RuntimeException, ArithmeticException
+    // RuntimeException, ArithmeticException(Arithmethic : 산수, 연산)
     
     // 애플리케이션 예외 발생시키기
     // 예외를 처리하지 않으면 JVM에게 전달되고, JVM은 즉시 멈춘다.
@@ -56,7 +56,7 @@ public class Test01 {
 
 // 예외 클래스 계층도
 // java.lang.Throwable
-//      ㄴ java.lang.Error : 시스템 예외
+//      ㄴ java.lang.Error : 시스템 예외 (시스템 에러를 생각하자!)
 //      ㄴ java.lang.Exception : 애플리케이션 예외
 //
 // catch 블록의 파라미터는 반드시 Throwable 타입이어야 한다.

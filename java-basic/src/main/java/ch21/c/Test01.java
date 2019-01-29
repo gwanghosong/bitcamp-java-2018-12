@@ -3,6 +3,7 @@ package ch21.c;
 
 import java.lang.reflect.Constructor;
 import java.util.Scanner;
+import algorithm.data_structure.array.ArrayList;
 
 public class Test01 {
 
@@ -61,11 +62,18 @@ public class Test01 {
       // 사용자가 알려준 클래스를 로딩한다.
       Class<?> clazz = Class.forName(className);
 
-      // 클래스 정보를 가지고 Scanner를 파라미터로 받는 생성자를 얻어낸다.
+      // 클래스 정보를 가지고 Scanner를 파라미터로 받는 '생성자'를 얻어낸다.
+      // clazz에 선언된 생성자 형태로 생성자를 만들건데 그 파라미터를 Scanner로 준다.
       Constructor<?> constructor = clazz.getConstructor(Scanner.class);
+      // Integer 정보 담는 상위 클래스 Integer클래스
+      // String 정보 담는 상위 클래스 String 클래스
+      // 즉 Scanner 정보 담는 상위 클래스 Scanner 클래스 사용해서 생성자를 얻어낸다.
 
       // 생성자를 가지고 인스턴스를 생성한다.
       Command command = (Command) constructor.newInstance(keyboard);
+      // clazz와 constructor의 인스턴스 주소는 다르다. 
+      // constructor가 새롭게 만든 인스턴스이기때문.
+      System.out.println(clazz.equals(command));
 
       // 커맨드 객체를 실행한다.
       // => execute()에서 발생하는 예외는 모두 RuntimeException 계열의 예외이기 때문에
