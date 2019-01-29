@@ -15,7 +15,11 @@ public class ArrayList {
       arr = new Object[capacity];
     else
       arr = new Object[DEFAULT_SIZE];
-  }
+  }// 공백이면 실행 안되는 이유 ArrayList2() 생성자 실행시 this(0); 하면서 
+  // ArrayList2(int capacity) 생성자, 즉 ArrayList2(0)으로 가도록 해서
+  // 여기를 빈칸하면 NullPointerException이 뜬다.
+  
+  
   // add는 length고 toArray는 size인 이유
   // add는 배열이 꽉차면 배열을 증가시킨 곳에 arr 값을 넣기때문에
   // size로 하면 원래 배열 size == arr.length == 4일때
@@ -55,6 +59,9 @@ public class ArrayList {
   
   
   public int insert(int index, Object value) {
+    // 유효 범위가 아니면 저장하지 말라.
+    // 현재 배열이 꽉 찼다면 현재 배열 크기의 50%만큼 증가시켜라.
+    // 삽입할 위치의 항목부터 이후의 항목들을 뒤로 밀어라.
     if (index < 0 || index >= size) // insert란 원래있는 배열의 index에 삽입하고
       // 그 뒤에있는 배열을 뒤로 밀어내는 것으로
       // size보다 같거나 큰 값을 집어넣는다는 것은 애초에 배열에 존재하는 index가 아닌

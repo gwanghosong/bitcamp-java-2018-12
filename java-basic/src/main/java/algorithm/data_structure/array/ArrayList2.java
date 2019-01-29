@@ -15,26 +15,15 @@ public class ArrayList2 {
       arr = new Object[capacity];
     else
       arr = new Object[DEFAULT_SIZE];
-  }// 공백이면 실행 안되는 이유 ArrayList2() 생성자 실행시 this(0); 하면서 
-  // ArrayList2(int capacity) 생성자, 즉 ArrayList2(0)으로 가도록 해서
-  // 여기를 빈칸하면 NullPointerException이 뜬다.
+  }
 
   public void add(Object value) {
     // 현재 배열이 꽉 찼다면(==) 현재 배열 크기의 50%만큼 증가시켜라.
-    if (arr.length == this.size) {
+    if (arr.length == size) {
       increase();
     }
 
-
     arr[this.size++] = value;
-  }
-
-  public Object[] toArray() {
-    Object[] list = new Object[this.size];
-    for (int i = 0; i < this.size; i++) {
-      list[i] = this.arr[i];
-    }
-    return list;
   }
 
   public int insert(int index, Object value) {
@@ -97,7 +86,6 @@ public class ArrayList2 {
   private void increase() {
     int oldCapacity = arr.length;
     int newCapacity = oldCapacity + (oldCapacity >> 1); 
-    //arr = Arrays.copyOf(arr, newCapacity);
     Object[] temp = new Object[newCapacity];
     for (int i = 0; i < this.arr.length; i++) {
       temp[i] = this.arr[i];
