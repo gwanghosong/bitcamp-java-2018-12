@@ -1,6 +1,6 @@
 package design_pattern.decorator.before;
 
-public class Hybrid extends Car {
+public class Hybrid extends Sedan {
 
   @Override
   public void run() {
