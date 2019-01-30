@@ -62,6 +62,7 @@ public class Test03 {
       // 애플리케이션에서 발생하는 예외는 가능한 java.lang.Exception을 사용하라!
       // java.lang.Error 클래스는 JVM에서 발생하는 시스템 예외를 위한 클래스이다. 사용하지 말라!
       // 그리고 Throwable 클래스의 객체도 가능한 사용하지 말라!
+      // 던질려면 차라리 Exception을 던져라!
       //
       throw new Exception("무효한 인덱스입니다."); // 예외 던지기
 

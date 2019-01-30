@@ -64,6 +64,8 @@ public class Test01 {
 
       // 클래스 정보를 가지고 Scanner를 파라미터로 받는 '생성자'를 얻어낸다.
       // clazz에 선언된 생성자 형태로 생성자를 만들건데 그 파라미터를 Scanner로 준다.
+      // getContructor() 자체가 파라미터로 클래스타입을 받는다.
+      // 즉 여기선 Scanner클래스 타입을 받은 것이다.
       Constructor<?> constructor = clazz.getConstructor(Scanner.class);
       // Integer 정보 담는 상위 클래스 Integer클래스
       // String 정보 담는 상위 클래스 String 클래스
