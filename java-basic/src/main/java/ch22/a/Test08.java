@@ -11,7 +11,7 @@ public class Test08 {
     File file = new File(".");
     
     // 하위 파일이나 디렉토리 이름 알아내기
-    String[] names = file.list();
+    String[] names = file.list(); // list는 그 파일과 디렉토리의 이름들을 String 배열로 만들어서 리턴
     for (String name : names) {
       System.out.println(name);
     }

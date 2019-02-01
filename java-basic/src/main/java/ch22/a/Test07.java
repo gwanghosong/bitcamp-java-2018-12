@@ -11,9 +11,13 @@ public class Test07 {
     File file = new File("temp2/a/b/c/test.txt");
     
     // 파일의 디렉토리 경로를 가지로 File 객체 생성
-    // File dir = new File(file.getParent());
-    File dir = file.getParentFile();
     
+   // File dir = new File(file.getParent());
+    File dir = file.getParentFile();
+    System.out.println(file); // file은 원래 경로
+    System.out.println(dir); // dir은 getParentFile로 그 파일이 저장된 경로, 상위폴더경로
+    // 즉 "temp2/a/b/c"
+   
     // 먼저 디렉토리를 생성한다.
     if (dir.mkdirs()) {
       System.out.println("디렉토리를 생성하였음.");

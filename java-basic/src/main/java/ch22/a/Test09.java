@@ -11,7 +11,9 @@ public class Test09 {
     File file = new File(".");
 
     // 하위 파일이나 디렉토리의 상세 정보 알아내기
-    File[] files = file.listFiles();
+    File[] files = file.listFiles(); // listFiles는 그 파일과 디렉토리의 이름들을 
+    // abstract pathname 배열, 추상적인 경로이름으로 만들어진 배열로 만들어서 리턴
+    
     for (File f : files) {
       System.out.printf("%s %12d %s\n", 
           f.isDirectory() ? "d" : "-", 
