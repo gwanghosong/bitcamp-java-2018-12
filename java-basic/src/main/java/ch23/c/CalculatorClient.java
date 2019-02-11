@@ -1,13 +1,11 @@
 // 계산기 클라이언트 만들기 : 최소 +, -, *, /, % 연산자는 지원한다. 
 package ch23.c;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
-import ch22.c.BufferedOutputStream;
 
 /* 
  실행 예 :
@@ -31,35 +29,67 @@ public class CalculatorClient {
 
   public static void main(String[] args) {
 
-    try (Socket socket = new Socket("localhost", 8888);
-        Scanner keyboard = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(socket.getOutputStream());
-        Scanner in = new Scanner(socket.getInputStream());
-        DataInputStream in2 = new DataInputStream(
-            new BufferedInputStream(socket.getInputStream()))) {
+    // PrintStream, BufferedReader, InputStreamReader 사용
+    try (Scanner keyboard = new Scanner(System.in);
+        Socket socket = new Socket("localhost", 8888);
+        PrintStream out = new PrintStream(socket.getOutputStream());
+        BufferedReader in = new BufferedReader(
+            new InputStreamReader(socket.getInputStream()))) {
 
-      String response = in.nextLine();
-      String response1 = in.nextLine();
-      String response2 = in.nextLine();
-      System.out.println(response);
-      System.out.println(response1);
-      System.out.println(response2);
       while (true) {
-        if (response2.equals("quit")) {
+        String input = in.readLine();
+        System.out.println(input);
+        if (input.length() == 0)
           break;
-        } else {
-      System.out.print("> ");
-      out.println(keyboard.nextLine());
-      out.flush();
-        }
-        
       }
-      System.out.println(in.nextLine());
-      System.out.println("종료합니다!");
 
+      while (true) {
+        System.out.print("> ");
+        String input = keyboard.nextLine();
+
+        out.println(input);
+        out.flush();
+
+        String response = in.readLine();
+        System.out.println(response);
+
+        if(input.equalsIgnoreCase("quit"))
+          break;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+
+
+    //    
+    //    try (Socket socket = new Socket("localhost", 8888);
+    //        
+    //        Scanner in = new Scanner(socket.getInputStream());
+    //         {
+    //
+    //      String response = in.nextLine();
+    //      String response1 = in.nextLine();
+    //      String response2 = in.nextLine();
+    //      System.out.println(response);
+    //      System.out.println(response1);
+    //      System.out.println(response2);
+    //      while (true) {
+    //        if (response2.equals("quit")) {
+    //          break;
+    //        } else {
+    //      out.println(keyboard.nextLine());
+    //      out.flush();
+    //        }
+    //        
+    //      }
+    //      System.out.println(in.nextLine());
+    //      System.out.println("종료합니다!");
+    //
+    //    } catch (Exception e) {
+    //      e.printStackTrace();
+    //    }
+    //  }
   }
 }
 
