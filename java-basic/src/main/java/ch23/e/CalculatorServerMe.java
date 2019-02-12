@@ -8,18 +8,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
-public class CalculatorServer {
+public class CalculatorServerMe {
   public static void main(String[] args) {
-
-    // 클라이언트의 작업결과를 저장할 맵 객체
-    // HashMap<타입, 타입> 형태, 래퍼클래스사용
-    HashMap<Long, Integer> resultMap = new HashMap<>();
 
     try (ServerSocket serverSocket = new ServerSocket(8888);) {
       System.out.println("서버 실행 중...");
 
       // 서버의 Stateless 통신 방법에서 클라이언트를 구분하여 각 클라이언트의 계산 결과를 유지하려면?
       // 커피숍에서는 고객의 쿠폰 포인트를 어떻게 관리할까?
+      HashMap<String, Object> client = new HashMap<>();
 
       while (true) {
 
@@ -28,28 +25,19 @@ public class CalculatorServer {
                 new InputStreamReader(socket.getInputStream()));
             PrintStream out = new PrintStream(socket.getOutputStream());){
 
-          System.out.println("클라이언트와 연결됨! 요청처리 중...");
-
-          // 먼저 클라이언트가 보낸 세션 ID를 읽는다.
-          long sessionId = Long.parseLong(in.readLine());
-          System.out.printf("세션ID: %d\n", sessionId);
-
-          int result = 0;
-          boolean isNewSessionId = false;
-
-          if (sessionId == 0) { 
-            // 클라이언트에게 세션ID를 발급한 적이 없다면, 새 세션 ID를 발급한다.
-            sessionId = System.currentTimeMillis();
-            isNewSessionId = true; // 세션 ID를 새로 발급했다고 표시한다.
-          } else {
-            // 클라이언트의 세션 ID로 기존에 저장된 결과 값을 가져온다.
-            result = resultMap.get(sessionId); // auto-unboxing => Integer.intValue()
-            // Integer 타입의 객체를 언박싱해서 int로 만들어 result에 저장
+          int result;
+          if (!client.containsKey(socket.getInetAddress().getHostAddress())) {
+            result = 0;
+            client.put(socket.getInetAddress().getHostAddress(), result);
           }
+          
+          result = (int) client.get(socket.getInetAddress().getHostAddress());
+
+          System.out.println("클라이언트와 연결됨! 요청처리 중...");
 
           String[] input = in.readLine().split(" ");
 
-          int b = 0;
+          int b = result;
           String op = null;
 
           try {
@@ -72,13 +60,7 @@ public class CalculatorServer {
               out.flush();
               continue;
           }
-          // 계산 결과를 세션 ID를 사용해서 서버에 저장한다.
-          resultMap.put(sessionId, result);
-
-          // 세션 ID를 새로 발급했다면 클라이언트에게 알려준다.
-          if (isNewSessionId) {
-            out.println(sessionId);
-          }
+          client.put(socket.getInetAddress().getHostAddress(), result);
           out.printf("결과는 %d 입니다.\n", result);
           out.flush();
 

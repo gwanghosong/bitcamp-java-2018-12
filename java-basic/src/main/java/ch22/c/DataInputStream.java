@@ -20,7 +20,13 @@ public class DataInputStream extends InputStream {
 
   public short readShort() throws IOException {
     int value = 0;
-
+// 연산자 | 의미 
+// A | B
+// A와 B, 즉 피연산자 중 한쪽의 값이 1이면 1을 결과로 얻는다.
+// 그 외에는 0을 얻는다.
+// A,B의 비트를 비교해서 해당 자릿수의 비트가 하나라도 1이라면 1
+// 하나도 1이 아니라면(둘다 0이면) 0
+// 보통 특정 자리의 비트값을 변경할 때 사용
     value |= (in.read() << 8);
     value |= in.read();
 
