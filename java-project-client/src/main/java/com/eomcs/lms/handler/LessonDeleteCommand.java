@@ -8,9 +8,8 @@ public class LessonDeleteCommand implements Command {
   Scanner keyboard;
   List<Lesson> list;
 
-  public LessonDeleteCommand(Scanner keyboard, List<Lesson> list) {
+  public LessonDeleteCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = list;
   }
 
   @Override

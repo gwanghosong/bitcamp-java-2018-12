@@ -1,4 +1,4 @@
-// 3단계
+// 4단계
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -22,10 +22,11 @@ public class ServerApp {
           System.out.println("클라이언트와 연결되었음.");
 
           // 클라이언트에서 serialize해서 보내온 Member 객체의 내용을 출력하라. 
-          Member request = (Member) in.readObject();
+          Member member = (Member) in.readObject();
+          System.out.println(member);
           
           // 그리고 즉시 클라이언트로 Member 객체를 serialize하여 보내라!
-          out.writeObject(request);
+          out.writeObject(member);
           out.flush();
 
         } catch (Exception e) {

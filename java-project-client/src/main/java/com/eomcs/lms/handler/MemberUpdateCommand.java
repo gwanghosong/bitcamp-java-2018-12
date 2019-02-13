@@ -8,9 +8,8 @@ public class MemberUpdateCommand implements Command {
   Scanner keyboard;
   List<Member> list;
   
-  public MemberUpdateCommand(Scanner keyboard, List<Member> list) {
+  public MemberUpdateCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = list;
   }
   
   @Override

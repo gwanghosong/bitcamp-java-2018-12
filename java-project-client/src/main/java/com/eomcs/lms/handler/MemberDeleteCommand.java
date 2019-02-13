@@ -8,9 +8,8 @@ public class MemberDeleteCommand implements Command {
   Scanner keyboard;
   List<Member> list;
   
-  public MemberDeleteCommand(Scanner keyboard, List<Member> list) {
+  public MemberDeleteCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = list;
   }
   
   @Override

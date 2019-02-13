@@ -14,9 +14,10 @@ public class Test03_2 {
       String name = "ABC가각간";
       int age = 20;
 
-      out2.writeInt(no);
-      out2.writeUTF(name);
-      out2.writeInt(age);
+      // DataOutputStream은 바이너리 형태로 출력한다.
+      out2.writeInt(no); // 00 00 00 64
+      out2.writeUTF(name); // 41, 42, 43, EA B0 80, EA B0 81, EA B0 84
+      out2.writeInt(age); // 00 00 00 14
 
     } catch (Exception e) {
       e.printStackTrace();

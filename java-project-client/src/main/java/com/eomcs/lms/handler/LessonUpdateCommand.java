@@ -9,9 +9,8 @@ public class LessonUpdateCommand implements Command {
   Scanner keyboard;
   List<Lesson> list;
 
-  public LessonUpdateCommand(Scanner keyboard, List<Lesson> list) {
+  public LessonUpdateCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = list;
   }
 
   @Override

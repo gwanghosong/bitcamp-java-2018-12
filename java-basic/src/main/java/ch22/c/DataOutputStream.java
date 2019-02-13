@@ -18,7 +18,8 @@ public class DataOutputStream extends OutputStream {
     out.write(b);
     
   }
-
+// 자바에서 비트이동연산자는 맨끝의 쉬프트된 비트가 없어지는 결과를 가져온다.
+  // 즉 밀린다는이야기
   public void writeShort(Short value) throws IOException {
     out.write(value >> 8);
     out.write(value);
