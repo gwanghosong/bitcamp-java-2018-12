@@ -15,8 +15,8 @@ public class ArrayList {
       arr = new Object[capacity];
     else
       arr = new Object[DEFAULT_SIZE];
-  }// 공백이면 실행 안되는 이유 ArrayList2() 생성자 실행시 this(0); 하면서 
-  // ArrayList2(int capacity) 생성자, 즉 ArrayList2(0)으로 가도록 해서
+  }// 공백이면 실행 안되는 이유 ArrayList() 생성자 실행시 this(0); 하면서 
+  // ArrayList2(int capacity) 생성자, 즉 ArrayList(0)으로 가도록 해서
   // 여기를 빈칸하면 NullPointerException이 뜬다.
   
   

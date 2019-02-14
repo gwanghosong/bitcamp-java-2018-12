@@ -7,12 +7,12 @@ import com.eomcs.lms.domain.Lesson;
 
 public class LessonListCommand implements Command {
 
-  Scanner keyboard;
   LessonAgent lessonAgent;
-
+  Scanner keyboard;
+  
   public LessonListCommand(Scanner keyboard, LessonAgent lessonAgent) {
-    this.keyboard = keyboard;
     this.lessonAgent = lessonAgent;
+    this.keyboard = keyboard;
   }
 
   @Override
