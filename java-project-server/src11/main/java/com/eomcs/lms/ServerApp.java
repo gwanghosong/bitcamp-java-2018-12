@@ -91,7 +91,6 @@ public class ServerApp {
             } else if (request.equals("quit")) {
               quit();
               break loop;
-
             } else {
               out.writeUTF("FAIL");
             }

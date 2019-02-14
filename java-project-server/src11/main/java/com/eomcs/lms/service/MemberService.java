@@ -40,7 +40,7 @@ public class MemberService extends AbstractService<Member> {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(list);
+    out.writeUnshared(list);
   }
 
   private void detail() throws Exception {
