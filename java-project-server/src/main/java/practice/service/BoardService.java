@@ -1,23 +1,18 @@
 package practice.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import practice.domain.Board;
 
-public class BoardService {
+public class BoardService extends AbstarctService<Board>{
 
-  ArrayList<Board> boards = new ArrayList<>();
-
-  ObjectInputStream in;
-  ObjectOutputStream out;
-  
-  public BoardService(ObjectInputStream in, ObjectOutputStream out) {
-    this.in = in;
-    this.out = out;
-  }
-
-  public void service(String request) throws Exception {
+  public void execute(String request) throws Exception {
 
     switch (request) {
       case "/board/add":
@@ -44,7 +39,7 @@ public class BoardService {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    boards.add((Board)in.readObject());
+    list.add((Board)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -52,7 +47,7 @@ public class BoardService {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(boards);
+    out.writeObject(list);
   }
 
   private void detail() throws Exception {
@@ -60,7 +55,7 @@ public class BoardService {
     out.flush();
     int no = in.readInt();
 
-    for (Board b : boards) {
+    for (Board b : list) {
       if (b.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(b);
@@ -77,9 +72,9 @@ public class BoardService {
     Board board = (Board) in.readObject();
 
     int index = 0;
-    for (Board b : boards) {
+    for (Board b : list) {
       if (b.getNo() == board.getNo()) {
-        boards.set(index, board);
+        list.set(index, board);
         out.writeUTF("OK");
         return;
       }
@@ -95,9 +90,9 @@ public class BoardService {
     int no = in.readInt();
 
     int index = 0;
-    for (Board b : boards) {
+    for (Board b : list) {
       if (b.getNo() == no) {
-        boards.remove(index);
+        list.remove(index);
         out.writeUTF("OK");
         return;
       }

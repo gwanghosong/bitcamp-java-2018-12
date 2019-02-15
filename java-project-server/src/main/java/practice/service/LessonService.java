@@ -1,23 +1,10 @@
 package practice.service;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import practice.domain.Lesson;
 
-public class LessonService {
+public class LessonService extends AbstarctService<Lesson>{
 
-  ArrayList<Lesson> lessons = new ArrayList<>();
-
-  ObjectInputStream in;
-  ObjectOutputStream out;
-  
-  public LessonService(ObjectInputStream in, ObjectOutputStream out) {
-    this.in = in;
-    this.out = out;
-  }
-
-  public void service(String request) throws Exception {
+  public void execute(String request) throws Exception {
 
     switch (request) {
       case "/lesson/add":
@@ -44,7 +31,7 @@ public class LessonService {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    lessons.add((Lesson)in.readObject());
+    list.add((Lesson)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -52,7 +39,7 @@ public class LessonService {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(lessons);
+    out.writeObject(list);
   }
 
   private void detail() throws Exception {
@@ -60,7 +47,7 @@ public class LessonService {
     out.flush();
     int no = in.readInt();
 
-    for (Lesson l : lessons) {
+    for (Lesson l : list) {
       if (l.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(l);
@@ -77,9 +64,9 @@ public class LessonService {
     Lesson lesson = (Lesson) in.readObject();
 
     int index = 0;
-    for (Lesson l : lessons) {
+    for (Lesson l : list) {
       if (l.getNo() == lesson.getNo()) {
-        lessons.set(index, lesson);
+        list.set(index, lesson);
         out.writeUTF("OK");
         return;
       }
@@ -95,9 +82,9 @@ public class LessonService {
     int no = in.readInt();
 
     int index = 0;
-    for (Lesson l : lessons) {
+    for (Lesson l : list) {
       if (l.getNo() == no) {
-        lessons.remove(index);
+        list.remove(index);
         out.writeUTF("OK");
         return;
       }

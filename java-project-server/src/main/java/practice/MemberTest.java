@@ -18,14 +18,14 @@ public class MemberTest {
   public void test() throws Exception {
     add(new Member(1, "홍길동"));
     add(new Member(2, "임꺽정"));
-    
-    detail(1);
-    
-    update(new Member(1, "홍길동x"));
-    
-    detail(1);
-    
-    delete(2);
+//    
+//    detail(1);
+//    
+//    update(new Member(1, "홍길동x"));
+//    
+//    detail(1);
+//    
+//    delete(2);
     
     list();
   }

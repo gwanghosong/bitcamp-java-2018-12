@@ -20,13 +20,13 @@ public class LessonTest {
     add(new Lesson(1, "자바"));
     add(new Lesson(2, "C+"));
 
-    detail(1);
-
-    update(new Lesson(1, "자바스크립트"));
-
-    detail(1);
-
-    delete(2);
+//    detail(1);
+//
+//    update(new Lesson(1, "자바스크립트"));
+//
+//    detail(1);
+//
+//    delete(2);
 
     list();
 

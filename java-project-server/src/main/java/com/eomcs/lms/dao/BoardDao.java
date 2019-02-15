@@ -10,8 +10,9 @@ public class BoardDao extends AbstractDao<Board> {
     this.filepath = filepath;
   }
 
-  public void insert(Board board) {
+  public void insert(Board board) throws Exception {
     list.add(board);
+    this.saveData();
   }
 
   public List<Board> findAll() {
@@ -27,7 +28,7 @@ public class BoardDao extends AbstractDao<Board> {
     return null;
   }
 
-  public int update(Board board) {
+  public int update(Board board) throws Exception {
     // index 찾기가 힘드니까 No의 수가 같은 인스턴스를 찾는데
     // index를 0으로 지정해주고 거기서부터 하나씩 늘려가면서 찾고,
     // No수가 같은 곳이 나오면 바로 그 index를 대입해서 그 인스턴스를 바꿔준다.
@@ -35,6 +36,7 @@ public class BoardDao extends AbstractDao<Board> {
     for (Board b : list) {
       if (b.getNo() == board.getNo()) {
         list.set(index, board);
+        this.saveData();
         return 1;
       }
       index++;
@@ -47,6 +49,7 @@ public class BoardDao extends AbstractDao<Board> {
     for (Board b : list) {
       if (b.getNo() == no) {
         list.remove(index);
+        this.saveData();
         return 1 ;
       }
       index++;

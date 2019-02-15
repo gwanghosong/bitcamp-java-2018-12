@@ -1,23 +1,10 @@
 package practice.service;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import practice.domain.Member;
 
-public class MemberService {
+public class MemberService extends AbstarctService<Member>{
 
-  ArrayList<Member> members = new ArrayList<>();
-
-  ObjectInputStream in;
-  ObjectOutputStream out;
-
-  public MemberService(ObjectInputStream in, ObjectOutputStream out) {
-    this.in = in;
-    this.out = out;
-  }
-  
-  public void service(String request) throws Exception {
+  public void execute(String request) throws Exception {
 
     switch (request) {
       case "/member/add":
@@ -44,7 +31,7 @@ public class MemberService {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    members.add((Member)in.readObject());
+    list.add((Member)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -52,7 +39,7 @@ public class MemberService {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(members);
+    out.writeObject(list);
   }
 
   private void detail() throws Exception {
@@ -60,7 +47,7 @@ public class MemberService {
     out.flush();
     int no = in.readInt();
 
-    for (Member m : members) {
+    for (Member m : list) {
       if (m.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(m);
@@ -77,9 +64,9 @@ public class MemberService {
     Member member = (Member) in.readObject();
 
     int index = 0;
-    for (Member m : members) {
+    for (Member m : list) {
       if (m.getNo() == member.getNo()) {
-        members.set(index, member);
+        list.set(index, member);
         out.writeUTF("OK");
         return;
       }
@@ -95,9 +82,9 @@ public class MemberService {
     int no = in.readInt();
 
     int index = 0;
-    for (Member m : members) {
+    for (Member m : list) {
       if (m.getNo() == no) {
-        members.remove(index);
+        list.remove(index);
         out.writeUTF("OK");
         return;
       }

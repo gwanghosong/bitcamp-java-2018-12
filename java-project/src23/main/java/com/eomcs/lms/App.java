@@ -15,6 +15,9 @@ public class App {
 
   static Stack<String> commandHistory = new Stack<>();
 
+// 실제로는 Queue 는 interface 로 되어있고,
+// LinkedList를 Queue interface로 받아서 이를 구현하여 사용한다.
+// 따라서 static Queue<String> commandHistory2 = new LinkedList<>(); 가 성립한다.
   static Queue<String> commandHistory2 = new Queue<>();
   
   public static void main(String[] args) {
