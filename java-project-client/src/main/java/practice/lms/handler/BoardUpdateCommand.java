@@ -1,53 +1,65 @@
 package practice.lms.handler;
-import java.util.List;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import practice.lms.domain.Board;
 
 public class BoardUpdateCommand implements Command {
-  
+
   Scanner keyboard;
-  
+
   public BoardUpdateCommand(Scanner keyboard) {
     this.keyboard = keyboard;
   }
-  
+
   @Override
-  public void execute() {
+  public void execute(ObjectInputStream in, ObjectOutputStream out) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
-    int index = indexOfBoard(no);
-    if (index == -1) {
-      System.out.println("해당 게시글을 찾을 수 없습니다.");
-      return;
-    }
-    
-    Board board = list.get(index);
-    
     try {
+      out.writeUTF("/board/detail");
+      out.flush();
+      if (!in.readUTF().equals("OK"))
+        return;
+
+      out.writeInt(no);
+      out.flush();
+
+      String status = in.readUTF();
+
+      if (!status.equals("OK")) {
+        System.out.println("데이터 가져오기 실패!");
+        return;
+      }
+
+      Board board = (Board) in.readObject();
+
       // 기존 값 복제
       Board temp = board.clone();
-      
+
       System.out.printf("내용? ");
       String input = keyboard.nextLine();
       if (input.length() > 0) 
         temp.setContents(input);
-      
-      list.set(index, temp);
-      
-      System.out.println("게시글을 변경했습니다.");
-      
+
+      out.writeUTF("/board/update");
+      out.flush();
+      if (!in.readUTF().equals("OK"))
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
+
+      out.writeObject(board);
+      out.flush();
+
+      status = in.readUTF();
+
+      if (!status.equals("OK"))
+        System.out.println("데이터 변경 실패!");
+
+      System.out.println("변경했습니다.");
+
     } catch (Exception e) {
       System.out.println("변경 중 오류 발생!");
     }
-  }
-  
-  private int indexOfBoard(int no) {
-    for (int i = 0; i < list.size(); i++) {
-      Board b = list.get(i);
-      if (b.getNo() == no)
-        return i;
-    }
-    return -1;
   }
 }

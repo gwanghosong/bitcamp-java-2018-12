@@ -20,7 +20,7 @@ public class BoardDeleteCommand implements Command {
     out.writeUTF("/board/delete");
     out.flush();
     if (!in.readUTF().equals("OK"))
-      return;
+      throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
     
     out.writeInt(no);
     out.flush();

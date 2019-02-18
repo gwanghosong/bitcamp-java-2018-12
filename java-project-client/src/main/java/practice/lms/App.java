@@ -54,7 +54,7 @@ public class App {
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard));
     
-    try (Socket socket = new Socket("loaclhost", 8888);
+    try (Socket socket = new Socket("localhost", 8888);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
