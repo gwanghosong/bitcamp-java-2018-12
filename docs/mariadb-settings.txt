@@ -30,6 +30,13 @@ mariadb 실행
 > mysql.server stop
  
 ```
+#mariadb 설치 후 root 암호 변경
+
+```
+[Linux]
+> sudo mysql_secure_installation
+
+```
 
 ## mysql 서버에 접속하기
 로컬 MySQL 서버에 접속
