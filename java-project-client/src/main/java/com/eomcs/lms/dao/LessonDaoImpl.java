@@ -1,28 +1,26 @@
-package com.eomcs.lms.proxy;
+package com.eomcs.lms.dao;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.domain.Lesson;
 
-public class BoardDaoProxy implements BoardDao {
+public class LessonDaoImpl implements LessonDao {
 
   String serverAddr;
   int port;
   String rootPath;
 
-  public BoardDaoProxy(String serverAddr, int port, String rootPath) {
+  public LessonDaoImpl(String serverAddr, int port, String rootPath) {
     this.serverAddr = serverAddr;
     this.port = port;
     this.rootPath = rootPath;
   }
 
   @SuppressWarnings("unchecked")
-  public List<Board> findAll() {
+  public List<Lesson> findAll() {
 
-    // catch 없는 이유 : 예외처리를 다른곳에서 하겠다.
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
@@ -35,44 +33,41 @@ public class BoardDaoProxy implements BoardDao {
       String status = in.readUTF();
 
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 목록 가져오기 실패!");
+        throw new Exception("서버에서 수업정보 목록 가져오기 실패!");
 
-      return (List<Board>) in.readObject();
+      return (List<Lesson>) in.readObject();
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-  public void insert(Board board) {
-
+  public void insert(Lesson lesson) {
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
       out.writeUTF(rootPath + "/add");
       out.flush();
       if (!in.readUTF().equals("OK"))
         // 예외를 던져서 catch문으로 가서 처리
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
 
-      out.writeObject(board);
+      out.writeObject(lesson);
       out.flush();
 
       String status = in.readUTF();
 
       if (!status.equals("OK"))
-        throw new Exception("서버에서 저장 가져오기 실패!");
+        throw new Exception("서버에서 저장 실패!");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-
-  public Board findByNo(int no) {
+  public Lesson findByNo(int no) {
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
       out.writeUTF(rootPath + "/detail");
       out.flush();
       if (!in.readUTF().equals("OK"))
@@ -84,15 +79,15 @@ public class BoardDaoProxy implements BoardDao {
       String status = in.readUTF();
 
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 가져오기 실패!");
+        throw new Exception("서버에서 수업정보 가져오기 실패!");
 
-      return (Board) in.readObject();
+      return (Lesson) in.readObject();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-  public int update(Board board) {
+  public int update(Lesson lesson) {
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
@@ -101,12 +96,12 @@ public class BoardDaoProxy implements BoardDao {
       if (!in.readUTF().equals("OK"))
         throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
 
-      out.writeObject(board);
+      out.writeObject(lesson);
       out.flush();
 
       String status = in.readUTF();
       if (!status.equals("OK"))
-        System.out.println("서버에서 게시글 가져오기 실패!");
+        System.out.println("서버에서 수업정보 가져오기 실패!");
 
       return 1;
     } catch (Exception e) {
@@ -129,7 +124,7 @@ public class BoardDaoProxy implements BoardDao {
       String status = in.readUTF();
 
       if (!status.equals("OK"))
-        throw new Exception("서버에서 게시글을 삭제하는데 실패!");
+        throw new Exception("서버에서 수업정보를 삭제하는데 실패!");
 
       return 1;
     } catch (Exception e) {
