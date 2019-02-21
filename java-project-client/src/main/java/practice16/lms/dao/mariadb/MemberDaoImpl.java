@@ -1,11 +1,14 @@
-package com.eomcs.lms.dao;
+package practice16.lms.dao.mariadb;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import com.eomcs.lms.domain.Member;
+import practice16.lms.dao.MemberDao;
+import practice16.lms.domain.Member;
 
+//서버쪽에 있는 MemberDaoImpl 객체를 대행할 클라이언트측 대행자 클래스 정의 
+//
 public class MemberDaoImpl implements MemberDao {
 
   String serverAddr;
@@ -20,20 +23,19 @@ public class MemberDaoImpl implements MemberDao {
 
   @SuppressWarnings("unchecked")
   public List<Member> findAll() {
-
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF(rootPath + "/list");
+      out.writeUTF("/member/list"); 
       out.flush();
       if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
 
       String status = in.readUTF();
 
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 회원정보 목록 가져오기 실패!");
+        throw new Exception("서버의 데이터 목록 가져오기 실패!");
 
       return (List<Member>) in.readObject();
     } catch (Exception e) {
@@ -42,15 +44,14 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public void insert(Member member) {
-
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-      out.writeUTF(rootPath + "/add");
+
+      out.writeUTF("/member/add"); 
       out.flush();
       if (!in.readUTF().equals("OK"))
-        // 예외를 던져서 catch문으로 가서 처리
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
 
       out.writeObject(member);
       out.flush();
@@ -58,7 +59,7 @@ public class MemberDaoImpl implements MemberDao {
       String status = in.readUTF();
 
       if (!status.equals("OK"))
-        throw new Exception("서버에서 저장 실패!");
+        throw new Exception("서버의 데이터 저장 실패!");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -68,10 +69,11 @@ public class MemberDaoImpl implements MemberDao {
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-      out.writeUTF(rootPath + "/detail");
+
+      out.writeUTF("/member/detail");
       out.flush();
       if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
 
       out.writeInt(no);
       out.flush();
@@ -79,7 +81,7 @@ public class MemberDaoImpl implements MemberDao {
       String status = in.readUTF();
 
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 회원정보 가져오기 실패!");
+        throw new Exception("서버의 데이터 가져오기 실패!");
 
       return (Member) in.readObject();
     } catch (Exception e) {
@@ -91,19 +93,21 @@ public class MemberDaoImpl implements MemberDao {
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-      out.writeUTF(rootPath + "/update");
+
+      out.writeUTF("/member/update");
       out.flush();
       if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
 
       out.writeObject(member);
       out.flush();
 
       String status = in.readUTF();
-      if (!status.equals("OK"))
-        System.out.println("서버에서 회원정보 가져오기 실패!");
-
+      if (!status.equals("OK")) 
+        throw new Exception("서버의 데이터 데이터 변경 실패!");
+      
       return 1;
+      
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -113,22 +117,33 @@ public class MemberDaoImpl implements MemberDao {
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-      out.writeUTF(rootPath + "/delete");
+
+      out.writeUTF("/member/delete");
       out.flush();
       if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다."); 
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
 
       out.writeInt(no);
       out.flush();
 
       String status = in.readUTF();
 
-      if (!status.equals("OK"))
-        throw new Exception("서버에서 회원을 삭제하는데 실패!");
-
+      if (!status.equals("OK")) 
+        throw new Exception("서버의 데이터 삭제 실패!");
+      
       return 1;
+      
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 }
+
+
+
+
+
+
+
+
+

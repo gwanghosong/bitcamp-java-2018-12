@@ -16,30 +16,41 @@ public class BoardInsertApp {
   // 등록하였습니다.
   // ----------------------------------------
   public static void main(String[] args) {
+    String title = null;
+    String contents = null;
 
+    try (Scanner keyboard = new Scanner(System.in)) {
+      System.out.print("제목? ");
+      title = keyboard.nextLine();
+      
+      System.out.print("내용? ");
+      contents = keyboard.nextLine();
+      
+      System.out.print("입력하시겠습니까?(Y/n) ");
+      String input = keyboard.nextLine();
+      
+      if (!input.equalsIgnoreCase("y") &&
+          input.length() != 0) {
+        System.out.println("등록을 취소 하였습니다.");
+        return;
+      }
+    }
+    
     try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
-
-      try (Scanner keyboard = new Scanner(System.in);
-          Statement stmt = con.createStatement()) {
-
-        System.out.printf("제목? ");
-        String title = keyboard.nextLine();
-        System.out.printf("내용? ");
-        String contents = keyboard.nextLine();
-        System.out.printf("등록하시겠습니까? (Y/n)");
-        String answer = keyboard.nextLine();
-
-        if (!answer.equalsIgnoreCase("n"))
-          stmt.executeUpdate("insert into x_board(title, contents) values('" 
-              + title + "','" + contents + "')");
+      
+      try (Statement stmt = con.createStatement()) {
+        
+        stmt.executeUpdate(
+            "insert into x_board(title,contents)"
+            + " values('" + title + "','" + contents + "')");
         
         System.out.println("등록하였습니다.");
       }
-
+      
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
+
 }
