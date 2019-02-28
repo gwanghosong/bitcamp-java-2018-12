@@ -28,7 +28,7 @@ from memb, stnt;
          테이블에 별명을 부여하고 
          그 별명을 사용하여 컬럼을 지정하라. */
 select m.mno, name, s.mno, work, bank
-from memb m cross join stnt s;         
+from memb m cross join stnt s;
 /* 예전 문법 */
 select m.mno, name, s.mno, work, bank
 from memb m, stnt s;
@@ -68,7 +68,8 @@ from memb m inner join stnt s on m.mno=s.mno;
 /* inner는 생략 가능하다 */
 select m.mno, name, s.mno, work, bank
 from memb m join stnt s on m.mno=s.mno;
-/* 즉 inner join 은 기준 컬럼의 값이 일치할 때만 데이터를 연결한다. */
+/* 즉 inner join 은 기준 컬럼의 값이 일치할 때만 데이터를 연결한다.
+ * primary key와 foreign key 값이 일치할 때만 데이터를 연결한다. */
 
 /* 예전의 조인 문법 = inner join */
 select m.mno, name, s.mno, work, bank
@@ -79,7 +80,7 @@ where m.mno=s.mno;
 /* [inner] join ~ on 의 문제점
    => 반드시 on 에서 지정한 컬럼의 값이 같을 경우에만 
         두 테이블의 데이터가 연결된다.
-   => 같은 값을 갖는 데이터가 없다면 연결되지 않고, 결과로 출력되지 않는다.
+   => 같은 값을 갖는 '데이터'가 없다면 연결되지 않고, 결과로 출력되지 않는다.
 */
 /* 전체 강의 목록 */
 select lno, titl, rno, mno from lect;

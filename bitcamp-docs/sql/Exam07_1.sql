@@ -10,5 +10,5 @@ select loc from room;
 select distinct loc from room;  
 
 /* 컬럼이 2 개 이상일 때 
-    그 컬럼들의 값이 중복될 경우만 한 개로 간주한다.*/
+    그 컬럼 묶음(ex: (loc, name))들의 값이 중복될 경우만 한 개로 간주한다.*/
 select distinct loc, name from room;
