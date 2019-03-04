@@ -1,5 +1,4 @@
 package com.eomcs.lms.handler;
-import com.eomcs.lms.ApplicationInitializer;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
@@ -48,7 +47,5 @@ public class MemberUpdateCommand extends AbstractCommand {
 
     memberDao.update(temp);
     response.println("변경했습니다.");
-    
-    ApplicationInitializer.con.commit();
   }
 }

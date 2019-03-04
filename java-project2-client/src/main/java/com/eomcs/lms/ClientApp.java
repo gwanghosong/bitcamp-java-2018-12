@@ -42,9 +42,13 @@ public class ClientApp {
       } 
       
       int index = input.indexOf("/"); // 예) localhost:8888/board/list
+      // indexOf는 해당 문자, 문자 앞에서부터 해당 문자인 /가 있는 위치
+      // 예를 들어 try hello world의 indexof(hello)는 4이다.
       
       // 사용자가 입력한 문자열에 host 주소와 port 번호를 분리한다.
       String[] values = input.substring(0, index).split(":");
+      // localhost:8888을 :로 분리해서 배열로 리턴한다.
+      // {localhost, 8888}
       String host = values[0];
       int port = 8888;
       if (values.length > 1) {
@@ -52,10 +56,11 @@ public class ClientApp {
       }
       
       // 사용자가 입력한 문자열에서 명령어를 분리한다.
+      // 즉 localhost:8888이후인 /board/list가 리턴된다.
       String command = input.substring(index);
       
 
-      try (Socket socket = new Socket(host, port);
+      try (Socket socket = new Socket(host, port); // host, port로 연결
           PrintWriter out = new PrintWriter(socket.getOutputStream());
           BufferedReader in = new BufferedReader(
               new InputStreamReader(socket.getInputStream()))) {
