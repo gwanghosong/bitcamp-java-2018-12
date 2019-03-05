@@ -23,7 +23,10 @@
 //        따라서 커넥션에서 작업했던 임시 DB에 보관된 데이터가 계속 select할 때 포함되는 문제가 발생한다.
 //        그래서 트랜잭션에 묶인 작업 중 하나가 실패했을 때 commit()을 호출하지 않는 것은 당연하고
 //        명시적으로 rollback()을 호출하여 임시 DB에 보관된 쓰레기를 정리해주는 것이 반드시 필요하다!!!
-
+// 4) 모든 Command의 작업에 대해 commit을 적용
+//      - 각각의 Handler가 종료될 때 마다 commit()을 적용해야 그 값이 비로소 DB에 저장.
+//      - 모든 핸들러 커맨드가 상속하는 AbstractCommand에서 commit()을 처리해 주면 
+//      - 모든 핸들러 커맨드들이 자신의 작업을 정상적으로 수행한다음 DB에 그 값이 저장이됨.
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -47,7 +50,7 @@ public class ServerApp {
   public void service() throws Exception {
 
     try (ServerSocket ss = new ServerSocket(8888)) {
-
+      
       // App에서 사용할 객체를 보관하는 저장소
       HashMap<String,Object> context = new HashMap<>();
 
@@ -57,7 +60,7 @@ public class ServerApp {
       }
 
       System.out.println("서버 실행 중...");
-
+      
       while (true) {
 
         try (Socket socket = ss.accept();
@@ -67,24 +70,24 @@ public class ServerApp {
 
           // 클라이언트의 요청 읽기
           String request = in.readLine();
-
+          
           if (request.equalsIgnoreCase("stop")) {
             System.out.println("종료합니다.");
             break;
           }
-
+          
           // 클라이언트에게 응답하기
           Command commandHandler = (Command) context.get(request);
-
+          
           if (commandHandler == null) {
             out.println("실행할 수 없는 명령입니다.");
             out.println("!end!");
             out.flush();
             continue;
           }
-
+          
           commandHandler.execute(in, out);
-
+          
           out.println("!end!");
           out.flush();
 
@@ -92,7 +95,7 @@ public class ServerApp {
           System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
           e.printStackTrace();
         } // try(Socket)
-
+        
       } // while
 
       // 애플리케이션을 종료할 때, 등록된 리스너에게 알려준다.

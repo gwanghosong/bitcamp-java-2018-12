@@ -17,6 +17,7 @@ public class BoardAddCommand extends AbstractCommand {
     boardDao.insert(board);
     
     response.println("저장하였습니다.");
+//    System.out.println(ApplicationInitializer.con);
   }
 }
 
