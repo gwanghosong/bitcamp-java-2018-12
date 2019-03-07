@@ -42,7 +42,7 @@
   그러나 update, delete 엘리먼트에 작성해도 문제없다.
   하지만 insert문은 insert 엘리먼트에 작성하는 것이 유지보수에 좋다. 
   파라미터 타입이 일반 클래스 일때 
-  in-parameter의 이름은 그 클래스의 프로퍼티 이름으로 지정한다.
+  in-parameter의 이름은 그 클래스의 '프로퍼티' 이름으로 지정한다.
   #{프로퍼티명}
   -->
   <insert id="insert1" parameterType="board">
@@ -51,8 +51,33 @@
   </insert>
   
   <!-- 파라미터 타입이 map인 경우,
-  in-parameter를 지정할때 #{key} 로 사용하면 된다. -->
+  in-parameter를 지정할때 'key' 값으로 지정한다.
+  #{key} 로 사용하면 된다. -->
     <insert id="insert2" parameterType="map">
+    insert into x_board(title,contents)
+    values(#{title},#{contents})
+  </insert>
+  
+  <update id="update" parameterType="board">
+  update x_board set
+   title = #{title},
+   contents = #{contents}
+   where
+   board_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from x_board
+     where
+      board_id = #{value}
+  </delete> 
+  
+  <!-- 
+  insert 실행 후 자동 생성된 PK값 리턴 받기
+  : 파라미터로 전달된 객체를 통해 리턴 받는다.
+   -->
+  <insert id="insert3" parameterType="board"
+  useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
     insert into x_board(title,contents)
     values(#{title},#{contents})
   </insert>

@@ -71,6 +71,7 @@ public class Test01 {
     // SQL 매퍼 파일의 namespace 값과 SQL ID값을 결합해서 지정한다.
     // selectList()의 리턴 값은 SQL 매퍼 파일의 resultType에 지정된 객체를 담고 있는
     // List 객체이다.
+    // session : 데이터베이스와 sql질의를 대신하는 객체
     List<Board> list = sqlSession.selectList("board.select1");
 
     // 5) 출력!
