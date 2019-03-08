@@ -1,7 +1,9 @@
 package com.eomcs.lms;
 
-import java.sql.Connection;
 import java.util.Map;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
@@ -36,12 +38,13 @@ import com.eomcs.util.DataSource;
 // ApplicationContextListener 규격에 따라 작성해야 한다.
 public class ApplicationInitializer implements ApplicationContextListener {
 
-  public static Connection con;
-
   @Override
   public void contextInitialized(Map<String, Object> context) {
     try {
-
+      
+      SqlSessionFactory sqlSessionFactory =
+          new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
+              "com/eomcs/lms/conf/mybatis-config.xml"));
       // 커넥션풀(DataSource) 객체 준비
       DataSource dataSource = new DataSource(
           "org.mariadb.jdbc.Driver",
@@ -53,12 +56,11 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("dataSource", dataSource);
 
       // DAO 객체 준비
-      LessonDaoImpl lessonDao = new LessonDaoImpl(dataSource);
-      MemberDaoImpl memberDao = new MemberDaoImpl(dataSource);
-      BoardDaoImpl boardDao = new BoardDaoImpl(dataSource);
+      LessonDaoImpl lessonDao = new LessonDaoImpl(sqlSessionFactory);
+      MemberDaoImpl memberDao = new MemberDaoImpl(sqlSessionFactory);
+      BoardDaoImpl boardDao = new BoardDaoImpl(sqlSessionFactory);
       PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(dataSource);
       PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(dataSource);
-
 
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
@@ -93,12 +95,6 @@ public class ApplicationInitializer implements ApplicationContextListener {
 
   @Override
   public void contextDestroyed(Map<String, Object> context) {
-    try {
-      // 애플리케이션이 종료될 때 DBMS와의 연결을 끊는다.
-      con.close();
-    } catch (Exception e) {
-      throw new ApplicationContextException(e);
-    }   
   }
 }
 

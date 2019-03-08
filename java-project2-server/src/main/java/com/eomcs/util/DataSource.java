@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
+// 커넥션을 빌려주고 리턴 받는 일을 한다.
 public class DataSource {
 
   String driver;

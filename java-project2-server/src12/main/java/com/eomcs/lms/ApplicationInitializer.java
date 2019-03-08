@@ -29,7 +29,7 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
-import com.eomcs.lms.util.DataSource;
+import com.eomcs.util.DataSource;
 
 // App 객체의 상태가 변경될 때 마다 보고 받는 옵저버가 되려면 
 // ApplicationContextListener 규격에 따라 작성해야 한다.

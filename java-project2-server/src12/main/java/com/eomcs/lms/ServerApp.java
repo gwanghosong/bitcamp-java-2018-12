@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.util.DataSource;
+import com.eomcs.util.DataSource;
 
 public class ServerApp {
 

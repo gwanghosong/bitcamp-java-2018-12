@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
-import com.eomcs.lms.util.DataSource;
+import com.eomcs.util.DataSource;
 
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
   

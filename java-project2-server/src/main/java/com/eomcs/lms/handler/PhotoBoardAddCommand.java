@@ -48,7 +48,6 @@ public class PhotoBoardAddCommand extends AbstractCommand {
     }
 
     response.println("저장하였습니다.");
-//    System.out.println(ApplicationInitializer.con);
 
     // 이제는 여기서 직접 처리하는 것이 아니라 모든 핸들러 커맨드들이 상속받는
     // AbstractCommand 클래스에서 처리

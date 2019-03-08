@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.util.DataSource;
+import com.eomcs.util.DataSource;
 
 public class MemberDaoImpl implements MemberDao {
 
