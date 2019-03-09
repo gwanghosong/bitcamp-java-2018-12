@@ -6,12 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.util.DataSource;
 
 public class BoardDaoImpl implements BoardDao {
-
-  // DataSource 의존객체선언
-  DataSource dataSource;
 
   SqlSessionFactory sqlSessionFactory;
 

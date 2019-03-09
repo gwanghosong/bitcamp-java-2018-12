@@ -1,21 +1,14 @@
 // DBMS 적용
 package com.eomcs.lms.dao.mariadb;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.util.DataSource;
 
 public class MemberDaoImpl implements MemberDao {
 
-  DataSource dataSource;
-  
   SqlSessionFactory sqlSessionFactory;
 
   public MemberDaoImpl(SqlSessionFactory sqlSessionFactory) {

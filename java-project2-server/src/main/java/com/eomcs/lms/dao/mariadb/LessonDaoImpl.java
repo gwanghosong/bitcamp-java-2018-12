@@ -1,19 +1,13 @@
 // DBMS 적용
 package com.eomcs.lms.dao.mariadb;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.DataSource;
 
 public class LessonDaoImpl implements LessonDao {
-
-  // DataSource 의존객체선언
-  DataSource dataSource;
 
   SqlSessionFactory sqlSessionFactory;
 

@@ -1,134 +1,76 @@
 package com.eomcs.lms.dao.mariadb;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
-import com.eomcs.util.DataSource;
 
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
-  
-  DataSource dataSource;
 
-  public PhotoBoardDaoImpl(DataSource dataSource) {
-    this.dataSource = dataSource;
+  SqlSessionFactory sqlSessionFactory;
+
+  public PhotoBoardDaoImpl(SqlSessionFactory sqlSessionFactory) {
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
-  public List<PhotoBoard> findAll() {
-    Connection con = dataSource.getConnection();
-    try (PreparedStatement stmt = con.prepareStatement(
-            "select photo_id, lesson_id, titl, cdt, vw_cnt"
-                + " from lms_photo"
-                + " order by photo_id desc")) {
-
-      try (ResultSet rs = stmt.executeQuery()) {
-
-        ArrayList<PhotoBoard> list = new ArrayList<>();
-        while (rs.next()) {
-          PhotoBoard board = new PhotoBoard();
-          board.setNo(rs.getInt("photo_id"));
-          board.setLessonNo(rs.getInt("lesson_id"));
-          board.setTitle(rs.getString("titl"));
-          board.setCreatedDate(rs.getDate("cdt"));
-          board.setViewCount(rs.getInt("vw_cnt"));
-
-          list.add(board);
-        }
-        return list;
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+  public List<PhotoBoard> findAll(Map<String, Object> params) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectList("PhotoBoardMapper.findAll", params);
     }
   }
 
   @Override
   public void insert(PhotoBoard photoBoard) {
-    Connection con = dataSource.getConnection();
-    try (PreparedStatement stmt = con.prepareStatement(
-            "insert into lms_photo(titl, lesson_id) values(?, ?)",
-            Statement.RETURN_GENERATED_KEYS)) {
-
-      stmt.setString(1, photoBoard.getTitle());
-      stmt.setInt(2, photoBoard.getLessonNo());
-      stmt.executeUpdate();
-
-      try (ResultSet rs = stmt.getGeneratedKeys()) {
-        rs.next();
-        photoBoard.setNo(rs.getInt(1));
-      }
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      sqlSession.insert("PhotoBoardMapper.insert", photoBoard);
+      sqlSession.commit();
     }
   }
 
   @Override
   public PhotoBoard findByNo(int no) {
-    Connection con = dataSource.getConnection();
-    try {
-      // 조회수 증가시키기
-      try (PreparedStatement stmt = con.prepareStatement(
-          "update lms_photo set vw_cnt = vw_cnt + 1 where photo_id = ?")) {
-        stmt.setInt(1, no);
-        stmt.executeUpdate();
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      PhotoBoard photoBoard = sqlSession.selectOne("PhotoBoardMapper.findByNo", no);
+      if (photoBoard != null) {
+        sqlSession.update("PhotoBoardMapper.increaseCount", photoBoard.getNo());
+        sqlSession.commit();
       }
-
-      try (PreparedStatement stmt = con.prepareStatement(
-          " select photo_id, lesson_id, titl, cdt, vw_cnt from lms_photo where photo_id = ?")) {
-
-        stmt.setInt(1, no);
-
-        try (ResultSet rs = stmt.executeQuery()) {
-
-          if (rs.next()) {
-            PhotoBoard board = new PhotoBoard();
-            board.setNo(rs.getInt("photo_id"));
-            board.setNo(rs.getInt("lesson_id"));
-            board.setTitle(rs.getString("titl"));
-            board.setCreatedDate(rs.getDate("cdt"));
-            board.setViewCount(rs.getInt("vw_cnt"));
-            return board;
-          } else {
-            return null;
-          }
-        }
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      return photoBoard;
     }
   }
 
   @Override
+  public PhotoBoard findByNoWithFile(int no) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      PhotoBoard photoBoard = sqlSession.selectOne(
+          "PhotoBoardMapper.findByNoWithFile", no);
+      if (photoBoard != null) {
+        sqlSession.update("PhotoBoardMapper.increaseCount", no);
+        sqlSession.commit();
+      }
+      return photoBoard;
+    }
+  }
+
+  
+  @Override
   public int update(PhotoBoard photoBoard) {
-    Connection con = dataSource.getConnection();
-    try (PreparedStatement stmt = con.prepareStatement(
-            "update lms_photo set titl = ? where photo_id = ?")) {
-
-      stmt.setString(1, photoBoard.getTitle());
-      stmt.setInt(2, photoBoard.getNo());
-
-      return stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      int count = sqlSession.update("PhotoBoardMapper.update", photoBoard);
+      sqlSession.commit();
+      return count;
     }
   }
 
   @Override
   public int delete(int no) {
-    Connection con = dataSource.getConnection();
-    try (PreparedStatement stmt = con.prepareStatement(
-            " delete from lms_photo where photo_id = ?")) {
-
-      stmt.setInt(1, no);
-
-      return stmt.executeUpdate();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      int count = sqlSession.delete("PhotoBoardMapper.delete", no);
+      sqlSession.commit();
+      return count;
     }
   }
 }

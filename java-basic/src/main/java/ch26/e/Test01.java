@@ -35,7 +35,7 @@ public class Test01 {
     System.out.println("-----------------------------------");
     
     // in-parameter에 String 값 넘기기
-    List<Board> boards2 = sqlSession.selectList("board.select3", "내용");
+    List<Board> boards2 = sqlSession.selectList("board.select3", "제목");
     for (Board b: boards2) {
       System.out.println(b);
     }

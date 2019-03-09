@@ -20,18 +20,18 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
   public void execute(Response response) throws Exception {
     int no = response.requestInt("번호?");
 
-    PhotoBoard photoBoard = photoBoardDao.findByNo(no);
-    if (photoBoard == null) {
+    PhotoBoard board = photoBoardDao.findByNoWithFile(no);
+    if (board == null) {
       response.println("해당 사진을 찾을 수 없습니다.");
       return;
     }
-    response.println(String.format("제목: %s\n", photoBoard.getTitle()));
-    response.println(String.format("작성일: %s\n", photoBoard.getCreatedDate()));
-    response.println(String.format("조회수: %d\n", photoBoard.getViewCount()));
-    response.println(String.format("수업번호: %d\n", photoBoard.getLessonNo()));
+    response.println(String.format("제목: %s\n", board.getTitle()));
+    response.println(String.format("작성일: %s\n", board.getCreatedDate()));
+    response.println(String.format("조회수: %d\n", board.getViewCount()));
+    response.println(String.format("수업번호: %d\n", board.getLessonNo()));
 
     response.println("사진파일: ");
-    List<PhotoFile> files = photoFileDao.findByPhotoBoardNo(no);
+    List<PhotoFile> files = board.getFiles();
     for (PhotoFile file : files) {
       response.println(String.format("> %s", file.getFilePath()));
     }
