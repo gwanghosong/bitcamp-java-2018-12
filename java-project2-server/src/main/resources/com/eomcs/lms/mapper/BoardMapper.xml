@@ -11,27 +11,25 @@
     <result column="cdt"      property="createdDate"/>
     <result column="vw_cnt"   property="viewCount"/>
   </resultMap>
-
-  <select id="findAll" resultMap="boardMap">
-    select 
+  
+  <sql id="select1">
+      select 
       board_id, 
       conts, 
       cdt, 
       vw_cnt 
     from 
       lms_board 
+  </sql>
+
+  <select id="findAll" resultMap="boardMap">
+    <include refid="select1"></include>
     order by 
       board_id desc
   </select>
   
   <select id="findByNo" resultMap="boardMap" parameterType="int">
-    select 
-      board_id, 
-      conts, 
-      cdt, 
-      vw_cnt 
-    from 
-      lms_board 
+    <include refid="select1"></include>
     where 
       board_id = #{value}
   </select>
