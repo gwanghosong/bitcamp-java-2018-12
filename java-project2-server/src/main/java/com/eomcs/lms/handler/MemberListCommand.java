@@ -9,7 +9,6 @@ public class MemberListCommand extends AbstractCommand {
   
   public MemberListCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
-    this.name = "/member/list";
   }
   
   @Override

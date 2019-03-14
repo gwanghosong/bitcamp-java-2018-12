@@ -8,7 +8,6 @@ public class BoardUpdateCommand extends AbstractCommand {
 
   public BoardUpdateCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.name = "/board/update";
   }
 
   @Override

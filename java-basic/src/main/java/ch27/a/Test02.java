@@ -19,6 +19,7 @@ public class Test02 {
         // 평범한 자바 프로그램이 아닌 프레임워크, 대단위 프로그램 개발을 할때 사용하는 함수이다.
         // 단순 프로그램은 JVM이 가지고 있는 클래스 로더는 하나
         // 그 클래스 로더를 사용하기 위한 정보를 얻어내는 것
+        // 자세히 알고 싶으면 즐겨찾기해놓은 블로그를 참고하자
         // 따라서 Test02, Calculator 둘다 사용이 가능
         new Class[] {Calculator.class, Calculator2.class, Calculator3.class}, 
         new InvocationHandler() {

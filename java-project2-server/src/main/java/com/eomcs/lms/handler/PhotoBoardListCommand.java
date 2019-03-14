@@ -9,7 +9,6 @@ public class PhotoBoardListCommand extends AbstractCommand {
 
   public PhotoBoardListCommand(PhotoBoardDao photoBoardDao) {
     this.photoBoardDao = photoBoardDao;
-    this.name = "/photoboard/list";
   }
 
   @Override

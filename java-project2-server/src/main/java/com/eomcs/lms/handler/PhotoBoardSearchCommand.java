@@ -10,7 +10,6 @@ public class PhotoBoardSearchCommand extends AbstractCommand {
 
   public PhotoBoardSearchCommand(PhotoBoardDao photoBoardDao) {
     this.photoBoardDao = photoBoardDao;
-    this.name = "/photoboard/search";
   }
 
   @Override

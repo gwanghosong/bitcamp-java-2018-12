@@ -14,7 +14,6 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
       PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
-    this.name = "/photoboard/detail";
   }
 
   @Override

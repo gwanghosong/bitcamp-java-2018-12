@@ -1,21 +1,16 @@
-// 18단계: command 구현체를 자동 생성하는 IoC 컨테이너 도입하기
-// : ApplicationInitializer의 Command 객체 생성 작업을 ApplicationContext에 위임한다.
-//
-// 작업 :
-// 1) ApplicationContext 정의
-// : 생성자에 패키지를 지정하면 해당 패키지와 그 하위 패키지를 모두 뒤져서
-//  Command 인터페이스를 구현한 클래스를 찾는다.
-//  그리고 Command 구현체의 인스턴스를 생성한다.
-// 2) Command 구현체 변경
-// : 각 커맨드 객체에 이름을 부여한다.
-//  ApplicationContext는 그 이름을 사용하여 객체를 보관할 것이다.
-// 3) ServerApp 변경
-// : Command 객체를 꺼낼 때 ApplicationContext에서 꺼낸다.
-//
-// 객체를 자동으로 생성했을 때의 이점!
-// : /hello 라는 요청을 했을 때 "안녕하세요!" 인사를 하는 기능을 추가하라!
-//  1) AbstractCommand를 상속받아서 HelloCommand를 만든다.
-//  2) 끝
+// 16단계: DAO 구현체 자동 생성하기
+// : java. lang.reflect.Proxy를 이용하여 DAO 인터페이스를 구현한 객체를 자동으로 생성한다.
+// 
+// 작업:
+// 1) DaoInvocationHandler 생성
+//  실제 DAO 작업을 수행할 InvocationHandler 구현체를 만든다.
+// 2) ApplicationInitializer 변경
+// : 기존에 생성한 DAO 구현체 대신 Proxy.newProxyInstance()가 생성한 DAO 구현체를 사용한다.
+// 3) 매퍼 파일 변경
+// : namespace 이름을 DAO 인터페이스 이름(패키지명 포함)으로 변경한다.
+//  SQL ID는 반드시 메서드명과 일치시킨다.
+// 4) DaoFactory 생성
+// : DAO 구현체를 생성해주는 역할 수행.
 
 package com.eomcs.lms;
 import java.io.BufferedReader;
@@ -25,7 +20,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
 
@@ -34,11 +28,8 @@ public class ServerApp {
   // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
 
-  // 공용 객체를 보관하는 저장소
+  // 인스턴스 필드를 공통으로 공용하는 저장소
   HashMap<String,Object> context = new HashMap<>();
-  
-  // Command객체와 그와 관련된 객체를 보관하고 있는 beanContainer
-  ApplicationContext beanContainer;
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -52,9 +43,6 @@ public class ServerApp {
       for (ApplicationContextListener listener : listeners) {
         listener.contextInitialized(context);
       }
-      
-      // ApplicationInitiailizer가 준비한 ApplicationContext를 꺼낸다.
-      beanContainer = (ApplicationContext) context.get("applicationContext");
 
       System.out.println("서버 실행 중...");
 
@@ -112,8 +100,7 @@ public class ServerApp {
         String request = in.readLine();
 
         // 클라이언트에게 응답하기
-        // : 클라이언트 요청을 처리할 객체는 beanContainer에서 꺼낸다.
-        Command commandHandler = (Command) beanContainer.getBean(request);
+        Command commandHandler = (Command) context.get(request);
 
 
         if (commandHandler == null) {

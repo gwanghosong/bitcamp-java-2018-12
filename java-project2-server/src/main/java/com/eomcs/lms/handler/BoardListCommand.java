@@ -9,7 +9,6 @@ public class BoardListCommand extends AbstractCommand {
   
   public BoardListCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.name = "/board/list";
   }
 
   @Override
