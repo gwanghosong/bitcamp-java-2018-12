@@ -1,17 +1,31 @@
-// 16단계: DAO 구현체 자동 생성하기
-// : java. lang.reflect.Proxy를 이용하여 DAO 인터페이스를 구현한 객체를 자동으로 생성한다.
-// 
+// 20 단계: Command 인터페이스 대신 애노테이션을 이용하여 명령어를 처리할 메서드를 식별하기
+// : 기존에는 클라이언트로부터 명령을 받았을 때 Command 규칙에 따라 메서드를 호출하였다.
+//  이번 단계에서는 Command 인터페이스의 구현 여부와 상관없이
+//  @RequestMapping이 붙은 메서드를 찾아 호출해보자!
+//  이렇게하면 특정 인터페이스의 제약에서 벗어날 수 있다.
+//  좀 더 유연하게 커맨드를 처리하는 코드를 작성할 수 있다.
+//
+// Java의 유래 - 커피이름 Java에서 유래
+// Bean의 유래 - 커피에 있는 커피콩들. 즉 Java를 구성하는 객체를 의미.
+//
 // 작업:
-// 1) DaoInvocationHandler 생성
-//  실제 DAO 작업을 수행할 InvocationHandler 구현체를 만든다.
-// 2) ApplicationInitializer 변경
-// : 기존에 생성한 DAO 구현체 대신 Proxy.newProxyInstance()가 생성한 DAO 구현체를 사용한다.
-// 3) 매퍼 파일 변경
-// : namespace 이름을 DAO 인터페이스 이름(패키지명 포함)으로 변경한다.
-//  SQL ID는 반드시 메서드명과 일치시킨다.
-// 4) DaoFactory 생성
-// : DAO 구현체를 생성해주는 역할 수행.
-
+// 1) @RequestMapping 애노테이션 정의
+// : value 프로퍼티는 명령을 저장한다.
+// 2) RequestMappingHandler 정의
+// : RequestMapping 애노테이션이 붙은 메서드의 정보를 저장하는 클래스
+//  RequestMappingHandlerMapping의 스태틱 중첩 클래스로 정의한다.
+// 3) RequestMapping(애노테이션이붙은메서드)Handler(처리 클래스)Mapping(정보를 저장)
+// : 메서드를 처리하는 클래스에 대한 정보를 저장함.
+//  클라이언트가 보낸 명령을 처리할 메서드에 대한 정보(RequestMappingHandler)를 관리한다.
+// 4) Command 변경
+// : CRUD 관련 커맨드를 한 클래스로 합쳐서 XxxCommand로 만든다.
+//  예) BoardAddCommand, BoardListCommand,... --> BoardCommand
+// 5) ApplicationContext 변경
+// : 인스턴스를 모두 생성한 후 RequestMappingHandler를 찾아 
+//  RequestMappingHanlderMapping에 보관한다.
+// 6) ServerApp 변경
+// : 클라이언트 요청이 들어왔을 때 RequestMappingHandlerMapping에서 메서드를 찾아 실행한다.
+// 
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,16 +34,25 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.context.RequestMappingHandlerMapping;
+import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
+import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
 
   // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
 
-  // 인스턴스 필드를 공통으로 공용하는 저장소
+  // 공용 객체를 보관하는 저장소
   HashMap<String,Object> context = new HashMap<>();
+
+  // Command객체와 그와 관련된 객체를 보관하고 있는 beanContainer
+  ApplicationContext beanContainer;
+
+  // 클라이언트 요청을 처리할 메서드 정보가 들어 있는 객체
+  RequestMappingHandlerMapping handlerMapping;
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -43,6 +66,14 @@ public class ServerApp {
       for (ApplicationContextListener listener : listeners) {
         listener.contextInitialized(context);
       }
+
+      // ApplicationInitiailizer가 준비한 ApplicationContext를 꺼낸다.
+      beanContainer = (ApplicationContext) context.get("applicationContext");
+
+      // 빈컨테이너에서 RequestMappingHandlerMapping 객체를 꺼낸다.
+      // 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어있다.
+      handlerMapping = 
+          (RequestMappingHandlerMapping) beanContainer.getBean("handlerMapping");
 
       System.out.println("서버 실행 중...");
 
@@ -100,10 +131,10 @@ public class ServerApp {
         String request = in.readLine();
 
         // 클라이언트에게 응답하기
-        Command commandHandler = (Command) context.get(request);
+        // : 클라이언트 요청을 처리할 메서드를 꺼낸다.
+        RequestMappingHandler requestHandler = handlerMapping.get(request);
 
-
-        if (commandHandler == null) {
+        if (requestHandler == null) {
           out.println("실행할 수 없는 명령입니다.");
           out.println("!end!");
           out.flush();
@@ -111,8 +142,11 @@ public class ServerApp {
         }
 
         try {
-          commandHandler.execute(in, out);
-          // 클라이언트 요청을 처리한 후 커넥션을 통해 작업한 것을 최종 완료한다.
+          // 클라이언트 요청을 처리할 메서드를 찾았다면 호출한다.
+          requestHandler.method.invoke(
+              requestHandler.bean, // 메서드를 호출할 때 사용할 인스턴스
+              new Response(in, out)); // 메서드 파라미터 값
+          
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
           e.printStackTrace();
