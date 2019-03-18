@@ -3,39 +3,36 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import com.eomcs.lms.context.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
+import com.eomcs.mybatis.TransactionManager;
 
 @Component
 public class LessonCommand {
-
+  
   LessonDao lessonDao;
   PhotoBoardDao photoBoardDao;
   PhotoFileDao photoFileDao;
-  PlatformTransactionManager txManager;
+  TransactionManager txManager;
 
   public LessonCommand(
       LessonDao lessonDao, 
       PhotoBoardDao photoBoardDao,
       PhotoFileDao photoFileDao,
-      PlatformTransactionManager txManager) {
+      TransactionManager txManager) {
     this.lessonDao = lessonDao;
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
     this.txManager = txManager;
   }
 
-
-
+  
+  
   @RequestMapping("/lesson/list")
   public void list(Response response) throws Exception {
     List<Lesson> lessons = lessonDao.findAll();
@@ -45,7 +42,7 @@ public class LessonCommand {
           lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours()));
     }
   }
-
+  
   @RequestMapping("/lesson/detail")
   public void detail(Response response) throws Exception {
     int no = response.requestInt("번호?");
@@ -55,14 +52,14 @@ public class LessonCommand {
       response.println("해당 번호의 수업이 없습니다.");
       return;
     }
-
+    
     response.println(String.format("수업명: %s", lesson.getTitle()));
     response.println(String.format("설명: %s", lesson.getContents()));
     response.println(String.format("기간: %s ~ %s", lesson.getStartDate(), lesson.getEndDate()));
     response.println(String.format("총수업시간: %d", lesson.getTotalHours()));
     response.println(String.format("일수업시간: %d", lesson.getDayHours()));
   }
-
+  
   @RequestMapping("/lesson/add")
   public void add(Response response) throws Exception {
     Lesson lesson = new Lesson();
@@ -72,11 +69,11 @@ public class LessonCommand {
     lesson.setEndDate(response.requestDate("종료일?"));
     lesson.setTotalHours(response.requestInt("총수업시간?"));
     lesson.setDayHours(response.requestInt("일수업시간?"));
-
+    
     lessonDao.insert(lesson);
     response.println("저장하였습니다.");
   }
-
+  
   @RequestMapping("/lesson/update")
   public void update(Response response) throws Exception {
     int no = response.requestInt("번호?");
@@ -126,26 +123,18 @@ public class LessonCommand {
         || temp.getEndDate() != null
         || temp.getTotalHours() > 0
         || temp.getDayHours() > 0) {
-
+      
       lessonDao.update(temp);
       response.println("변경했습니다.");
-
+      
     } else {
       response.println("변경 취소했습니다.");
     }
   }
-
+  
   @RequestMapping("/lesson/delete")
   public void execute(Response response) throws Exception {
-
-    // 트랜잭션의 동작 방식을 설정한다.
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-
-    // 트랜잭션을 준비한다.
-    TransactionStatus status = txManager.getTransaction(def);
-
+    txManager.beginTransaction();
     try {
       int no = response.requestInt("번호?");
 
@@ -163,10 +152,10 @@ public class LessonCommand {
         return;
       }
       response.println("삭제했습니다.");
-      txManager.commit(status);
-
+      txManager.commit();
+      
     } catch (Exception e) {
-      txManager.rollback(status);
+      txManager.rollback();
       response.println("삭제 중 오류 발생.");
     }
   }
