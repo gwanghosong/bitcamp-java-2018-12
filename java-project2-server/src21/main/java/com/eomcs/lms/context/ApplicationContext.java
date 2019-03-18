@@ -60,7 +60,9 @@ public class ApplicationContext {
 
     // 패키지명으로 디렉토리 경로를 알아낸다.
     File packageDir = Resources.getResourceAsFile(packageName.replace(".", "/"));
-
+    // 패키지명과 디렉토리경로가 어떻게 다른지 확인하기 위해 두개를 출력해본다.
+    System.out.println(packageDir);
+    System.out.println(packageName);
     // 2) 해당 패키지 폴더와 그 하위 폴더를 뒤져서 클래스 이름을 알아낸다.
     // : 인스턴스를 생성할 수 없는 인터페이스나 추상 클래스는 제외한다.
     //  또한 중첩 클래스도 제외한다.
@@ -113,6 +115,8 @@ public class ApplicationContext {
     });
 
     for (File f : files) {
+      System.out.println("그냥 File경로 => " + f);
+      System.out.println("f.getname => " + f.getName()); 
       if (f.isFile()) {
         // 클래스 파일일 경우,
         // : 파라미터로 받은 패키지 명과 파일 이름을 합쳐서 클래스 이름을 만든다.
@@ -124,7 +128,7 @@ public class ApplicationContext {
         // 클래스 이름으로 클래스파일(.class)을 로딩한다
         Class<?> clazz = Class.forName(className);
 
-        // 클래스 정보를 분석하여 중첩 클래스이거나 인터페이스, Enum 이면 무시한다.
+        // 클래스 정보를 분석하여 메서드 안에 선언된 로컬클래스이거나 인터페이스, Enum 이면 무시한다.
         if (clazz.isLocalClass() || clazz.isInterface() || clazz.isEnum())
           continue;
 
@@ -142,6 +146,10 @@ public class ApplicationContext {
         // : 하위 디렉토리에서 클래스를 찾을 때 사용할 패키지 명을 준비한다.
         //  파라미터로 받은 패키지 이름에 하위 디렉토리 이름을 붙이면 전체 패키지명이 된다.
         //  com.eomcs.lms(현재 패키지 이름) + . + dao(디렉토리 이름) = com.eomcs.lms.dao
+//        System.out.println("폴더경로보고싶다.-----------------------------");
+//        System.out.println(f);
+//        System.out.println(f.getName());
+        System.out.println(packageName + "." + f.getName());
         findClasses(f, packageName + "." + f.getName());
       }
     }
