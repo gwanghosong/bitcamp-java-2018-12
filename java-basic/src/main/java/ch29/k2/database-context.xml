@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <!-- 기본적으로 설정해야 하는 것들은 전에 있는 소스를 참고하는 것보다
+    필요한 해당 매뉴얼에 가서 그 매뉴얼에 있는 것을 복사해오는 것이 좋다.
+    왜냐하면 조금씩 변경이 있는 경우 그 변경을 기존의 소스는 반영하지 못했기 때문에
+    그것으로 인하여 오류가 발생할 수 있기 때문이다.
+    매뉴얼에 있는 것을 복사해와서 커스텀하자. -->
+  <!-- .properties 파일을 로딩하는 객체 준비 -->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations" value="classpath:ch29/k2/jdbc.properties"/>
+  </bean>
+  
+  <!-- DB 커넥션풀 객체 준비 -->
+  <bean id="dataSource" 
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${jdbc.driver}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+  </bean>
+  
+  <!-- 트랜잭션 매니저 준비 -->
+  <bean id="transactionManager" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+  
+</beans>
