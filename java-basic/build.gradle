@@ -40,6 +40,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
     
+    // spring AOP 관련 라이브러리
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
+    
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
 }
