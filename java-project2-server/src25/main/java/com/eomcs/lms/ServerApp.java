@@ -9,6 +9,12 @@
 // 2) PhotoBoardCommand에서 비즈니스 로직 분리
 //    : PhotoBoardService 인터페이스 생성
 //    : PhotoBoardServiceImpl 구현체 생성
+// 3) LessonCommand에서 비즈니스 로직 분리
+//    : LessonService 인터페이스 생성
+//    : LessonServiceImpl 구현체 생성
+// 3) MemberCommand에서 비즈니스 로직 분리
+//    : MemberService 인터페이스 생성
+//    : MemberServiceImpl 구현체 생성
 
 package com.eomcs.lms;
 import java.io.BufferedReader;

@@ -81,8 +81,8 @@ public class LessonServiceImpl implements LessonService {
 
       } 
 
-      txManager.commit(status);
       int count = lessonDao.delete(no);
+      txManager.commit(status);
       return count;
 
     } catch (RuntimeException e) {

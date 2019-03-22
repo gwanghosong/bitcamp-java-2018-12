@@ -17,10 +17,10 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public List<Member> list(String searchWord) {
+  public List<Member> list(String kewword) {
 
-    if (searchWord != null) 
-      return memberDao.findByKeyword(searchWord);
+    if (kewword != null) 
+      return memberDao.findByKeyword(kewword);
     else
       return memberDao.findAll();
   }
