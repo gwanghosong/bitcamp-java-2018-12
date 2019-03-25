@@ -4,14 +4,18 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.sql.Date;
 
-public class Response {
+public class ServletResponse {
   
   BufferedReader in;
   PrintWriter out;
   
-  public Response(BufferedReader in, PrintWriter out) {
+  public ServletResponse(BufferedReader in, PrintWriter out) {
     this.in = in;
     this.out = out;
+  }
+  
+  public PrintWriter getWriter() {
+    return out;
   }
   
   public void println(String message) {
@@ -21,7 +25,6 @@ public class Response {
   
   public String requestString(String title) throws Exception {
     out.println(title);
-    out.println("!{}!");
     out.flush();
     return in.readLine();
   }
