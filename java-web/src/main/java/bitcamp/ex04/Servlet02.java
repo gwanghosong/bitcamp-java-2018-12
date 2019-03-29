@@ -58,6 +58,11 @@ public class Servlet02 extends GenericServlet {
     //    반드시 getParameter()를 최초로 호출하기 전이어야 한다.
     //    한 번 getParameter()를 호출한 후에는 소용 없다.
     
+    // GET 요청이 정상적으로 수행되지 않을 경우
+    // : 톰캣 7버전 이하인 경우 GET 요청시 값이 ????로 리턴될 수 있다.
+    //  이런 경우 이클립스에서 Servers/해당폴더-config/server.xml 부분에서
+    //  필요한 곳에 URIEncoding="UTF-8" 추가해준다.
+    
     String name= req.getParameter("name");
     int age = Integer.parseInt(req.getParameter("age"));
     
@@ -107,7 +112,7 @@ name=ABC%EA%B0%80%EA%B0%81&age=20
 //      - 대부분의 웹서버가 request-line과 헤더의 크기를 8KB로 제한하고 있다.
 //      - 따라서 긴 게시글과 같은 큰 용량의 데이터를 GET 방식으로 전송할 수 없다.
 // : POST
-//      - HTTP 요청 헤더 다음에 message-body 부분에 데이터를 두기 때문에
+//      - HTTP 요청 헤더 다음에 오는 message-body 부분에 데이터를 두기 때문에
 //        용량의 제한 없이 웹 서버에 전송할 수 있다.
 //      - 즉 웹 서버가 제한하지 않는 한 전송 데이터의 크기에 제한이 없다.
 //      - 웹 서버가 제한한다?

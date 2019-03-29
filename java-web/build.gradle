@@ -13,6 +13,11 @@ dependencies {
     // Servlet API 라이브러리
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    
+    // 멀티파트 형식의 데이터 처리 라이브러리
+    // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+    
 
     testImplementation 'junit:junit:4.12'
 }
