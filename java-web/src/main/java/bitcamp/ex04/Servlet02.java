@@ -18,7 +18,7 @@ public class Servlet02 extends GenericServlet {
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
     
-    // GET 요청
+    // POST 요청
     // : 웹 페이지의 폼(method='POST' 일때)에서 전송 버튼을 클릭하면 POST 요청을 보낸다. 
     //
     // 테스트
