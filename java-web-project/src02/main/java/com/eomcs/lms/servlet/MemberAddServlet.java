@@ -92,10 +92,4 @@ public class MemberAddServlet extends HttpServlet {
 
     response.sendRedirect("list");
   }
-
-
-  @RequestMapping("/member/form")
-  public void form(ServletRequest request, ServletResponse response) throws Exception {
-    
-  }
 }

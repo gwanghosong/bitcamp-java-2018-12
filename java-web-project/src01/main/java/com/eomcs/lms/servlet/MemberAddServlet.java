@@ -100,10 +100,4 @@ public class MemberAddServlet extends HttpServlet {
     out.println("<p>저장하였습니다.</p>");
     out.println("</body></html>");
   }
-
-
-  @RequestMapping("/member/form")
-  public void form(ServletRequest request, ServletResponse response) throws Exception {
-    
-  }
 }
