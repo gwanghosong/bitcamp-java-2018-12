@@ -1,0 +1,45 @@
+// 보관소에 값 꺼내기
+package bitcamp.ex09;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/ex09/s2")
+@SuppressWarnings("serial")
+public class Servlet02 extends HttpServlet { 
+
+  @Override
+  protected void service(
+      HttpServletRequest request, 
+      HttpServletResponse response)
+          throws ServletException, IOException {
+
+    // 테스트 방법
+    //  : http://localhost:8080/java-web/ex09/s2
+    //
+    ServletContext sc = this. getServletContext();
+    String v1 = (String) sc.getAttribute("v1");
+
+    HttpSession session = request.getSession();
+    String v2 = (String) session.getAttribute("v2");
+
+    String v3 = (String) request.getAttribute("v3");
+
+    response.setContentType("text/plain;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+
+    out.println("보관소에 값을 꺼내기 /ex09/s2");
+    out.printf("v1=%s\n", v1);
+    out.printf("v2=%s\n", v2);
+    out.printf("v3=%s\n", v3);
+    //response.setHeader("Refresh", "3;url=s100");
+  } 
+}
+
