@@ -27,6 +27,10 @@ public class BoardAddServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head><title>새 글</title><head>");
     out.println("<body>");
+    
+    // 헤더를 출력한다.
+    request.getRequestDispatcher("/header").include(request, response);
+    
     out.println("<h1>새 글</h1>");
     out.println("<form action='add' method='post'>");
     out.println("<table border='1'>");
@@ -36,7 +40,7 @@ public class BoardAddServlet extends HttpServlet {
     out.println("</tr>");
     out.println("</table>");
     out.println("<p>");
-    out.println("<button type='sublit'>등록</button>");
+    out.println("<button type='submit'>등록</button>");
     out.println("<a href='list'>목록</a>>");
     out.println("</p>");
     out.println("</form>");

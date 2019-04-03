@@ -41,7 +41,11 @@ public class PhotoBoardDetailServlet extends HttpServlet {
     out.println("<htm>");
     out.println("<head><title>사진 조회</title></head>");
     out.println("<body>");
-    out.println("<h1>사진 조회</h1>");
+    
+    // 헤더를 출력한다.
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>사진 상세 목록</h1>");
 
     if (board == null) {
       out.println("<p>해당 사진을 찾을 수 없습니다.</p>");
