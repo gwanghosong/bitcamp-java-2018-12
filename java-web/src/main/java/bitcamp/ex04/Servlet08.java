@@ -1,4 +1,4 @@
-// 멀티파트 파일 업로드 처리하기 - Servlet 3.0의 기본 라이브러리 사용
+// 멀티파트 파일 업로드 처리하기 - 썸네일 이미지 만들기
 package bitcamp.ex04;
 
 import java.io.IOException;
@@ -12,13 +12,12 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 
-// 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라.
-//  : web.xml에 설정할 수도 있고, 다음과 같이 애노테이션으로 설정할 수도 있다.
-//
-//@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-//@WebServlet("/ex04/s5")
-public class Servlet05 extends GenericServlet { 
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
+@WebServlet("/ex04/s8")
+public class Servlet08 extends GenericServlet { 
 
   private static final long serialVersionUID = 1L;
   private String uploadDir;
@@ -33,7 +32,7 @@ public class Servlet05 extends GenericServlet {
       throws ServletException, IOException {
 
     // 테스트
-    // : http://localhost:8080/java-web/ex04/test05.html 실행
+    // : http://localhost:8080/java-web/ex04/test08.html 실행
     //
 
     // Servlet 3.0의 멀티파트 처리 기능을 이용할 때는
@@ -61,7 +60,23 @@ public class Servlet05 extends GenericServlet {
       filename = UUID.randomUUID().toString();
       photoPart.write(this.uploadDir + "/" + filename);
     }
+    
+    // 원본 사진을 가지고 특정 크기의 썸네일 이미지를 만들기
+    // 1) 썸네일 이미지를 생성해주는 자바 라이브러리 추가
+    //    : mvnrepository.com에서 Thumbnailator 라이브러리 검색
+    //    : build.gradle에 추가
+    //    : '$ gradle eclipse'
+    //    : eclipse IDE에서 프로젝트 리프레시
+    // 2) 썸네일 이미지 만들기
+    //    : 원본 이미지 파일이 저장된 경로를 알려주고
+    //      어떤 썸네일 이미지를 만들어야 하는지 설정한다.
+    Thumbnails.of(this.uploadDir + "/" + filename)
+      .size(20, 20)
+      .outputFormat("jpg")
+      .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    
     out.printf("사진=%s<br>\n", filename);
+    out.printf("<img src='../upload/thumbnail.%s.jpg'><br>\n", filename);
     out.printf("<img src='../upload/%s'><br>\n", filename);
     out.println("</body></html>");
 
