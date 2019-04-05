@@ -1,6 +1,5 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -28,38 +27,11 @@ public class PhotoBoardListServlet extends HttpServlet {
         iocContainer.getBean(PhotoBoardService.class);
     
     List<PhotoBoard> boards = photoBoardService.list(0, null);
+    
+    request.setAttribute("list", boards);
 
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>사진 목록</title></head>");
-    out.println("<body>");
     
-    // 헤더를 출력한다.
-    request.getRequestDispatcher("/header").include(request, response);
-    
-    out.println("<h1>사진 목록</h1>");
-    out.println("<p><a href='add'>새 사진</a></p>");
-    out.println("<table border='1'>");
-    out.println("<tr><th>번호</th><th>제목</th><th>등록일</th><th>조회수</th><th>수업</th></tr>");
-
-    for (PhotoBoard board : boards) {
-      out.println(String.format(
-          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a>"
-              + "</td><td>%s</td><td>%d</td><td>%d</td></tr>",
-              board.getNo(), 
-              board.getTitle(), 
-              board.getCreatedDate(), 
-              board.getViewCount(),
-              board.getLessonNo()));
-    }
-    out.println("</table>");
-
-    out.println("<form action='search'>");
-    out.println("수업번호: <input type='text' name='lessonNo'> ");
-    out.println("검색어: <input type='text' name='keyword'> ");
-    out.println("<button type='submit'>검색</button>");
-    out.println("</form>");
-
-    out.println("</body></html>");
+    request.getRequestDispatcher("/photoboard/list.jsp").include(request, response);
   }
 }

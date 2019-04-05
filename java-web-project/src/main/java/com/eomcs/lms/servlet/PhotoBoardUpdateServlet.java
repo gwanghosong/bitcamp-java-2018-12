@@ -69,14 +69,9 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
       return;
     }
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head>"
-        + "<title>사진 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
-        + "</head>");
-    out.println("<body><h1>사진 변경</h1>");
-    out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
-    out.println("</body></html>");
+    request.setAttribute("error.title", "사진 변경(JSP)");
+    request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다.");
+    
+    request.getRequestDispatcher("/error.jsp").forward(request, response);
   }
 }

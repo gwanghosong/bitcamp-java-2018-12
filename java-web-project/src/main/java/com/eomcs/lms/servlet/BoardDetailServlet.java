@@ -28,44 +28,15 @@ public class BoardDetailServlet extends HttpServlet {
         iocContainer.getBean(BoardService.class);
     
     int no = Integer.parseInt(request.getParameter("no"));
+    
     Board board = boardService.get(no);
     
+    // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장해둔다.
+    request.setAttribute("board", board);
+    
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>게시물 조회</title></head>");
-    out.println("<body>");
     
-    // 헤더를 출력한다.
-    request.getRequestDispatcher("/header").include(request, response);
-    
-    out.println("<h1>게시물 상세 목록</h1>");
-
-    if (board == null) {
-      out.println("<p>해당 번호의 게시물이 없습니다.</p>");
-      return;
-    }
-
-    out.println("<form action='update' method='post'>");
-    out.printf("<tr>"
-        + "<th>번호</th>"
-        + "<td><input type='text' name='no' value='%d' readonly></td>"
-        + "</tr>\n", no);
-    out.println("<table border='1'>");
-    out.println(String.format(
-        "<tr> <th>내용</th> "
-            + "<td><textarea name='contents' rows='3' cols='50'>%s</textarea></td> "
-            + "</tr>", board.getContents()));
-    out.println(String.format(
-        "<tr> <th>작성일</th> <td>%s</td> </tr>", board.getCreatedDate()));
-    out.println(String.format(
-        "<tr> <th>조회수</th> <td>%d</td> </tr>", board.getViewCount()));
-
-    out.println("</table>");
-    out.println("<p><a href='list'>목록</a>"
-        + " <a href='delete?no=" + board.getNo() + "'>삭제</a>"
-        + " <button type='submit'>변경</button>"
-        + "</p>"); // p : paragraph
-    out.println("</form>");
-    out.println("</body></html>");
+    // JSP의 실행을 포함시킨다.
+    request.getRequestDispatcher("/board/detail.jsp").include(request, response);
   }
 }
