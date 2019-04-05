@@ -14,6 +14,6 @@
   <% } else {%>
   <img src='<%=contextRootPath%>/upload/member/${loginUser.photo}'
            style='height: 20px;'>${loginUser.name}
-  <a href='%s/auth/logout'>로그아웃</a>
+  <a href='<%=contextRootPath%>/auth/logout'>로그아웃</a>
   <%}%>
 </header>

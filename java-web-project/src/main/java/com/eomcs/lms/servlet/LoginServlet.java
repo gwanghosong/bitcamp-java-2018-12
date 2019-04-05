@@ -93,8 +93,11 @@ public class LoginServlet extends HttpServlet {
     
     // 로그인 성공하면 다시 메인 화면으로 보낸다.
     String refererUrl = (String) session.getAttribute(REFERER_URL);
+    System.out.printf("%s => 이게바로 url주소다.\n", refererUrl);
     if (refererUrl == null) {
       response.sendRedirect("../");
+    }  else if (refererUrl.endsWith("login")){ 
+      response.sendRedirect(refererUrl.split("auth")[0]);
     } else {
       response.sendRedirect(refererUrl);
     }
