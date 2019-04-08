@@ -1,6 +1,5 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,7 +46,7 @@ public class LoginServlet extends HttpServlet {
     
     request.setAttribute("email", email);
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/loginGet.jsp").include(request, response);
+    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
   }
   
   @Override
@@ -80,9 +79,8 @@ public class LoginServlet extends HttpServlet {
         request.getParameter("password"));
     
     if (member == null) {
-      response.setHeader("Refresh", "2;url=login");
       response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/loginPost.jsp").forward(request, response);
+      request.getRequestDispatcher("/auth/fail.jsp").forward(request, response);
       return;
     }
     
@@ -93,11 +91,8 @@ public class LoginServlet extends HttpServlet {
     
     // 로그인 성공하면 다시 메인 화면으로 보낸다.
     String refererUrl = (String) session.getAttribute(REFERER_URL);
-    System.out.printf("%s => 이게바로 url주소다.\n", refererUrl);
     if (refererUrl == null) {
-      response.sendRedirect("../");
-    }  else if (refererUrl.endsWith("login")){ 
-      response.sendRedirect(refererUrl.split("auth")[0]);
+      response.sendRedirect(getServletContext().getContextPath());
     } else {
       response.sendRedirect(refererUrl);
     }

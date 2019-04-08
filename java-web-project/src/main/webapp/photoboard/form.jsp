@@ -1,10 +1,6 @@
 <%@page import="com.eomcs.lms.domain.Lesson"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  List<Lesson> list = (List<Lesson>) request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +8,16 @@
 </head>
 <body>
   <jsp:include page="/header.jsp" />
-  <h1>새 사진</h1>
+  <h1>새 사진(JSP2)</h1>
   <form action='add' method='post' enctype='multipart/form-data'>
     <table border='1'>
       <tr>
         <th>수업</th>
         <td><select name='lessonNo'>
             <option value='0'>수업을 선택하세요</option>
+            <jsp:useBean scope="request" id="lessons" type="java.util.List<Lesson>"/>
             <%
-              for (Lesson lesson : list) {
+              for (Lesson lesson : lessons) {
             %>
             <option value='<%=lesson.getNo()%>'><%=lesson.getTitle()%></option>
             <%

@@ -1,9 +1,5 @@
-<%@page import="com.eomcs.lms.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  Member member = (Member) request.getAttribute("member");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +7,8 @@
 </head>
 <body>
   <jsp:include page="/header.jsp" />
-  <h1>회원 상세 조회(JSP)</h1>
+  <h1>회원 상세 조회(JSP2)</h1>
+  <jsp:useBean scope="request" id="member" type="com.eomcs.lms.domain.Member"/>
   <%if (member == null) { %>
   <p>해당 번호의 회원이 없습니다.</p>
   <%} else {%>

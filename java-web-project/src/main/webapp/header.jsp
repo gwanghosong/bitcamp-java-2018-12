@@ -3,7 +3,7 @@
   trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <%
-  Member loginUser = (Member) session.getAttribute("loginUser");
+  Member loginUser = (Member) request.getAttribute("loginUser");
   String contextRootPath = application.getContextPath();
 %>
 
