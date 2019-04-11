@@ -1,7 +1,6 @@
 package com.eomcs.lms.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -10,8 +9,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.eomcs.lms.context.RequestMapping;
-import com.eomcs.lms.context.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -35,21 +34,17 @@ public class PhotoBoardController {
 
   @RequestMapping("/photoboard/add")
   public String add(
-      @RequestParam("title") String title,
-      @RequestParam("lessonNo") int lessonNo,
-      Collection<Part> photos
+      PhotoBoard board,
+      @RequestParam("photo") Part [] photos
       ) throws Exception {
 
     String uploadDir = 
         servletContext.getRealPath("/upload/photoboard"); 
-    PhotoBoard board = new PhotoBoard();
-    board.setTitle(title);
-    board.setLessonNo(lessonNo);
 
     ArrayList<PhotoFile> files = new ArrayList<>();
 
     for (Part photo : photos) {
-      if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
+      if (photo.getSize() == 0) 
         continue;
 
       String filename = UUID.randomUUID().toString();
@@ -107,7 +102,7 @@ public class PhotoBoardController {
     String searchWord = null;
     if (keyword.length() > 0)
       searchWord = keyword;
-
+    
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
     map.put("list", boards);
 
@@ -116,24 +111,17 @@ public class PhotoBoardController {
 
   @RequestMapping("/photoboard/update")
   public String update(
-      @RequestParam("no") int no,
-      @RequestParam("title") String title,
-      @RequestParam("lessonNo") int lessonNo,
+      PhotoBoard board,
       @RequestParam("photo") Part[] photos
       ) throws Exception {
 
     String uploadDir = 
         servletContext.getRealPath("/upload/photoboard");
 
-    PhotoBoard board = new PhotoBoard();
-    board.setNo(no);
-    board.setTitle(title);
-    board.setLessonNo(lessonNo);
-
     ArrayList<PhotoFile> files = new ArrayList<>();
 
     for (Part photo : photos) {
-      if (photo.getSize() == 0 || !photo.getName().equals("photo"))
+      if (photo.getSize() == 0) 
         continue;
 
       String filename = UUID.randomUUID().toString();

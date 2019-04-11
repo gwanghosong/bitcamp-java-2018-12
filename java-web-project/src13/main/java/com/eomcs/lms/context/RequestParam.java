@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER) // 이 애노테이션은 파라미터에 대해서만 사용할 수 있다.
 public @interface RequestParam {
-  String value();
+  String value(); // 요청 파라미터 이름
 }
