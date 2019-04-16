@@ -577,7 +577,7 @@ eomcs
      - 별도의 복제가 필요하지 않을 때 
      - 기여자가 활동하지 않을 때 
 $ git remote rm [원격 저장소의 단축이름]
-$ git remote eomcs
+$ git remote rm eomcs
 $ git remote
 origin
 ```
