@@ -2,7 +2,7 @@
 
 ## Actors
 
-<img src="./diagram/actor.png" width="300"></img>
+<img src="./diagram/Actor.png" width="300"></img>
 
 ### 비회원
 - 시스템에 로그인 하지 않은 사용자
