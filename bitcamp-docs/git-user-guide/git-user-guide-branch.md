@@ -5,9 +5,9 @@
 Git에서 commit을 수행하면 다음의 절차에 따라 커밋 정보를 저장한다.
 
 - `git add` 실행
-  - **Blob** 생성
-    - Git 저장소에 저장되는 파일이다.
-    - 각 파일은 SHA-1 해시 알고르즘으로 계산된 40바이트 크기의 고유의 체크섬(checksum) 값을 가진다.
+  - **Blob(Binary large object)** 생성
+   - Git 저장소에 저장되는 파일이다.
+   - 각 파일은 SHA-1 해시 알고리즘으로 계산된 40바이트 크기의 고유의 체크섬(checksum) 값을 가진다.
   - Staging Area에 Blob의 체크섬을 기록한다.
 - `git commit` 실행
   - 트리 객체 생성
