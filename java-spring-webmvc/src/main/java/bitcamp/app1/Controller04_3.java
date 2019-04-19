@@ -20,6 +20,15 @@ public class Controller04_3 {
   //
   // 테스트:
   //    http://.../c04_3/h1?model=sonata&maker=hyundai&capacity=5&auto=true
+  protected String abc;
+  
+  public String getAbc() {
+    return abc;
+  }
+
+  public void setAbc(String abc) {
+    this.abc = abc;
+  }
 
   @GetMapping("h1")
   @ResponseBody
@@ -33,13 +42,18 @@ public class Controller04_3 {
                          // 단 변환할 수 없을 경우 예외가 발생한다.
                         // "true", "false"는 대소문자 구분없이 true, false로 변환해준다.
                         // 1 ==> true, 0 ==> false로 변환해 준다. 그 외의 숫자는 예외발생!
-      Car car // 아규먼트가 값 객체이면 요청 파라미터 중에서 값 객체의 프로퍼티 이름과 일치하는 
-                 // 항목에 대해 값을 넣어준다.
+      Car car, // 아규먼트가 값 객체이면,
+                 // 요청 파라미터 중에서,
+                 // 값 객체의 프로퍼티 이름과 일치하는 항목에 대해 값을 넣어준다.
                  // 값 객체 안에 또 값 객체가 있을 때는 
                  // OGNL(Object Graph Navigation Language) 방식으로 요청 파라미터 값을
                  // 지정하면 된다.
                  // 예) h1?medel=sonata&engine.model=ok&engine.cc=1980&engine.valve=16
-                 // OGNL 동작 방식 예) engine.model=ok ==> getEngine.setModel("ok")
+                 // OGNL 동작 방식 예) engine.model=ok ==> getEngine.setModel("ok"),
+      
+      String abc // 아규먼트가 값 객체이면,
+                     // 요청 파라미터 중에서,
+                     // 값 객체의 프로퍼티 이름과 일치하는 항목에 대해 값을 넣어준다.
       ) {
     
     out.printf("model=%s\n", model);
@@ -47,5 +61,8 @@ public class Controller04_3 {
     out.printf("capacity=%s\n", capacity);
     out.printf("auto=%s\n", auto); 
     out.printf("car=%s\n", car);
+    out.printf("abc=%s\n", abc);
+    out.println("<h1>abcdefg</h1>");
   }
 }
+

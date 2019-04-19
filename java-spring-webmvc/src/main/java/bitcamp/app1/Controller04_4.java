@@ -1,6 +1,7 @@
 // request handler(요청 핸들러)의 아규먼트 - 프로퍼티 에디터 사용하기
 package bitcamp.app1;
 
+import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -43,7 +44,7 @@ public class Controller04_4 {
   }
   
   // 테스트:
-  //    http://.../c04_4/h2?car=sonata,5,true,2019-4-19
+  //    http://.../c04_4/h2?car=sonata,5,true,2019-4-19,abc
 
   @GetMapping("h2")
   @ResponseBody
@@ -53,8 +54,15 @@ public class Controller04_4 {
       // => String ==> Car 프로퍼티 에디터를 등록하면 된다.
       @RequestParam("car") Car car
       ) {
-    
+    if (car.getMaker() == car.getModel()) {
+      out.println("hohoho");
+    } else {
+      out.println("haha");
+    }
+    out.println(car.getMaker());
+    out.println(car.getModel());
     out.println(car);
+    System.out.println(car.hashCode());
   }
   
   // 테스트:
@@ -111,7 +119,7 @@ public class Controller04_4 {
   //    자바에서는 도우미 클래스인 PropertyEditorSupport 클래스를 제공한다.
   //    이 클래스는 PropertyEditor를 미리 구현하였다.
   //    따라서 이 클래스를 상속받는 것이 더 낫다.
-  class DatePropertyEditor extends PropertyEditorSupport {
+  class DatePropertyEditor extends PropertyEditorSupport implements PropertyEditor{
 
     // yyyy-MM-dd 형태의 문자열을 java.util.Date 객체로 만들어주는 클래스를 준비한다.
     SimpleDateFormat format;
@@ -134,7 +142,7 @@ public class Controller04_4 {
       // 문자열을 Date 객체로 바꾸기 위해 이 메서드를 호출할 것이다.
       // 그러면 이 메서드에서 문자열을 프로퍼티가 원하는 타입으로 변환한 후 저장하면 된다.
       try {
-        Date date = format.parse(text); // String ===> java.utilDate
+        Date date = format.parse(text); // String ===> java.util.Date
         setValue(date); // 내부에 저장.
       } catch (ParseException e) {
         throw new IllegalArgumentException(e);
@@ -163,8 +171,10 @@ public class Controller04_4 {
       car.setCapacity(Integer.parseInt(values[1]));
       car.setAuto(Boolean.parseBoolean(values[2]));
       car.setCreatedDate(java.sql.Date.valueOf(values[3]));
+      car.setMaker(values[4]);
       
       setValue(car);
+      System.out.println(car.hashCode());
     }
   }
   
