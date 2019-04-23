@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+  
+  <!-- classpath: JVM이 파일을 뒤지는 클래스경로. /WEB-INF/classes부터 뒤짐. 그다음 .jar파일찾음. -->
+  <context:property-placeholder location="classpath:com/eomcs/lms/conf/jdbc.properties"/>
+  
+  <bean id="dataSource" 
+          class="org.apache.commons.dbcp2.BasicDataSource" 
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+  </bean>
+
+<!-- <tx:advice> 설정할 때 트랜잭션 관리자 객체를 알려줘야 한다.
+      트랜잭션 관리자 객체의 이름이 "transactionManager"라면 따로 알려줄 필요가 없다.
+      만약 다른 이름이라면 다음과 같이 속성에 그 이름을 설정해야 한다.
+      transaction-manager="txManager" -->  
+  <bean id="transactionManager" 
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+  
+</beans>
