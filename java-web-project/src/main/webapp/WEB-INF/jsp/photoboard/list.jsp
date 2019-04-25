@@ -5,21 +5,28 @@
 <html>
 <head>
 <title>사진 목록</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
 </head>
 <body>
-  <jsp:include page="../header.jsp" />
-  <h1>사진 목록(JSP2 + EL + JSTL)</h1>
-  <p>
-    <a href='form'>새 사진</a>
-  </p>
-  <table border='1'>
+
+<jsp:include page="../header.jsp"/>
+
+<div class="container">
+  <h1>사진 목록</h1>
+  <p><a href='form' class="btn btn-primary btn-sm">새 사진</a></p>
+<div class="bit-list">
+<table class="table table-hover">
+  <thead>
     <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>등록일</th>
-      <th>조회수</th>
-      <th>수업</th>
+      <th scope="col">번호</th>
+      <th scope="col">제목</th>
+      <th scope="col">등록일</th>
+      <th scope="col">조회수</th>
+      <th scope="col">수업</th>
     </tr>
+    </thead>
+    <tbody> 
   <c:forEach items="${list}" var="board">
     <tr>
       <td>${board.no}</td>
@@ -29,14 +36,37 @@
       <td>${board.lessonNo}</td>
     </tr>
   </c:forEach>
+  </tbody>
   </table>
+  </div><!-- .bit-list -->
 
-  <form action='search'>
-    수업번호: <input type='text' name='lessonNo'> 
-    검색어: <input type='text' name='keyword'>
-    <button type='submit'>검색</button>
-  </form>
 
+        <div class="form-group row">
+    <form action="search" class="col-sm-2 col-form-label">
+    <div class="col-sm-10" >
+      <input type="text" class="form-control-plaintext" name="lessonNo" placeholder="수업번호">
+      <input type="text" class="form-control-plaintext" name="keyword" placeholder="검색어">
+      <button class="btn btn-primary">검색</button>
+    </div>
+    </form>
+  </div>
+  
+    <nav aria-label="목록 페이지 이동">
+  <ul class="pagination justify-content-center pager">
+    <li class="page-item ${pageNo <= 1 ? 'disabled' : ' '}" id="previousPage">
+      <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">${pageNo - 1}</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="?pageNo=${pageNo}&pageSize=${pageSize}">${pageNo}</a>
+    </li>
+    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ' '}">
+      <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo + 1}</a>
+    </li>
+  </ul>
+</nav>
+  </div> <!-- .container -->
+
+<jsp:include page="../javascript.jsp"/>
 </body>
 </html>
 

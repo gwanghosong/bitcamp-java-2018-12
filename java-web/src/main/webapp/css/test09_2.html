@@ -12,6 +12,8 @@
     visibility: hidden
     => 출력 대상에 존재하지만, 화면에 보이지 않게 한다.
     => 태그가 차지했던 영역은 그대로 둔다.
+
+    둘다 있으면 display가 우선
   */
   body {
     font-family: '맑은 고딕', 굴림체, 'Apple SD Gothic Neo', sans-serif;
@@ -33,6 +35,7 @@
 
   #content ul {
     visibility: hidden;
+    /* display: none; */
   }
 
   #bitcamp {

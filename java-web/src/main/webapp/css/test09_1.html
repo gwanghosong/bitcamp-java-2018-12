@@ -12,8 +12,9 @@
     => inline
        => 한 줄 속에 포함되어 다른 태그와 그 줄을 함께 공유한다.
        => 자신의 너비와 높이를 가질 수 없다.
-          콘텐츠의 크기에 따라 너비와 높이가 결정된다.
+          콘텐츠의 크기에 따라 너비와 높이가 결정된다. width, height 설정안됨.
        => a, i, b, strong, span 등
+       => i, b는 쓰지마.
     => inline-block
        => inline 처럼 한 줄을 다른 태그와 공유한다.
        => block 처럼 자신의 너비와 높이를 가질 수 있다.
@@ -33,10 +34,10 @@
 
   a, span {
     border: 1px solid blue;
-    /*padding: 10px;
-    margin: 10px;*/
+    padding: 10px;
+    margin: 10px;
     display: inline-block;
-    width: 70px;
+    width: 90px;
     height: 50px;
   }
 

@@ -5,21 +5,27 @@
 <html>
 <head>
 <title>사진 검색</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
 </head>
 <body>
-  <jsp:include page="../header.jsp" />
-  <h1>사진 검색(JSP2 + EL + JSTL)</h1>
-  <p>
-    <a href='add'>새 사진</a>
-  </p>
-  <table border='1'>
+
+<jsp:include page="../header.jsp"/>
+  <h1>사진 검색</h1>
+ <p><a href='form' class="btn btn-primary btn-sm">새 사진</a></p>
+  
+  <div class="bit-list">
+<table class="table table-hover">
+  <thead>
     <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>등록일</th>
-      <th>조회수</th>
-      <th>수업</th>
+      <th scope="col">번호</th>
+      <th scope="col">제목</th>
+      <th scope="col">등록일</th>
+      <th scope="col">조회수</th>
+      <th scope="col">수업</th>
     </tr>
+    </thead>
+    <tbody> 
   <c:forEach items="${list}" var="board">
     <tr>
       <td>${board.no}</td>
@@ -29,10 +35,16 @@
       <td>${board.lessonNo}</td>
     </tr>
   </c:forEach>
+  </tbody>
   </table>
-    <p>
-    <a href='.'>시스템 목록</a>
-  </p>
+  </div><!-- .bit-list -->
+  
+    <div class="form-group row">
+    <div class="col-sm-10">
+      <a class="btn btn-primary" href='.'>목록</a> 
+    </div>
+  </div>
+    <jsp:include page="../javascript.jsp"/>
 </body>
 </html>
 

@@ -5,19 +5,28 @@
 <html>
 <head>
 <title>회원 검색</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
 </head>
 <body>
-  <jsp:include page="../header.jsp" />
 
-  <h1>회원 검색(JSP2 + EL + JSTL)</h1>
-  <table border='1'>
-    <tr>
-      <th>번호</th>
-      <th>이름</th>
-      <th>이메일</th>
-      <th>전화</th>
-      <th>가입일</th>
-    </tr>
+<jsp:include page="../header.jsp"/>
+
+  <h1>회원 검색</h1>
+  
+  <div class="bit-list">
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">번호</th>
+    <th scope="col">이름</th>
+    <th scope="col">이메일</th>
+    <th scope="col">전화</th>
+    <th scope="col">가입일</th>
+  </tr>
+</thead>
+
+
 <c:forEach items="${list}" var="member">
     <tr>
       <td>${member.no}</td>
@@ -27,9 +36,14 @@
       <td>${member.registeredDate}</td>
     </tr>
 </c:forEach>
+</tbody>
   </table>
-  <p>
-    <a href='.'>목록</a>
-  </p>
+</div><!-- .bit-list -->
+     <div class="form-group row">
+    <div class="col-sm-10">
+      <a class="btn btn-primary" href='.'>목록</a> 
+    </div>
+  </div>
+  <jsp:include page="../javascript.jsp"/>
 </body>
 </html>
