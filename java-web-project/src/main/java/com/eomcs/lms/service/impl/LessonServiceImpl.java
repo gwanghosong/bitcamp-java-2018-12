@@ -61,6 +61,8 @@ public class LessonServiceImpl implements LessonService {
   public int delete(int no) {
     HashMap<String,Object> params = new HashMap<>();
     params.put("lessonNo", no);
+    params.put("size", 0);
+    params.put("rowNo", 0);
     
     List<PhotoBoard> boards = photoBoardDao.findAll(params);
     for (PhotoBoard board : boards) {

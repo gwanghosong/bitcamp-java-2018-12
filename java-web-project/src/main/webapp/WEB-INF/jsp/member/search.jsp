@@ -40,7 +40,7 @@
   </table>
 </div><!-- .bit-list -->
      <div class="form-group row">
-    <div class="col-sm-10">
+    <div class="col-sm-8">
       <a class="btn btn-primary" href='.'>목록</a> 
     </div>
   </div>

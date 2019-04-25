@@ -41,25 +41,27 @@
 </tbody>
   </table>
 </div><!-- .bit-list -->
-      <div class="form-group row">
-    <form action="search" class="col-sm-2 col-form-label">
-    <div class="col-sm-10" >
+    <form action="search" class="col-form-label">
+      <div class="form-row">
+    <div class="col-sm-8">
       <input type="text" class="form-control-plaintext" name="keyword" placeholder="검색어">
+    </div>
+    <div class="col-sm-8">
       <button class="btn btn-primary">검색</button>
     </div>
-    </form>
   </div>
+    </form>
 
   <nav aria-label="목록 페이지 이동">
   <ul class="pagination justify-content-center pager">
     <li class="page-item ${pageNo <= 1 ? 'disabled' : ' '}" id="previousPage">
-      <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">${pageNo - 1}</a>
+      <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">이전</a>
     </li>
     <li class="page-item active">
       <a class="page-link" href="?pageNo=${pageNo}&pageSize=${pageSize}">${pageNo}</a>
     </li>
     <li class="page-item ${pageNo >= totalPage ? 'disabled' : ' '}">
-      <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo + 1}</a>
+      <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">다음</a>
     </li>
   </ul>
 </nav>

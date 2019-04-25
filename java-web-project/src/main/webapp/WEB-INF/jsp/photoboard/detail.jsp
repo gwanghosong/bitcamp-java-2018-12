@@ -68,38 +68,38 @@
       <label for="description" class="col-sm-2 col-form-label">최소 한 개의 사진 파일을 등록해야 합니다.</label>
     </div>
                  <div class="form-group row">
-      <label for="photo" class="col-sm-2 col-form-label">사진1</label>
+      <label for="photoFile" class="col-sm-2 col-form-label">사진1</label>
         <div class="col-sm-10">
-       <input type="file" class="form-control-file" id="photo"
-                 name='photo' value='${board.photo}'>
+       <input type="file" class="form-control-file" id="photoFile"
+                 name='photoFile' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
-      <label for="photo" class="col-sm-2 col-form-label">사진2</label>
+      <label for="photoFile" class="col-sm-2 col-form-label">사진2</label>
         <div class="col-sm-10">
-       <input type="file" class="form-control-file" id="photo"
-                 name='photo' value='${board.photo}'>
+       <input type="file" class="form-control-file" id="photoFile"
+                 name='photoFile' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
-      <label for="photo" class="col-sm-2 col-form-label">사진3</label>
+      <label for="photoFile" class="col-sm-2 col-form-label">사진3</label>
         <div class="col-sm-10">
-       <input type="file" class="form-control-file" id="photo"
-                 name='photo' value='${board.photo}'>
+       <input type="file" class="form-control-file" id="photoFile"
+                 name='photoFile' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
-      <label for="photo" class="col-sm-2 col-form-label">사진4</label>
+      <label for="photoFile" class="col-sm-2 col-form-label">사진4</label>
         <div class="col-sm-10">
        <input type="file" class="form-control-file" id="photo"
-                 name='photo' value='${board.photo}'>
+                 name='photo' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
       <label for="photo" class="col-sm-2 col-form-label">사진5</label>
         <div class="col-sm-10">
-       <input type="file" class="form-control-file" id="photo"
-                 name='photo' value='${board.photo}'>
+       <input type="file" class="form-control-file" id="photoFile"
+                 name='photoFile' value='${board.files}'>
         </div>
     </div>
                          <div class="form-group row">
