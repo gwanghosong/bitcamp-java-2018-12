@@ -20,7 +20,7 @@
       <select class="custom-select" name='lessonNo'>
       <option value='0'>수업을 선택하세요</option>
               <c:forEach items="${lessons}" var="lesson">
-                <option value="${lesson.no}"
+                <option value="${lesson.no}">
                   ${board.lessonNo == lesson.no ? "selected" : ""}>${lesson.title}(${lesson.startDate}
                   ~
                   ${lesson.endDate})

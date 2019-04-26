@@ -100,9 +100,9 @@ public class PhotoBoardController {
 
   @GetMapping("{no}")
   public String detail(@PathVariable int no, Model model) {
-
+        
     PhotoBoard board = photoBoardService.get(no);
-    List<Lesson> lessons = lessonService.list(0, 0);
+    List<Lesson> lessons = lessonService.list(0, lessonService.size());
     model.addAttribute("board", board);
     model.addAttribute("lessons", lessons);
     

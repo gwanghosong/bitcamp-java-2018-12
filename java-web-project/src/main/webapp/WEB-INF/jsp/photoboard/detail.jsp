@@ -64,6 +64,7 @@
         </select>
       </div>
     </div>
+    
             <div class="form-group row">
       <label for="description" class="col-sm-2 col-form-label">최소 한 개의 사진 파일을 등록해야 합니다.</label>
     </div>

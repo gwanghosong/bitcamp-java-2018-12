@@ -30,15 +30,18 @@ public class LessonServiceImpl implements LessonService {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
-  
+
   // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
   @Override
   public List<Lesson> list(int pageNo, int pageSize) {
     
-    HashMap<String,Object> params = new HashMap<>();
+    HashMap<String,Object> params = new HashMap<>();    
     params.put("size", pageSize);
+    if ((pageNo - 1) < 0) {
+      params.put("rowNo", 0);
+    } else {
     params.put("rowNo", (pageNo - 1) * pageSize);
-    
+    }
     return lessonDao.findAll(params);
   }
   
