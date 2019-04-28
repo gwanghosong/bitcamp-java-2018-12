@@ -31,7 +31,7 @@ public class PhotoBoardController {
 
   @GetMapping("form")
   public void form(Model model) throws Exception {
-    List<Lesson> lessons = lessonService.list(0, 0);//임시
+    List<Lesson> lessons = lessonService.list(0, lessonService.size());
     model.addAttribute("lessons", lessons);
   }
 
@@ -110,16 +110,41 @@ public class PhotoBoardController {
   }
 
   @GetMapping("search")
-  public void search(int lessonNo, String keyword, Model model) {
+  public void search(
+      @RequestParam(defaultValue = "0") int lessonNo, 
+      @RequestParam(defaultValue = "1") int pageNo,
+      @RequestParam(defaultValue = "3") int pageSize,
+      String keyword,
+      Model model) {
+    
+    if (pageSize < 3 || pageSize > 8)
+      pageSize = 3;
+    
+    int rowCount = photoBoardService.size();
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+    
+    if (pageNo < 1)
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+    
+    
     String searchWord = null;
     if (keyword.length() > 0)
       searchWord = keyword;
-    List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord, 0, 0);
+    List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord, pageNo, pageSize);
     model.addAttribute("list", boards);
+    model.addAttribute("pageNo", pageNo);
+    model.addAttribute("pageSize", pageSize);
+    model.addAttribute("totalPage", totalPage);
+    model.addAttribute("lessonNo", lessonNo);
+    model.addAttribute("keyword", searchWord);
   }
 
   @PostMapping("update")
-  public String update(PhotoBoard board, @RequestParam("photo") Part[] photos
+  public String update(PhotoBoard board, Part[] photo
       ) throws Exception {
 
     String uploadDir = 
@@ -127,12 +152,12 @@ public class PhotoBoardController {
 
     ArrayList<PhotoFile> files = new ArrayList<>();
 
-    for (Part photo : photos) {
-      if (photo.getSize() == 0) 
+    for (Part pht : photo) {
+      if (pht.getSize() == 0) 
         continue;
 
       String filename = UUID.randomUUID().toString();
-      photo.write(uploadDir + "/" + filename);
+      pht.write(uploadDir + "/" + filename);
 
       PhotoFile file = new PhotoFile();
       file.setFilePath(filename);

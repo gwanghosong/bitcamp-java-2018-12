@@ -29,21 +29,21 @@
         </li>
       </ul>
       <div id="bit-login-state">
-      <c:if test="${empty loginUser}">
+        <c:if test="${empty loginUser}">
         <a class="btn btn-success btn-sm" href='${contextRootPath}/app/auth/form'>로그인</a>
-      </c:if>
-      <c:if test="${not empty loginUser}">
+        </c:if>
+        <c:if test="${not empty loginUser}">
         <img src='${contextRootPath}/upload/member/${loginUser.photo}' 
              style='height:20px;'>${loginUser.name}
         <a class="btn btn-dark btn-sm" href='${contextRootPath}/app/auth/logout'>로그아웃</a> 
-      </c:if>
+        </c:if>
       </div>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="검색">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-    </form>
+      </form>
     </div>
-</nav>
+  </nav>
 </header>
 
 

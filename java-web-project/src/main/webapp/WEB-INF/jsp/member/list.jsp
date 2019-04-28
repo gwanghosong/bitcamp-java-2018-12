@@ -43,10 +43,8 @@
 </div><!-- .bit-list -->
     <form action="search" class="col-form-label">
       <div class="form-row">
-    <div class="col-sm-8">
+    <div class="col-sm-8" id="member-search">
       <input type="text" class="form-control-plaintext" name="keyword" placeholder="검색어">
-    </div>
-    <div class="col-sm-8">
       <button class="btn btn-primary">검색</button>
     </div>
   </div>

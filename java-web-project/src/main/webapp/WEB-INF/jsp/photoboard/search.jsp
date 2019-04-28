@@ -38,6 +38,22 @@
   </tbody>
   </table>
   </div><!-- .bit-list -->
+    
+    <nav aria-label="목록 페이지 이동">
+  <ul class="pagination justify-content-center pager">
+    <li class="page-item ${pageNo <= 1 ? 'disabled' : ' '}" id="previousPage">
+      <a class="page-link" 
+         href="?lessonNo=${lessonNo}&keyword=${keyword}&pageNo=${pageNo - 1}&pageSize=${pageSize}">
+         ${pageNo - 1}</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="?lessonNo=${lessonNo}&keyword=${keyword}&pageNo=${pageNo}&pageSize=${pageSize}">${pageNo}</a>
+    </li>
+    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ' '}">
+      <a class="page-link" href="?lessonNo=${lessonNo}&keyword=${keyword}&pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo + 1}</a>
+    </li>
+  </ul>
+</nav>
   
     <div class="form-group row">
     <div class="col-sm-10">

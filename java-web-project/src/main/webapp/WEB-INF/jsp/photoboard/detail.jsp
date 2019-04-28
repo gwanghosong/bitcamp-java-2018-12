@@ -45,7 +45,7 @@
       <label for="viewCount" class="col-sm-2 col-form-label">조회수</label>
         <div class="col-sm-10">
         <input type="text" class="form-control-plaintext" id="viewCount"
-                 name='viewCount' value='${board.createdDate}' readonly>
+                 name='viewCount' value='${board.viewCount}' readonly>
         </div>
     </div>
     
@@ -66,27 +66,27 @@
     </div>
     
             <div class="form-group row">
-      <label for="description" class="col-sm-2 col-form-label">최소 한 개의 사진 파일을 등록해야 합니다.</label>
+      <p>최소 한 개의 사진 파일을 등록해야 합니다.</p>
     </div>
                  <div class="form-group row">
       <label for="photoFile" class="col-sm-2 col-form-label">사진1</label>
         <div class="col-sm-10">
        <input type="file" class="form-control-file" id="photoFile"
-                 name='photoFile' value='${board.files}'>
+                 name='photo' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
       <label for="photoFile" class="col-sm-2 col-form-label">사진2</label>
         <div class="col-sm-10">
        <input type="file" class="form-control-file" id="photoFile"
-                 name='photoFile' value='${board.files}'>
+                 name='photo' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
       <label for="photoFile" class="col-sm-2 col-form-label">사진3</label>
         <div class="col-sm-10">
        <input type="file" class="form-control-file" id="photoFile"
-                 name='photoFile' value='${board.files}'>
+                 name='photo' value='${board.files}'>
         </div>
     </div>
                      <div class="form-group row">
@@ -97,10 +97,10 @@
         </div>
     </div>
                      <div class="form-group row">
-      <label for="photo" class="col-sm-2 col-form-label">사진5</label>
+      <label for="photoFile" class="col-sm-2 col-form-label">사진5</label>
         <div class="col-sm-10">
        <input type="file" class="form-control-file" id="photoFile"
-                 name='photoFile' value='${board.files}'>
+                 name='photo' value='${board.files}'>
         </div>
     </div>
                          <div class="form-group row">

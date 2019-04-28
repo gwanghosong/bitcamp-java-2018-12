@@ -15,20 +15,20 @@
     <form action='add' method='post' enctype='multipart/form-data'>
 
       <div class="form-group row">
-      <label for="lessonNo" class="col-sm-2 col-form-label">수업</label>
-      <div class="col-sm-4">
-      <select class="custom-select" name='lessonNo'>
-      <option value='0'>수업을 선택하세요</option>
-              <c:forEach items="${lessons}" var="lesson">
-                <option value="${lesson.no}">
-                  ${board.lessonNo == lesson.no ? "selected" : ""}>${lesson.title}(${lesson.startDate}
-                  ~
-                  ${lesson.endDate})
-                </option>
-              </c:forEach>
-        </select>
+        <label for="lessonNo" class="col-sm-2 col-form-label">수업</label>
+        <div class="col-sm-4">
+        <select class="custom-select" name='lessonNo'>
+        <option selected>수업을 선택하세요</option>
+                <c:forEach items="${lessons}" var="lesson">
+                  <option value="${lesson.no}"
+                    ${board.lessonNo == lesson.no ? "selected" : ""}>${lesson.title}(${lesson.startDate}
+                    ~
+                    ${lesson.endDate})
+                  </option>
+                </c:forEach>
+          </select>
+        </div>
       </div>
-    </div>
              <div class="form-group row">
       <label for="title" class="col-sm-2 col-form-label">사진 제목</label>
         <div class="col-sm-10">

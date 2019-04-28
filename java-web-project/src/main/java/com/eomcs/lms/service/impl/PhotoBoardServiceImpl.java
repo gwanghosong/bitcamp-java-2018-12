@@ -44,12 +44,14 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
       HashMap<String,Object> params = new HashMap<>();
       if (lessonNo > 0) {
         params.put("lessonNo", lessonNo);
+      } else {
+        params.put("lessonNo", null);
       }
       if (searchWord != null) {
         params.put("keyword", searchWord);
       }
-      params.put("size", 0);
-      params.put("rowNo", 0);
+      params.put("size", pageSize);
+      params.put("rowNo", pageNo);
       
       return boardDao.findAll(params);
     }

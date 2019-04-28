@@ -19,3 +19,7 @@ div.container {
 #bit-login-state {
 	margin: 0px 10px;
 }
+
+div#member-search {
+	display: inline;
+}
