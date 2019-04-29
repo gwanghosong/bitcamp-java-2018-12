@@ -122,9 +122,9 @@ public class PhotoBoardController {
     
     int rowCount = photoBoardService.size();
     int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-    
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      
     if (pageNo < 1)
       pageNo = 1;
     else if (pageNo > totalPage)
@@ -136,11 +136,28 @@ public class PhotoBoardController {
       searchWord = keyword;
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord, pageNo, pageSize);
     model.addAttribute("list", boards);
-    model.addAttribute("pageNo", pageNo);
     model.addAttribute("pageSize", pageSize);
-    model.addAttribute("totalPage", totalPage);
     model.addAttribute("lessonNo", lessonNo);
     model.addAttribute("keyword", searchWord);
+
+    totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      
+      if (pageNo < 1)
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      
+    int count = boards.size() / pageSize;
+      if (count % pageSize > 0) 
+        count++;
+      
+      if (totalPage > count)
+        totalPage = count;
+      
+    model.addAttribute("pageNo", pageNo);
+    model.addAttribute("totalPage", totalPage);
   }
 
   @PostMapping("update")

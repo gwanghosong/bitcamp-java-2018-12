@@ -24,9 +24,11 @@
 // => Element() 생성자가 추가한 프로퍼티이다.
 // => 태그의 콘텐트를 HTML 코드 그대로 리턴한다.
 // 
-var e = document.querySelector("article:first-child > p");
+// first-child : article이 그 부모의 자식들 중 첫째 자식이라면
+var e = document.querySelector("article:first-child > p"); 
 console.log(e)
-console.log(e.innerHTML)
+// innerHTML : 시작태그와 끝태그 사이를 그대로 리턴, 자식 태그의 HTML 코드가 그대로 살아있다.
+console.log(e.innerHTML) 
 console.log("----------------------")
 
 // Node.textContent

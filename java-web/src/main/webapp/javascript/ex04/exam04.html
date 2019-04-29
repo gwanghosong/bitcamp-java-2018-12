@@ -10,6 +10,7 @@
 "use strict"
 // 같은 객체에 소속된 멤버(변수나 함수, 객체)를 사용하려면 참조변수 this를 반드시 붙여야 한다.
 // => 자바는 생략해도 됐지만, 자바스크립트는 생략하면 안 된다.
+//	  즉, this를 생략하면 자동으로 로컬변수를 찾아 쓰지 않는다.
 
 var obj = new Object();
 
@@ -27,6 +28,8 @@ obj.toString = function() {
 
 console.log(obj.toString()); 
 console.log(obj); // 자바와 달리 객체를 출력하면 toString()의 리턴 값이 아니라 그냥 객체 값을 출력한다.
+// toString: f ==> toString을 우리가 정의해서 덮어썼기 때문에 출력된다.
+// 즉, 기본객체에 개발자가 추가하거나 변형한 프로퍼티가 출력된다.
 
 obj.sum = function() {
 	return this.kor + this.eng + this.math; // 항상 같은 객체의 멤버를 가리킬 때는 this를 붙여야 한다. 

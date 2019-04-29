@@ -28,6 +28,8 @@ Score.prototype.aver = function() {
 }
 
 // 자바로 표현하면 "스태틱 함수" 
+// 함수 객체에 바로 직접 등록된 함수는 그 객체에 의해서만 호출할 수 있다.
+// 함수객체도 객체다.
 Score.count = 0;
 Score.f = function() {
 	console.log("Hello!");
@@ -37,12 +39,12 @@ Score.f = function() {
 var s = new Score("홍길동", 100, 100, 100);
 
 // 인스턴스 함수 호출
-console.log(s.sum())
-console.log(s.aver())
+console.log(s.sum());
+console.log(s.aver());
 
 // f()는 prototype에 저장된 함수가 아니다. 
-// 따라서 객체를 통해 호출할 수 없다.
-//s.f(); // 실행 오류!
+// 따라서 객체(인스턴스)를 통해 호출할 수 없다.
+// s.f(); // 실행 오류!
 
 // count와 f()는 생성자를 통해 직접 사용해야 한다.
 Score.count = 100;

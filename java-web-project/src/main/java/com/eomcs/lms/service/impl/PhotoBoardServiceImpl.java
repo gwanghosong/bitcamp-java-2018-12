@@ -31,7 +31,6 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   @Override
   public List<PhotoBoard> list(
       int lessonNo, String searchWord, int pageNo, int pageSize) {
-    
     if (lessonNo <= 0 && searchWord == null) {
       
       HashMap<String,Object> params = new HashMap<>();
@@ -42,16 +41,18 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
       
     } else {
       HashMap<String,Object> params = new HashMap<>();
+      
       if (lessonNo > 0) {
         params.put("lessonNo", lessonNo);
       } else {
         params.put("lessonNo", null);
       }
-      if (searchWord != null) {
+      
+      if (searchWord != null)
         params.put("keyword", searchWord);
-      }
+      
       params.put("size", pageSize);
-      params.put("rowNo", pageNo);
+      params.put("rowNo",  (pageNo - 1) * pageSize);
       
       return boardDao.findAll(params);
     }

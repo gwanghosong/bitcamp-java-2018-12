@@ -17,13 +17,18 @@ var obj = new Object();
 // 기본 객체 안에는 다음의 함수들이 들어 있다.
 console.log(obj.toString());
 console.log(obj.valueOf());
-console.log(obj.hasOwnProperty("toString"));
+console.log(obj.hasOwnProperty("toString")); 
 console.log(obj.hasOwnProperty("hashCode"));
+// toString과 hashCode는 있지만 hasOwnProperty에서 false나오도록 설정되있음.
+// 즉, 처음에 기본적으로 포함되는 프로퍼티는 원래부터 있던 메서드이기 때문에 false가 나옴.
+// 추가한 프로퍼티를 조사할 때 쓰는 함수이다.
 
 // 이렇게 준비되 객체에 프로퍼티를 추가하고 싶다면 다음의 문법을 사용하라!
 // 객체.프로퍼티명 = 값;
 // 객체["프로퍼티명"] = 값;
 // 객체['프로퍼티명'] = 값;
+
+// 자바스크립트의 프로퍼티는 "객체에 추가한 값" 이다. 문자열, 불린, 함수값...
 
 // 객체에 값을 저장할 수 있다.
 obj.title = "제목입니다.";

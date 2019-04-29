@@ -9,7 +9,7 @@
 <section>
   <article>
 	<h1 id="header1">자바스크립트</h1>
-	<p>자바스크립트는 <b>프론트-엔드</b>를 개발할 때 사용하는 프로그래밍 언어입니다.</p>
+  <p>자바스크립트는 <b>프론트-엔드</b>를 개발할 때 사용하는 프로그래밍 언어입니다.</p>
   </article>
   <article>
     <h1 id="header2">자바</h1>
@@ -26,7 +26,9 @@ var e = document.querySelector("article:nth-child(2) a");
 console.log(e.href)
 
 // 1) 방법1
-e.href = "http://www.daum.net";
+// e.href = "http://www.daum.net"; 
+// 웹페이지의 현재상태, 현재 element, 즉 자바스크립트가 적용된 소스를 보고 싶다면 개발자도구-element를 확인하라.
+// 자바스크립트를 실행하기 전, 즉 처음에 받아온 코드를 보고싶다면 페이지 소스 보기를 확인하라.
 
 // 2) 방법2
 e.setAttribute("href", "http://www.google.com");
