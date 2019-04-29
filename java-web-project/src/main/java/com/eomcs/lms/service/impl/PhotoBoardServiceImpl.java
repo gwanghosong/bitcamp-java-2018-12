@@ -15,49 +15,49 @@ import com.eomcs.lms.service.PhotoBoardService;
 // 이렇게 애노테이션으로 구분해두면 나중에 애노테이션으로 객체를 찾을 수 있다.
 @Service
 public class PhotoBoardServiceImpl implements PhotoBoardService {
-  
+
   PhotoBoardDao boardDao;
   PhotoFileDao fileDao;
-  
+
   public PhotoBoardServiceImpl(
       PhotoBoardDao boardDao, 
       PhotoFileDao fileDao) {
-    
+
     this.boardDao = boardDao;
     this.fileDao = fileDao;
   }
-  
+
   // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
   @Override
   public List<PhotoBoard> list(
       int lessonNo, String searchWord, int pageNo, int pageSize) {
     if (lessonNo <= 0 && searchWord == null) {
-      
+
       HashMap<String,Object> params = new HashMap<>();
       params.put("size", pageSize);
       params.put("rowNo", (pageNo - 1) * pageSize);
-      
+
       return boardDao.findAll(params);
-      
+
     } else {
       HashMap<String,Object> params = new HashMap<>();
-      
+
       if (lessonNo > 0) {
         params.put("lessonNo", lessonNo);
       } else {
         params.put("lessonNo", null);
       }
-      
+
       if (searchWord != null)
         params.put("keyword", searchWord);
-      
+
       params.put("size", pageSize);
       params.put("rowNo",  (pageNo - 1) * pageSize);
-      
+
       return boardDao.findAll(params);
     }
   }
-  
+
   @Override
   public int add(PhotoBoard board) {
     int count = boardDao.insert(board);
@@ -72,13 +72,13 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
 
     return count;
   }
-  
+
 
   @Override
   public PhotoBoard get(int no) {
     // 이제 조금 서비스 객체가 뭔가를 하는 구만.
     // Command 객체는 데이터를 조회한 후 조회수를 높이는 것에 대해 신경 쓸 필요가 없어졌다.
-    
+
     // lms_photo 테이블의 데이터와 lms_photo_file 테이블의 데이터를 조인하여 결과를 가져온다. 
     // 그 결과를 PhotoBoard 객체에 저장한다.
     // 특히 lms_photo_file 데이터는 PhotoFile 객체에 저장되고, 
@@ -89,15 +89,15 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     }
     return board;
   }
-  
-  
+
+
   @Override
   public int update(PhotoBoard board) {
     // PhotoBoard 객체에 제목이 들어 있다는 것은 사용가 변경했다는 의미다.
     if (board.getTitle() != null) {
       boardDao.update(board);
     }
-    
+
     List<PhotoFile> photoFiles = board.getFiles();
     if (photoFiles != null)  {
       // 먼저 기존 첨부 파일을 삭제한다.
@@ -106,7 +106,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     }
     return 1;
   }
-  
+
   @Override
   public int delete(int no) {
     // 데이터를 지울 때는 자식 테이블의 데이터부터 지워야 한다.

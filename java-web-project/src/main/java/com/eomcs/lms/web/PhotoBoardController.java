@@ -75,37 +75,37 @@ public class PhotoBoardController {
       @RequestParam(defaultValue = "1") int pageNo,
       @RequestParam(defaultValue = "3") int pageSize,
       Model model) {
-    
+
     if (pageSize < 3 || pageSize > 8)
       pageSize = 3;
-    
+
     int rowCount = photoBoardService.size();
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
-    
+
     if (pageNo < 1)
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
+
     List<PhotoBoard> boards = photoBoardService.list(0, null, pageNo, pageSize);
     model.addAttribute("list", boards);
     model.addAttribute("pageNo", pageNo);
     model.addAttribute("pageSize", pageSize);
     model.addAttribute("totalPage", totalPage);
-    
+
     return "photoboard/list";
   }
 
   @GetMapping("{no}")
   public String detail(@PathVariable int no, Model model) {
-        
+
     PhotoBoard board = photoBoardService.get(no);
     List<Lesson> lessons = lessonService.list(0, lessonService.size());
     model.addAttribute("board", board);
     model.addAttribute("lessons", lessons);
-    
+
     return "photoboard/detail";
   }
 
@@ -116,21 +116,20 @@ public class PhotoBoardController {
       @RequestParam(defaultValue = "3") int pageSize,
       String keyword,
       Model model) {
-    
+
     if (pageSize < 3 || pageSize > 8)
       pageSize = 3;
-    
+
     int rowCount = photoBoardService.size();
     int totalPage = rowCount / pageSize;
-      if (rowCount % pageSize > 0)
-        totalPage++;
-      
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
     if (pageNo < 1)
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
-    
+
     String searchWord = null;
     if (keyword.length() > 0)
       searchWord = keyword;
@@ -139,24 +138,18 @@ public class PhotoBoardController {
     model.addAttribute("pageSize", pageSize);
     model.addAttribute("lessonNo", lessonNo);
     model.addAttribute("keyword", searchWord);
-
-    totalPage = rowCount / pageSize;
-      if (rowCount % pageSize > 0)
-        totalPage++;
-      
-      if (pageNo < 1)
-        pageNo = 1;
-      else if (pageNo > totalPage)
-        pageNo = totalPage;
-      
-    int count = boards.size() / pageSize;
-      if (count % pageSize > 0) 
-        count++;
-      
-      if (totalPage > count)
-        totalPage = count;
-      
     model.addAttribute("pageNo", pageNo);
+
+    List<PhotoBoard> searchBoards = photoBoardService.list(lessonNo, searchWord, 1, photoBoardService.size());
+
+    int count = searchBoards.size() / pageSize;
+    System.out.println(count);
+    System.out.println(searchBoards.size());
+    if (searchBoards.size() % pageSize > 0) 
+      count++;
+    if (totalPage > count)
+      totalPage = count;
+    System.out.println(totalPage);
     model.addAttribute("totalPage", totalPage);
   }
 
