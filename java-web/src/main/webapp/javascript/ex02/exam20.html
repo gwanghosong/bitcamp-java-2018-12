@@ -21,6 +21,7 @@ console.log(v1);
 var [name, tel, working, age] = arr;
 console.log(name, tel, working, age);
 
+// 배열값을 받을 때는 순서대로 앞에서부터 차례차례 받는다.
 var [name2, tel2] = arr;
 console.log(name2, tel2);
 
@@ -63,8 +64,10 @@ console.log(r1);
 var [name, kor, eng, math] = f1();
 console.log(name, kor, eng, math);
 
+// name,값안받고,값안받고,값안받고,sum,aver => name, sum, aver 값만 받음.
 var [name,,,,sum,aver] = f1();
 console.log(name, sum, aver);
+// console.log(kor); // kor is not defined
 
 console.log("----------------------------------------------");
 
