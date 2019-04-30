@@ -26,6 +26,8 @@ var tbody = document.querySelector("tbody");
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
             	// 서버에서 받은 JSON 문자열을 자바스크립트 객체로 변환한다.
+                // JSON형식 배열만들기 ["프로퍼티명":"값"or숫자...]
+                // []은 배열로 만들고, 그 배열에 프로퍼티명과 그 값들을 가진 인스턴스를 저장한다.
                 var list = JSON.parse(xhr.responseText);
             	
             	// 배열을 반복하여 값을 꺼낸다.
@@ -37,7 +39,7 @@ var tbody = document.querySelector("tbody");
                 	tr.innerHTML = "<td>" + b.no + "</td>" + 
                 	   "<td>" + b.title + "</td>" + 
                 	   "<td>" + b.writer + "</td>" +
-                	   "<td>" + b.viewCnt + "</td>";
+                	   "<td>" + b.viewCount + "</td>";
                 	
                 	// tr 태그를 tbody의 자식 태그로 붙인다.
                 	tbody.appendChild(tr);
@@ -45,7 +47,7 @@ var tbody = document.querySelector("tbody");
             }
         }
     };
-    xhr.open("GET", "../../jsp/test6.jsp", true);
+    xhr.open("GET", "test6.jsp", true);
     xhr.send();
 })();
 

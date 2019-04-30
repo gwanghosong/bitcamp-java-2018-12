@@ -17,6 +17,7 @@
 var header = document.querySelector("#header"),
     footer = document.querySelector("#footer");
 
+// 어차피 변수가 함수를 호출하기 때문에 임시변수 생략하고 바로 함수를 넣어서 실행.
 (function() { // 머리말 가져오기
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
@@ -26,7 +27,7 @@ var header = document.querySelector("#header"),
             }
         }
     };
-    xhr.open("GET", "../../jsp/test5.jsp", true);
+    xhr.open("GET", "test5.jsp", true);
     xhr.send();
 })();
 
