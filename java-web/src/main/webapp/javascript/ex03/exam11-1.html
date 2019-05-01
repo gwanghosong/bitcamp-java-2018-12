@@ -31,9 +31,13 @@ function createGreeting(name) {
 }
 
 var test1 = createGreeting("홍길동");
+// 파라미터로 주었던 "홍길동" 로컬변수가 삭제되었다.
+// 로컬변수 message인 "홍길동님 반갑습니다"가 삭제되었다.
 var test2 = createGreeting("임꺽정");
+// 파라미터로 주었던 "임꺽정" 로컬변수가 삭제되었다.
+// 로컬변수 message인 "임꺽정님 반갑습니다"가 삭제되었다.
 
-test1();
+test1(); 
 test2();
 
 </script>
