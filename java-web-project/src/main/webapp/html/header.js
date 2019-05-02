@@ -43,7 +43,7 @@ document.body.addEventListener('loaded.header', () => {
       location.href = '/java-web-project/html/index.html';
       
     };
-    xhr.open('GET', '/java-web-project/html/json/auth/logout', true)
+    xhr.open('GET', '/java-web-project/app/json/auth/logout', true)
     xhr.send()
   });
 });
@@ -55,10 +55,11 @@ function loadLoginUser() {
   xhr.onreadystatechange = function() {
     if (xhr.readyState != 4 || xhr.status != 200)
       return;
+    
     var data =JSON.parse(xhr.responseText);
     
     var loginState = document.querySelector('#bit-login-state'),
-          notloginState = document.querySelector('#bit-not-login-state');
+          notLoginState = document.querySelector('#bit-not-login-state');
 
     if (data.status == 'success') {
       loginState.className = loginState.className.replace('bit-invisible', '');
@@ -71,7 +72,7 @@ function loadLoginUser() {
     }
     
   };
-  xhr.open('GET', '/java-web-project/html/json/auth/user', true)
+  xhr.open('GET', '/java-web-project/app/json/auth/user', true)
   xhr.send()
 }
 
