@@ -60,8 +60,8 @@ public class BoardController {
     return content;
   }
 
-  @GetMapping("{no}")
-  public Object detail(@PathVariable int no) {
+  @GetMapping("detail")
+  public Object detail(int no) {
     Board board = boardService.get(no);
     return board;
   }
@@ -80,8 +80,8 @@ public class BoardController {
     return content; 
   }
 
-  @GetMapping("delete/{no}")
-  public Object delete(@PathVariable int no) throws Exception {
+  @GetMapping("delete")
+  public Object delete(int no) throws Exception {
     HashMap<String,Object> content = new HashMap<>();
     try {
       if (boardService.delete(no) == 0) 

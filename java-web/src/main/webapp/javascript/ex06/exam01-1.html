@@ -30,6 +30,7 @@
 // click 이벤트에 대해 리스너를 등록하는 방법
 // 1) HTML 태그의 onclick 속성에 자바스크립트 코드를 넣는다.
 //    => 사용자가 태그를 클릭하면 이 속성의 등록된 자바스크립트 코드가 실행된다.
+//    위의 HTML 코드 예시 : <button id="btn1" onclick="var str='Hello'; window.alert(str);">버튼1</button><br>
 //    => 이 방식은 태그 안에 자바스크립트 코드가 섞여 있기 때문에 
 //       유지보수할 때 힘들다.
 //    => HTML 태그는 태그대로, 자바스크립트 코드는 코드대로 분리되어 있어야 
@@ -72,8 +73,8 @@ btn3.addEventListener("click", () => {
     window.alert(str);
 });
 btn3.addEventListener("click", function() {
-    console.log(this);
-    var str = "Hi3!!"; // 일반 함수 문법으로 정의한 리스너의 소속은 태그 객체이다.
+    console.log(this); // 일반 함수 문법으로 정의한 리스너의 소속은 태그 객체이다.
+    var str = "Hi3!!";
     window.alert(str);
 });
 

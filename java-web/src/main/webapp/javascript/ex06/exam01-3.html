@@ -13,7 +13,8 @@
 
 // 한 태그에 세가지 방법으로 등록된 리스너가 있을 때 호출되는 순서는?
 // => 만약 태그 객체에 대해 onclick 프로퍼티로 리스너(Hello1)를 등록했다면, 
-//    태그의 onclick 속성에 등록된 자바스크립트 코드는 실행되지 않는다.
+//    태그의 onclick 속성에 등록된 자바스크립트 코드(onclick="var str='Hello1'; window.alert(str);")는 
+//    실행되지 않는다.
 // => 태그 객체에 대해 onclick 프로퍼티로 등록한 리스너(Hello2)가 먼저 실행된다.
 //    그런 후에 addEventListener()로 등록한 태그가 있다면 그 리스너(Hello3)를 호출한다.
 // => 주의!
@@ -38,20 +39,12 @@ btn1.onclick = () => {
     window.alert(str);
 };
 
-
-
-
-
-
-
 // 만약 기존에 정의한 부분을 다시 쓰면 그 부분을 덮어쓰게 된다.
 // 조심하자.
 btn1.onclick = () => {
     var str = "오호라 덮어썼다.";
     window.alert(str);
 };
-
-
 
 </script>
 </body>
