@@ -30,7 +30,8 @@ document.querySelector("#btn1").onclick = () => {
     xhr.send();
     ta.value = xhr.responseText;
     
-    // 이 HTML 문사는 www.etnews.co.kr 에서 다운로드 받은 것이 아니기 때문에
+    // 이 HTML 문서는 www.etnews.co.kr 에서 다운로드 받은 것이 아니기 때문에
+    // xhr.open("GET", "http://www.etnews.co.kr", false);를 직접 실행하면
     // 웹브라우저는 응답받은 결과를 리턴하지 않는다.
     // => 실행하면 다음과 같은 오류가 뜬다.
     // No 'Access-Control-Allow-Origin' header is present on the requested resource.

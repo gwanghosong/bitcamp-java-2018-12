@@ -25,7 +25,7 @@ button {padding: 30px;}
 // 사용자의 행위가 아닌 프로그래밍으로 특정 이벤트를 발생시킬 수 있다.
 //
 // 
-document.getElementById("btn1").addEventListener("click", function(e) {
+document.getElementById("btn1").addEventListener("click", function() {
 	// #btn1을 눌렀을 때 #btn2에 click 이벤트 발생시키기
 	// 1) MouseEvent 만들기
 	var myEvent = new MouseEvent("click", {
