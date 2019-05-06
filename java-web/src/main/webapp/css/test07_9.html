@@ -27,6 +27,17 @@
     background: url('img03.jpg') no-repeat 20px -1px;
     background-size: 220px;
   }
+  /* 
+  16 * 16 만큼 크기의 div#state에 배경으로 img03.jpg를 지정
+  no-repeat 0 0;이라면 left-top을 기준으로 움직이지 않았기 때문에
+  책 모양 아이콘이 나와야함.
+  no-repeat 0% 0%; left-top에서
+  no-repeat 100% 100%; right-bottom으로 대각선으로 이동한다고 생각하면됨.
+  그렇다면 no-repeat 20px -1px;은
+  이 배경 자체를 20px만큼 오른쪽으로, -1px만큼 아래로(1px만큼 위로) 이동시켰음.
+  따라서 width가 16px인 div#state에는 배경이 이동해서 보이지 않아 공백이 보인다.
+  이렇게 한 이후 해당 조건에 맞으면 그 위치에 맞는 아이콘을 이것으로 설정하면 됨.
+  */
 
   </style>
 </head>
