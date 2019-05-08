@@ -4,12 +4,7 @@ var pageNo = 1,
       tbody = $('tbody'),
       prevPageLi = $('#prevPage'),
       nextPageLi = $('#nextPage'),
-      currSpan = $('#currPage > span'),
-      templateSrc = $('#tr-template').html(),  // script 태그에서 템플릿 데이터를 꺼낸다.
-
-// Handlebars를 통하여 템플릿 데이터를 가지고 최종 결과를 생성할 함수를 준비한다.
-var trGenerator = Handlebars.compile(templateSrc); 
-      
+      currSpan = $('#currPage > span');
 // JSON 형식의 데이터 목록 가져오기
 function loadList(pn) {
   
@@ -21,13 +16,18 @@ function loadList(pn) {
       
       // TR 태그를 생성하여 테이블 데이터를 갱신한다.
       tbody.html(''); // 이전에 출력한 내용을 제거한다.
-      
-      $(trGenerator(obj)).appendTo(tbody);
-      /*
-      for (var data of obj.list) {
-        $(trGenerator(data)).appendTo(tbody);
+      for (var data of obj.list) {  // jQuery에 값을 설정할 때마다 return this. 즉 계속 this객체를 리턴하기 때문에 .xxx.xxx.xxx가 가능해진다.
+        $('<tr>')
+        .append($('<th>').attr('scope', 'row').html(data.no))
+        .append($('<td>').append(
+            $('<a>').addClass('bit-view-link')
+                       .attr('href', '#')
+                       .attr('data-no', data.no)
+                       .html(data.contents)))
+        .append($('<td>').html(data.createdDate))
+        .append($('<td>').html(data.viewCount))
+        .appendTo(tbody);
       }
-      */
       
       // 현재 페이지의 번호를 갱신한다.
       currSpan.html(String(pageNo));
@@ -40,7 +40,7 @@ function loadList(pn) {
       }
       
       if (pageNo == obj.totalPage) {
-        nextPageLi.addClass('disabled'); // jQuery에 값을 설정할 때마다 return this. 즉 계속 this객체를 리턴하기 때문에 .xxx.xxx.xxx가 가능해진다.);
+        nextPageLi.addClass('disabled');
       } else {
         nextPageLi.removeClass('disabled');
       }
