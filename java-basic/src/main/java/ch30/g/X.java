@@ -14,7 +14,7 @@ public class X {
       case "*": return i * j;
       case "/": return i / j;
       default:
-        throw new RuntimeException("지원하지 않는 연산자입니다.");
+        throw new RuntimeException("지원하지 않는 연산자입니다!");
     }
   }
 }
