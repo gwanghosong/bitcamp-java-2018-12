@@ -20,7 +20,7 @@ String[] names = {"홍길동", "임꺽정", "유관순"};
 <title>ex07</title>
 </head>
 <%!
-// 다음과 같이 상속 받은 메서드를 오버라이딩 할 수 있다.
+// 다음과 같이 상속 받은 메서드를 오버라이딩 할 수 있다!
 public void jspInit() {
   System.out.println("ex06.jsp의 jspInit()");
 }
