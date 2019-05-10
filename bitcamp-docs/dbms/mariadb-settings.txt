@@ -45,7 +45,6 @@ mariadb 실행
 > service mariadb status
 ```
 
-
 ## mysql 서버에 접속하기
 로컬 MySQL 서버에 접속
 > mysql -u root -p
@@ -80,13 +79,13 @@ mariadb에서는 default 키워드를 사용하지 않는다.
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-> CREATE DATABASE studydb
+> CREATE DATABASE teamdb
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
   
 ## MySQL 사용자에게 데이터베이스 사용 권한 부여
 > GRANT ALL ON 데이터베이스명.* TO '사용자아이디'@'서버주소';
-> GRANT ALL ON studydb.* TO 'study'@'localhost';
+> GRANT ALL ON teamdb.* TO 'bitcamp'@'localhost';
 
 ## 데이터베이스 목록 조회
 > show databases;
