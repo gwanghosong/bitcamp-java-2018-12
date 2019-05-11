@@ -109,7 +109,7 @@ public class Controller05_1 {
   // Jackson Databind 의존 라이브러리를 추가해야 한다.
   // GsonHttpMessageConverter를 사용하려면 
   // Google GSON 의존 라이브러리를 추가해야 한다.
-  // 만약 동시에 추가한다면 기본으로 Jackson Databind 라이브러리를 사용해야 한다.
+  // 만약 동시에 추가한다면 기본으로 Jackson Databind 라이브러리를 사용한다.
   //
   // MappingJackson2HttpMessageConverter?
   // => 요청 파라미터로 JSON 문자열을 받으면 요청 핸들러를 호출할 때 자바 객체로 변환시킨다.

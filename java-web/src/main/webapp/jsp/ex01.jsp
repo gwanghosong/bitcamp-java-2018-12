@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>JSP</title>
 </head>
 <body>
 <h1>JSP 구동원리</h1>

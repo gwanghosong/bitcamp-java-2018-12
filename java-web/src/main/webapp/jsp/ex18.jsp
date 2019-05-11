@@ -20,7 +20,7 @@
         그러나 class에서는 제네릭을 지정할 수 없다.
         해결책?
         - type과 class를 함께써라!
-        - type으로 제네릭을 표혆고
+        - type으로 제네릭을 표현하고
         - class로 객체를 생성할 클래스를 지정하라!
          --%>
 <jsp:useBean id="list" 

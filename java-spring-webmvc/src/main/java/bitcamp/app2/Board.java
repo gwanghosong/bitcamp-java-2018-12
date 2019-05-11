@@ -11,6 +11,8 @@ public class Board {
   protected int viewCount;
   
   // 이 애노테이션을 setter나 필드에 붙이면 된다. 
+  // 주의! JsonFormat으로 db에서 sql문으로 date값을 뽑아온다면 
+  // Date객체를 java.sql.Date로 설정해야 정상 작동한다. 
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   protected Date createdDate;
   public int getNo() {
