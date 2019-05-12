@@ -12,7 +12,7 @@ import javax.servlet.ServletRequestListener;
 // : ServletContextListner
 //    - 서블릿 컨테이너를 시작하거나 종료할 때 보고 받고 싶다면 이 인터페이스를 구현하라.
 // : ServletRequestListener
-//    - 요청이 들어오거나 종료할 될 때 보고 받고 싶다면 이 인터페이스를 구현하라.
+//    - 요청이 들어오거나 종료될 때 보고 받고 싶다면 이 인터페이스를 구현하라.
 // : HttpSessionListener
 //    - 세션이 생성되거나 종료될 때 보고 받고 싶다면 이 인터페이스를 구현하라.
 // : XxxListener

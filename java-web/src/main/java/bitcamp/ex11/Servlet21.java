@@ -22,7 +22,7 @@ public class Servlet21 extends HttpServlet {
     
     HttpSession session = request.getSession();
     
-    // 세션의 유효시간(분)을 설정한다.
+    // 세션의 유효시간(분)을 설정한다. 톰캣은 30분이 디폴트
     session.setMaxInactiveInterval(10);
     
     session.setAttribute("v1", "aaa");

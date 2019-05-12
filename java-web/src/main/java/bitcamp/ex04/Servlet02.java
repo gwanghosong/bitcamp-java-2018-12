@@ -40,9 +40,13 @@ public class Servlet02 extends GenericServlet {
     //  즉 각 바이트에 그냥 00을 붙여 문자열을 만든 후 리턴한다.
     //  왜? 영어를 2바이트 유니코드를 만드는 것은 그냥 앞에 00 1바이트를 붙이면 되기 때문이다.
     //  위의 코드를 UTF-16으로 바꾸면 다음과 같다.
-    //  "0041 0042 0043 00EA 00B0 0080 00EA 00B0 0081"
+    //  "0041(A) 0042(B) 0043(C) 00EA(ê) 00B0(°) 0080(€) 00EA(ê) 00B0(°) 0081(네모)"
+    //  http://www.fileformat.info/info/charset/UTF-16/list.htm <= utf-16 code table
     //  이렇게 변환된 코드를 화면에 출력하면 다음 폰트로 보인다.
-    //  ABCê°ê°
+    //  ABCê°ê°
+    //  이미 UTF-16으로 변환할 때 ISO-8859-1로 오판하여 문자들을 변환하였기 때문에
+    //  response로 UTF-8로 변환하더라도 이미 잘못변환된 값들을 변환하여 출력하기 때문에
+    //  잘못된 값들이 출력된다.
     // cf) 웹브라우저가 사용하는 폰트는 OS에서 사용하는 폰트를 끌고와서 사용함.
     // cf) 해당 폰트에 해당코드에 해당하는 이미지가 없거나 다르면 문자가 출력되지 않거나 다르게 나옴.
     // 클라이언트가 보낸 한글이 깨지는 문제 해결책?
@@ -65,6 +69,8 @@ public class Servlet02 extends GenericServlet {
     
     String name= req.getParameter("name");
     int age = Integer.parseInt(req.getParameter("age"));
+    System.out.println(name);
+    System.out.println(age);
     
     res.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = res.getWriter();

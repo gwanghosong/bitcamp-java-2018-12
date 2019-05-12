@@ -27,7 +27,7 @@ public class Servlet04 extends GenericServlet {
   public void init() throws ServletException {
     // init(ServletConfig)가 호출될 때 이 메서드를 호출한다. 
     // 1) 파일을 저장할 디렉토리경로를 준비한다.
-    //  : 주의! 빈폴더는 배치가 안됨.
+    //  : 주의! 빈폴더는 배치가 안됨. 따라서 README.md 파일을 하나 생성해준다.
     // 환경정보를 다루는 ServletContext를 이용해서 구한다.
      this.uploadDir = this.getServletContext().getRealPath("/upload");
     // 여기서 첫번째 "/"는 context root 현재 web-application이 존재하는 경로이다.
@@ -61,14 +61,14 @@ public class Servlet04 extends GenericServlet {
     // 멀티 파트 데이터를 처리할 때는 다음의 인코딩 설정이 적용되지 않는다.
     // req.setCharacterEncoding("UTF-8");
 
-    // getParameter()가 null을 리턴한다는 것을 확인하기 위해
+    // getParameter()로 값을 받으면 null을 리턴한다는 것을 확인하기 위해
     // 파라미터 모두 String으로 받는다.
     //  : 멀티 파트 형식으로 전송된 데이터는 getParameter()로 꺼낼 수 없다.
     /*
     String age = req.getParameter("age");
     String name= req.getParameter("name");
     String photo = req.getParameter("photo");
-
+    
     res.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = res.getWriter();
     out.printf("이름=%s\n", name);

@@ -50,9 +50,11 @@ public class Servlet03 extends HttpServlet {
     out.println("</head><body>");
     // 버퍼가 꽉차서 클라이언트로 자동으로 출력되어 리다이렉트가 안먹히는 상황을 보고 싶다면
     // 다음 반복문 주석을 풀라!
-    // for (int i = 0; i < 3000; i++) { 
+    /*
+    for (int i = 0; i < 300000; i++) { 
       out.println("안녕하세요! - /ex08/s3");
-    // }
+    }
+     */
     out.println("</body></html>");
     
     // 클라이언트에게 URL을 알려줄 때 상대 경로를 지정할 수 있다.

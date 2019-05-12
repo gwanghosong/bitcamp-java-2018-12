@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 // 서블릿 클래스를 만든 후,
-// 배치 파일(web.xml; DD 파일)에 서블릿 정보를 등록해야만 실행될 수 있다.
+// 배치 파일(web.xml; DD(:Deployment Descriptor;배포서술자) 파일)에 서블릿 정보를 등록해야만 실행될 수 있다.
 // : WEB-INF/web.xml
 //
 // 서블릿 실행 방법

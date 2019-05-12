@@ -37,7 +37,7 @@ public class Servlet01 extends GenericServlet {
     HttpServletResponse httpRes = (HttpServletResponse) res;
     
     res.setContentType("text/plain;charset=UTF-8");
-    PrintWriter out = res.getWriter();
+    PrintWriter out = httpRes.getWriter();
     
     // HttpServletRequest에는 HTTP 프로토콜의 요청 방식을 리턴하는 메서드가 있다.
     //  : HttpServletRequest.getMethod()

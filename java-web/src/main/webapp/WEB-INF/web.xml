@@ -159,6 +159,11 @@
     <url-pattern>/ex04/s5</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>bitcamp.ex06.Servlet02</servlet-name>
+    <url-pattern>/ex06/s2</url-pattern>
+  </servlet-mapping>
+  
    <servlet-mapping>
     <servlet-name>bitcamp.ex06.Servlet04</servlet-name>
     <url-pattern>/ex06/s4</url-pattern>

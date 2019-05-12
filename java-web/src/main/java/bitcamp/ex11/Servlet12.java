@@ -30,7 +30,7 @@ public class Servlet12 extends HttpServlet {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>페이지2</title></head><body>");
     out.println("<form action='s13' method='post'>");
-    out.println("이름: <input type='text' name='age'><br>");
+    out.println("나이: <input type='text' name='age'><br>");
     out.println("<button>다음</button>");
     out.println("</form>");
     out.println("</body></html>");

@@ -20,6 +20,7 @@ public class Servlet03 extends GenericServlet {
     
     // HTML 출력할 때 MIME 타입에 HTML을 지정하지 않으면
     // 일반 텍스트 그대로 출력한다.
+    // test : text/html vs text/plain 
     res.setContentType("text/html;charset=UTF-8"); // UTF-16 ==> UTF-8
     PrintWriter out = res.getWriter();
     
