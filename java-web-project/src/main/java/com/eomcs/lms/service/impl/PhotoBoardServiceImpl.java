@@ -1,8 +1,14 @@
 package com.eomcs.lms.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -119,6 +125,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     // 전체 게시물의 개수
     return boardDao.countAll();
   }
+  
 }
 
 

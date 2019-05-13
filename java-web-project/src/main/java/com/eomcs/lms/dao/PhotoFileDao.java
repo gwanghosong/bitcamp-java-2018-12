@@ -7,4 +7,5 @@ public interface PhotoFileDao {
   int insert(List<PhotoFile> photoFiles);
   List<PhotoFile> findByPhotoBoardNo(int photoBoardNo);
   int deleteByPhotoBoardNo(int photoBoardNo);
+  public PhotoFile findOneByFileName(String fileName);
 }

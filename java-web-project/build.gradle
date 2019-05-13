@@ -63,6 +63,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
     
+    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa
+    //compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.7.RELEASE'
+    
+    
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
 }

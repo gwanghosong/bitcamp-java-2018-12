@@ -12,6 +12,7 @@
     <result column="titl"       property="title"/>
     <result column="cdt"        property="createdDate"/>
     <result column="vw_cnt"     property="viewCount"/>
+    <result column="cont" property="content"/>
   </resultMap>
   
   <resultMap type="photoBoard" id="photoBoardFileMap">
@@ -20,6 +21,7 @@
     <result column="titl"       property="title"/>
     <result column="cdt"        property="createdDate"/>
     <result column="vw_cnt"     property="viewCount"/>
+    <result column="cont" property="content"/>
     
     <association property="lesson" javaType="lesson">
       <id column="lesson_id"        property="no"/>
@@ -40,7 +42,8 @@
       photo_id, 
       titl, 
       cdt, 
-      vw_cnt, 
+      vw_cnt,
+      cont, 
       lesson_id 
     from 
       lms_photo
@@ -79,6 +82,7 @@
       p.photo_id, 
       p.titl, 
       p.cdt, 
+      p.cont,
       p.vw_cnt, 
       l.lesson_id,
       l.titl as lessonTitle,
@@ -106,6 +110,7 @@
           useGeneratedKeys="true" keyColumn="photo_id" keyProperty="no">
     insert into lms_photo(
       titl,
+      cont,
       lesson_id) 
     values(
       #{title}, 
