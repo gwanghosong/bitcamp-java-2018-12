@@ -21,12 +21,15 @@ ALTER TABLE atc
 
 CREATE TABLE upf (
   upf_id INTEGER(30) NOT NULL,
+  atc_id INTEGER(30) NULL,
   fn VARCHAR(255) NOT NULL,
   sfn VARCHAR(255) NOT NULL,
   sfp VARCHAR(255) NOT NULL,
   cont_type VARCHAR(255) NOT NULL,
   size BIGINT NOT NULL,
-  rdt     DATETIME    NULL     DEFAULT now()
+  rdt     DATETIME    NULL     DEFAULT now(),
+  constraint fk_upf_to_atc foreign key (atc_id) 
+  references atc (atc_id)
 );
 
 ALTER TABLE upf
@@ -34,6 +37,7 @@ ALTER TABLE upf
     PRIMARY KEY (
       upf_id
     );
+    
 
 
 ALTER TABLE upf
@@ -44,8 +48,8 @@ insert into atc(subj,cont)
 values('안녕하세요','반갑습니다.');
 
 
-insert into upf(fn,sfn,sfp,cont_type,size)
-values ('a','aaaa','images/aa','png','21690000');
+insert into upf(atc_id,fn,sfn,sfp,cont_type,size)
+values (1,'a','aaaa','images/aa','png','21690000');
   
   
   
