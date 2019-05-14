@@ -17,11 +17,6 @@
 
   <jsp:include page="../header.jsp" />
 
-  <c:if test="${not empty message}">
-    <div>
-      <h2>${message}</h2>
-    </div>
-  </c:if>
   <div class="container">
     <div class="header clearfix">
       <nav>
@@ -33,7 +28,7 @@
     <div class="row marketing">
       <div class="col-lg-12">
         <div class="form-area">
-          <form id="articleForm" role="form" action="/article" method="post">
+          <form id="articleForm" role="form" action="add" method="post">
             <br style="clear: both">
             <h3 style="margin-bottom: 25px;">Article Form</h3>
             <div class="form-group">
@@ -72,16 +67,89 @@
     $.ajax({
       data: form_data,
       type: "POST",
-      url: '/java-web-project/app/article/image',
+      url: '/java-web-project/app/image',
       cache: false,
       contentType: false,
       enctype: 'multipart/form-data',
       processData: false,
       success: function(url) {
+        console.log(url);
+        console.log(el);
         $(el).summernote('editor.insertImage', url);
       }
     });
   }
+  
+    $('#submit').click((e) => {
+     
+     
+      console.log(markupStr);
+      
+      addArticle(markupStr, arrNumber);
+    });
+    
+    $('#submit').click((e) =>{
+      e.preventDefault();
+      var xhr = new XMLHttpRequest();
+      var markupStr = $('#summernote').summernote('code');
+      var arrNumber = new Array();
+      var a = $('img').get();
+      for(var no of a) {
+        console.log(no);
+        var b = no.src;
+        console.log(b);
+        var c = b.substring(b.lastIndexOf("/") + 1, b.length);
+        console.log(c);
+       // var x = no.src.replace(no.src,'http://localhost:8080/java-web-project/app/article/' + c);
+       // console.log(x);
+        arrNumber.push(c);
+        console.log(arrNumber);
+      };
+      
+      var aJson = new Object();
+      aJson.content = markupStr;
+      aJson.noArr = arrNumber;
+      var sJson = JSON.stringify(aJson);
+      xhr.onreadystatechange = () => {
+          if (xhr.readyState == 4) {
+              if (xhr.status == 200) {
+                // 4번상태, 200표시 뜰때 실행
+                alert("저장되었습니다!");                
+              } else {
+                // 아니면 이거
+                alert("실행 오류 입니다!");
+              }
+          }
+      };
+      // 먼저 실행
+      xhr.open("POST", "article/add", true);
+      xhr.send();
+  });
+    
+    function addArticle(article, arrNumber) {
+      $.ajax({
+        data: {"article":article,"arrNumber":arrNumber},
+        type: "POST",
+        url: '/java-web-project/app/article/add',
+        cache: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false
+      });
+    };
+    
+   // $(document.body).bind('save-file',  function saveFile(no) {
+     // $.ajax({
+       // type: "GET",
+        //url: '/java-web-project/app/article/' + no,
+        //cache: false,
+        //contentType: false,
+        //processData: false,
+      //});
+    //});
+   
+    
+  
   </script>
 </body>
 </html>

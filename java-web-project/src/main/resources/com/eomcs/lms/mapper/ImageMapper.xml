@@ -7,8 +7,7 @@
 <mapper namespace="com.eomcs.lms.dao.ImageDao">
   
   <resultMap type="uploadFile" id="uploadFileMap">
-    <id column="upf_id"  property="id"/>
-    <result column="atc_id"   property="articleId"/>
+    <id column="img_tmp_id"  property="id"/>
     <result column="fn"   property="fileName"/>
     <result column="sfn"  property="saveFileName"/>
     <result column="sfp"  property="filePath"/>
@@ -19,8 +18,7 @@
   
   <select id="findAll" resultMap="uploadFileMap">
     select 
-      upf_id,
-      atc_id,
+      img_tmp_id,
       fn,
       sfn,
       sfp,
@@ -28,15 +26,14 @@
       size,
       rdt
     from 
-      upf
+      img_tmp
     order by 
-      upf_id asc
+      img_tmp_id asc
   </select>
   
   <select id="findOne" resultMap="uploadFileMap" parameterType="int">
     select 
-      upf_id,
-      atc_id,
+      img_tmp_id,
       fn,
       sfn,
       sfp,
@@ -44,16 +41,15 @@
       size,
       rdt
     from 
-      upf
+      img_tmp
     where
-      upf_id = #{value}
+      img_tmp_id = #{value}
      
   </select>
   
   <select id="findOneByFileName" resultMap="uploadFileMap" parameterType="string">
     select 
-      upf_id,
-      atc_id,
+      img_tmp_id,
       fn,
       sfn,
       sfp,
@@ -61,7 +57,7 @@
       size,
       rdt
     from 
-      upf
+      img_tmp
     where
       fn = #{value}
      
@@ -69,8 +65,7 @@
     
   <select id="findOneBySaveFilePath" resultMap="uploadFileMap" parameterType="string">
     select 
-      upf_id,
-      atc_id,
+      img_tmp_id,
       fn,
       sfn,
       sfp,
@@ -78,14 +73,15 @@
       size,
       rdt
     from 
-      upf
+      img_tmp
     where
       sfp = #{value}
      
   </select>
   
-  <insert id="save" parameterType="uploadFile">
-    insert into upf(
+  <insert id="save" parameterType="uploadFile"
+      useGeneratedKeys="true" keyColumn="img_tmp_id" keyProperty="id">
+    insert into img_tmp(
       fn,
       sfn,
       sfp,

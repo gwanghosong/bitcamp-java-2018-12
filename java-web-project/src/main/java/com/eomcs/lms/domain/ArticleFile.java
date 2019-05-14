@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class UploadFile implements Cloneable, Serializable {
+public class ArticleFile implements Cloneable, Serializable {
 
   private static final long serialVersionUID = 1L;
   
   int id;
+  int articleId;
   String fileName;
   String saveFileName;
   String filePath;
@@ -20,9 +21,9 @@ public class UploadFile implements Cloneable, Serializable {
 
   @Override
   public String toString() {
-    return "UploadFile [id=" + id + ", fileName=" + fileName + ", saveFileName=" + saveFileName
-        + ", filePath=" + filePath + ", ContentType=" + ContentType + ", size=" + size
-        + ", regDate=" + regDate + "]";
+    return "ArticleFile [id=" + id + ", articleId=" + articleId + ", fileName=" + fileName
+        + ", saveFileName=" + saveFileName + ", filePath=" + filePath + ", ContentType="
+        + ContentType + ", size=" + size + ", regDate=" + regDate + "]";
   }
 
   public int getId() {
@@ -31,6 +32,14 @@ public class UploadFile implements Cloneable, Serializable {
 
   public void setId(int id) {
     this.id = id;
+  }
+
+  public int getArticleId() {
+    return articleId;
+  }
+
+  public void setArticleId(int articleId) {
+    this.articleId = articleId;
   }
 
   public String getFileName() {
@@ -80,6 +89,8 @@ public class UploadFile implements Cloneable, Serializable {
   public void setRegDate(Date regDate) {
     this.regDate = regDate;
   }
+
+ 
 
  
 }

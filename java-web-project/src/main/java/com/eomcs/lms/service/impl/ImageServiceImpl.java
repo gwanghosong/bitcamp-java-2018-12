@@ -23,7 +23,7 @@ import com.eomcs.lms.util.UploadFileUtils;
 @Service
 public class ImageServiceImpl implements ImageService {
   
-  private static final Logger logger = LogManager.getLogger(ImageService.class);
+  private static final Logger logger = LogManager.getLogger(ImageServiceImpl.class);
   
   @Autowired ServletContext servletContext;
   private Path rootLocation;
@@ -39,6 +39,7 @@ public class ImageServiceImpl implements ImageService {
     this.uploadDir = servletContext.getRealPath("/upload/uploadFile");
     logger.info("PATH :: " + uploadPath);
     this.rootLocation = Paths.get(this.uploadDir);
+    logger.info(this.rootLocation);
   }
   
   public Stream<Integer> loadAll() {
@@ -58,6 +59,7 @@ public class ImageServiceImpl implements ImageService {
           
           Path file = loadPath(fileName);
           Resource resource = new UrlResource(file.toUri());
+          logger.info(resource);
           if (resource.exists() || resource.isReadable()) {
               return resource;
           } else {
@@ -94,7 +96,7 @@ public class ImageServiceImpl implements ImageService {
         saveFile.setSize(resource.contentLength());
         saveFile.setRegDate(new java.sql.Date(new Date().getTime()));
         imageDao.save(saveFile);
-        saveFile = imageDao.findOneBySaveFilePath(saveFile.getFilePath());
+        saveFile = imageDao.findOne(saveFile.getId());
         
         return saveFile;
     } catch (IOException e) {

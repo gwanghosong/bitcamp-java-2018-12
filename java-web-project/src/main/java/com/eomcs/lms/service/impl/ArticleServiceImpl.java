@@ -3,6 +3,7 @@ package com.eomcs.lms.service.impl;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.eomcs.lms.dao.ArticleDao;
+import com.eomcs.lms.dao.ArticleFileDao;
 import com.eomcs.lms.domain.Article;
 import com.eomcs.lms.service.ArticleService;
 
@@ -10,14 +11,15 @@ import com.eomcs.lms.service.ArticleService;
 public class ArticleServiceImpl implements ArticleService {
 
   ArticleDao articleDao;
+  ArticleFileDao articleFileDao;
   
-  public ArticleServiceImpl(ArticleDao articleDao) {
+  public ArticleServiceImpl(ArticleDao articleDao, ArticleFileDao articleFileDao) {
     this.articleDao = articleDao;
+    this.articleFileDao = articleFileDao;
   }
   
   @Override
   public Article get(int id) {
-    
     return articleDao.findByNo(id);
   }
 
