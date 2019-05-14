@@ -1,5 +1,6 @@
-DROP TABLE upf;
+DROP TABLE atc_file;
 DROP TABLE atc;
+DROP TABLE img_tmp;
 
 CREATE TABLE atc (
   atc_id INTEGER(30) NOT NULL,
@@ -47,7 +48,7 @@ CREATE TABLE img_tmp (
   img_tmp_id INTEGER(30) NOT NULL,
   fn VARCHAR(255) NOT NULL,
   sfn VARCHAR(255) NOT NULL,
-  fp VARCHAR(255) NOT NULL,
+  sfp VARCHAR(255) NOT NULL,
   cont_type VARCHAR(255) NOT NULL,
   size BIGINT NOT NULL,
   rdt     DATETIME    NULL     DEFAULT now());
