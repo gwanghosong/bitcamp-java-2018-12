@@ -36,7 +36,7 @@ public class ImageServiceImpl implements ImageService {
   }
   
   public void preparePath(String uploadPath) {
-    this.uploadDir = servletContext.getRealPath("/upload/uploadFile");
+    this.uploadDir = servletContext.getRealPath("/upload/temporary");
     logger.info("PATH :: " + uploadPath);
     logger.info("저장할경로 : " + uploadDir);
     this.rootLocation = Paths.get(this.uploadDir);

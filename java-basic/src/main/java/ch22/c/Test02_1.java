@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 public class Test02_1 {
   public static void main(String[] args) {
 
-    FileOutputStream out= null;
+    FileOutputStream out = null;
     
     try {
       out = new FileOutputStream("data.bin");

@@ -16,10 +16,5 @@ public interface ArticleService {
   int add(String subject, String content, ArrayList<Object> addNo) throws Exception;
   
   
-  public HashMap<String, Object> store(MultipartFile file) throws Exception;
-  public void preparePath(String uploadPath);
-  public Stream<Integer> loadAll();
-  public UploadFile load(int fileId);
-  public Resource loadAsResource(String fileName) throws Exception;
-  public Path loadPath(String fileName);
+
 }

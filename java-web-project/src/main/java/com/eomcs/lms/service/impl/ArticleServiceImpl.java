@@ -2,29 +2,17 @@ package com.eomcs.lms.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 import javax.servlet.ServletContext;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.eomcs.lms.dao.ArticleDao;
 import com.eomcs.lms.dao.ArticleFileDao;
 import com.eomcs.lms.dao.ImageDao;
@@ -32,7 +20,6 @@ import com.eomcs.lms.domain.Article;
 import com.eomcs.lms.domain.ArticleFile;
 import com.eomcs.lms.domain.UploadFile;
 import com.eomcs.lms.service.ArticleService;
-import com.eomcs.lms.util.UploadFileUtils;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -44,8 +31,6 @@ public class ArticleServiceImpl implements ArticleService {
   ImageDao imageDao;
   
   @Autowired ServletContext servletContext;
-  private Path rootLocation;
-  private String uploadDir;
   
   public ArticleServiceImpl(ArticleDao articleDao, ArticleFileDao articleFileDao, ImageDao imageDao) {
     this.articleDao = articleDao;
@@ -81,111 +66,84 @@ public class ArticleServiceImpl implements ArticleService {
       articleFile.setSaveFileName(uploadFile.getSaveFileName());
       String filePath = uploadFile.getFilePath();
       String changeFilePath = 
-          filePath.replaceAll("/java-web-project/upload/uploadFile/", "/java-web-project/upload/articleFile/");
+          filePath.replaceAll("temporary", "article");
       articleFile.setFilePath(changeFilePath);
       articleFile.setContentType(uploadFile.getContentType());
       articleFile.setSize(uploadFile.getSize());
-        try {
-         store(prepareMultipartFile(changeFilePath));
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      articleFileDao.insert(articleFile);
       
+      String saveFathName = uploadFile.getSaveFileName();
+      String sfn = saveFathName.substring(0, saveFathName.lastIndexOf("/"));
+      String year = sfn.split("/")[0];
+      String month = sfn.split("/")[1];
+      String date = sfn.split("/")[2];
+      String oldPath = changeFilePath.substring(0, changeFilePath.lastIndexOf("\\") + 1);
+      System.out.println(servletContext.getAttribute("contextRootPath"));
+      String copyPath = 
+          servletContext.getRealPath("./")
+          + "upload\\article"
+          + "\\" + year 
+          + "\\" + month 
+          + "\\" + date 
+          + "\\" + changeFilePath.substring(changeFilePath.lastIndexOf("/") + 1);
+      logger.info("oldPath ==>" + oldPath); 
+      logger.info("copyPath ==>" + copyPath);
+      if (moveFile(filePath, copyPath))
+        articleFileDao.insert(articleFile);
     }
     return count;
   }
   
   
-  public void preparePath(String uploadPath) {
-    this.uploadDir = servletContext.getRealPath("/upload/articleFile");
-    logger.info("PATH :: " + uploadPath);
-    logger.info("저장할경로 : " + uploadDir);
-    this.rootLocation = Paths.get(this.uploadDir);
-    logger.info(this.rootLocation);
-  }
-  
-  public Stream<Integer> loadAll() {
-      List<UploadFile> files = imageDao.findAll();
-      return files.stream().map(file -> file.getId());
-  }
-  
-  public UploadFile load(int fileId) {
-      return imageDao.findOne(fileId);
-  }
-  
-  public Resource loadAsResource(String fileName) throws Exception {
-      try {
-          if (fileName.toCharArray()[0] == '/') {
-              fileName = fileName.substring(1);
-          }
-          
-          Path file = loadPath(fileName);
-          Resource resource = new UrlResource(file.toUri());
-          logger.info(resource);
-          if (resource.exists() || resource.isReadable()) {
-              return resource;
-          } else {
-              throw new Exception("Could not read file: " + fileName);
-          }
-      } catch (Exception e) {
-          throw new Exception("Could not read file: " + fileName);
-      }
-  }
-  
-  public Path loadPath(String fileName) {
-      return rootLocation.resolve(fileName);
-  }
-  
-  public HashMap<String,Object> store(MultipartFile file) throws Exception {
-    try {
-        if (file.isEmpty()) {
-            throw new Exception("Failed to store empty file " + file.getOriginalFilename());
-        }
-        
-        String saveFileName = UploadFileUtils.fileSave(uploadDir, file);
-        
-        if (saveFileName.toCharArray()[0] == '/') {
-            saveFileName = saveFileName.substring(1);
-        }
-        
-        Resource resource = loadAsResource(saveFileName);
-        
-        HashMap<String,Object> value = new HashMap<>();
-        value.put("saveFileName", saveFileName);
-        value.put("originalFilename", file.getOriginalFilename());
-        value.put("contentType", file.getContentType());
-        value.put("filePath", uploadDir + File.separator + saveFileName);
-        value.put("size", resource.contentLength());
-        
-        return value;
-    } catch (IOException e) {
-        throw new Exception("Failed to store file " + file.getOriginalFilename(), e);
-    }
+//파일을 해당위치로 복사하고 지운다.
+public boolean moveFile(String source, String dest) {
+   boolean result = false;
+   
+   // 새롭게 저장할 위치에 폴더생성
+   try {
+     new File(dest).getParentFile().mkdirs();
+   } catch (Exception e) {
+     e.printStackTrace();
+   }
+       
+   // 스트림 선언
+   FileInputStream inputStream = null;
+   FileOutputStream outputStream = null;
+       
+   try {
+     // 스트림 생성
+       inputStream = new FileInputStream(source);
+       outputStream = new FileOutputStream(dest);
+   } catch (FileNotFoundException e) {
+       e.printStackTrace();
+       result = false;
+   }
+
+   // 채널 선언, 채널 생성
+   FileChannel fcin = inputStream.getChannel();
+   FileChannel fcout = outputStream.getChannel();
+       
+   // 채널을 통한 스트림 전송
+   long size = 0;
+   try {
+       size = fcin.size();
+       fcin.transferTo(0, size, fcout);
+           
+       fcout.close();
+       fcin.close();
+       outputStream.close();
+       inputStream.close();
+           
+       result = true;
+   } catch (IOException e) {
+       e.printStackTrace();
+       result = false;
+   }
+       
+   // 원본파일 삭제
+   File f = new File(source);
+   if (f.delete()) {
+       result = true;
+   }
+   return result;
 }
-  
-  public MultipartFile prepareMultipartFile(String path) throws Exception {
-    File file = new File("/home/bitcamp/eclipse-workspace2/.metadata/.plugins/org.eclipse.wst.server.core/tmp3/wtpwebapps/java-web-project/upload/uploadFile/2019/05/15/7be7bf2bd9994241a06629d1596cb461.png");
-    FileItem fileItem = new DiskFileItem(
-        "mainFile", 
-        Files.probeContentType(file.toPath()), 
-        false, 
-        file.getName(), 
-        (int) file.length(), 
-        file.getParentFile());
-
-    try {
-        InputStream input = new FileInputStream(file);
-        OutputStream os = fileItem.getOutputStream();
-        IOUtils.copy(input, os);
-        // Or faster..
-        // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
-    } catch (IOException ex) {
-        // do something.
-    }
-
-    MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
-    
-    return multipartFile;
-  }
 }

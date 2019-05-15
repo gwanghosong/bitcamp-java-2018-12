@@ -22,7 +22,7 @@ public class Test01_1 {
     while ((b = in.read()) != -1) {
     }
     
-    
+    System.out.println(b);
     long end = System.currentTimeMillis();
     System.out.println(end - start);
     

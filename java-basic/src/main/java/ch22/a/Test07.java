@@ -8,7 +8,7 @@ public class Test07 {
   public static void main(String[] args) throws Exception {
 
     // 폴더와 파일을 한 번에 생성하는 방법
-    File file = new File("temp2/a/b/c/test.txt");
+    File file = new File("temp2/a/b/c/test.jpg");
     
     // 파일의 디렉토리 경로를 가지로 File 객체 생성
     
