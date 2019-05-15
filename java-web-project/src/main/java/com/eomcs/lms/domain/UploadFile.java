@@ -81,5 +81,6 @@ public class UploadFile implements Cloneable, Serializable {
     this.regDate = regDate;
   }
 
+  
  
 }

@@ -19,8 +19,10 @@ public class UploadFileUtils {
    */
   public static String fileSave(String uploadPath, MultipartFile file) throws IllegalStateException, IOException {
       
+      // 파일경로명으로 파일 객체 생성
       File uploadPathDir = new File(uploadPath);
       
+      // 파일경로가 없다면 없는 경로마다 폴더생성
       if ( !uploadPathDir.exists() ){
           uploadPathDir.mkdirs();
       }
@@ -29,18 +31,53 @@ public class UploadFileUtils {
       String genId = UUID.randomUUID().toString();
       genId = genId.replace("-", "");
       
+      // 파일명 꺼내기
       String originalfileName = file.getOriginalFilename();
+      
+      // 확장자명 꺼내기
       String fileExtension = getExtension(originalfileName);
+      
+      // UUID + 확장자명으로 파일명 생성
       String saveFileName = genId + "." + fileExtension;
       
+      // 저장경로 하위에 .../년/월/일/ 디렉토리 생성
       String savePath = calcPath(uploadPath);
       
+      // /년/월/일 디렉토리경로를 포함하여 경로를 설정하고 UUID로 설정한 파일명으로 파일객체 생성
       File target = new File(uploadPath + savePath, saveFileName);
       
+      // 파일복사
       FileCopyUtils.copy(file.getBytes(), target);
       
+      // /년/월/일/UUID파일명 경로 리턴
       return makeFilePath(uploadPath, savePath, saveFileName);
   }
+  
+  public static String fileCopy(String uploadPath, MultipartFile file) throws IllegalStateException, IOException {
+    
+    // 파일경로명으로 파일 객체 생성
+    File uploadPathDir = new File(uploadPath);
+    
+    // 파일경로가 없다면 없는 경로마다 폴더생성
+    if ( !uploadPathDir.exists() ){
+        uploadPathDir.mkdirs();
+    }
+    
+    // 파일명 꺼내기
+    String originalfileName = file.getOriginalFilename();
+    
+    // 저장경로 하위에 .../년/월/일/ 디렉토리 생성
+    String savePath = calcPath(uploadPath);
+    
+    // /년/월/일 디렉토리경로를 포함하여 경로를 설정하고 파일명으로 파일객체 생성
+    File target = new File(uploadPath + savePath, originalfileName);
+    
+    // 파일복사
+    FileCopyUtils.copy(file.getBytes(), target);
+    
+    // /년/월/일/파일명 경로 리턴
+    return makeFilePath(uploadPath, savePath, originalfileName);
+}
   
   /**
    * 파일이름으로부터 확장자를 반환
@@ -64,7 +101,7 @@ public class UploadFileUtils {
       Calendar cal = Calendar.getInstance();
       
       String yearPath = File.separator + cal.get(Calendar.YEAR);
-      String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH));
+      String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
       String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
       
       makeDir(uploadPath, yearPath, monthPath, datePath);

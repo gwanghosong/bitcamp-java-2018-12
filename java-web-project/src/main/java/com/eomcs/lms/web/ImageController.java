@@ -30,9 +30,11 @@ public class ImageController {
   @ResponseBody
   public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
       try {
-          imageService.preparePath(file.getOriginalFilename());
+          String ofn = file.getOriginalFilename();
+          logger.info("파일경로" + ofn);
+          imageService.preparePath(ofn);
           UploadFile uploadedFile = imageService.store(file);
-          ResponseEntity<String> callUrl = ResponseEntity.ok().body("../image/" + uploadedFile.getId());
+          ResponseEntity<String> callUrl = ResponseEntity.ok().body("../../../java-web-project/app/image/" + uploadedFile.getId());
           logger.info(callUrl);
           return callUrl;
       } catch (Exception e) { 

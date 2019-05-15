@@ -37,7 +37,8 @@
       atc_id = #{value}
   </select>
   
-  <insert id="insert" parameterType="article">
+  <insert id="insert" parameterType="article"
+      useGeneratedKeys="true" keyColumn="atc_id" keyProperty="id">
     insert into atc(subj,cont) 
     values(#{subject},#{content})
   </insert>

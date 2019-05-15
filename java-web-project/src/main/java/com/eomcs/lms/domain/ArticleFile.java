@@ -13,7 +13,7 @@ public class ArticleFile implements Cloneable, Serializable {
   String fileName;
   String saveFileName;
   String filePath;
-  String ContentType;
+  String contentType;
   long size;
   
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
@@ -22,8 +22,8 @@ public class ArticleFile implements Cloneable, Serializable {
   @Override
   public String toString() {
     return "ArticleFile [id=" + id + ", articleId=" + articleId + ", fileName=" + fileName
-        + ", saveFileName=" + saveFileName + ", filePath=" + filePath + ", ContentType="
-        + ContentType + ", size=" + size + ", regDate=" + regDate + "]";
+        + ", saveFileName=" + saveFileName + ", filePath=" + filePath + ", contentType="
+        + contentType + ", size=" + size + ", regDate=" + regDate + "]";
   }
 
   public int getId() {
@@ -67,11 +67,11 @@ public class ArticleFile implements Cloneable, Serializable {
   }
 
   public String getContentType() {
-    return ContentType;
+    return contentType;
   }
 
   public void setContentType(String contentType) {
-    ContentType = contentType;
+    this.contentType = contentType;
   }
 
   public long getSize() {
@@ -90,6 +90,7 @@ public class ArticleFile implements Cloneable, Serializable {
     this.regDate = regDate;
   }
 
+  
  
 
  

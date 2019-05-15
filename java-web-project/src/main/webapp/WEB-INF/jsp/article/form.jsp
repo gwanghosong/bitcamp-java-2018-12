@@ -37,7 +37,6 @@
             <div class="form-group">
               <textarea class="form-control" id="summernote" name="content" placeholder="content" maxlength="140" rows="7"></textarea>
             </div>
-            <div class="summernote" id="summernote1" style="display: none;"></div>
             <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
           </form>
         </div>
@@ -100,33 +99,36 @@
         console.log(b);
         var c = b.substring(b.lastIndexOf("/") + 1, b.length);
         console.log(c);
-        //var x = no.src.replace(no.src,'http://localhost:8080/java-web-project/app/article/' + c);
-        //console.log(x);
         arrNumber.push(c);
         console.log(arrNumber);
-
-        //var z = $('img:eq(no)').attr("src","http://localhost:8080/java-web-project/app/article/" + c);
-        //console.log(z);
       };
-      var sn = document.getElementById('summernote');
-      console.log(sn);
-      var imgs = sn.getElementsByTagName('img');
-      for (var i = 0; i < imgs.length; i++) {
-        var img = imgs[i];
-        var url = "../article/image/" + arrNumber[i];
-        $('#summernote1').summernote("editor.insertImage", url);
-        //img.src.setAttribute("src","../article/image/" + arrNumber[i]);
-      }
-      console.log(sn);
-      var markupStr = $('#summernote1').summernote('code');
+      //var sn = document.getElementById('summernote');
+      //console.log(sn);
+      //var imgs = sn.getElementsByTagName('img');
+      //for (var i = 0; i < imgs.length; i++) {
+      //  var img = imgs[i];
+   //     var url = "../article/image/" + arrNumber[i];
+  //      $('#summernote1').summernote("editor.insertImage", url);
+     //   //img.src.setAttribute("src","../article/image/" + arrNumber[i]);
+     // }
+    //  console.log(sn);
+      
+      var markupStr = $('#summernote').summernote('code');
       console.log(markupStr);
+      var subjectStr = $('#subject').val();
+      console.log(subjectStr);
+      //var article = {
+        //  subject: subjectStr,
+          //content: markupStr
+     // };
       var aJson = new Object();
       aJson.content = markupStr;
       aJson.noArr = arrNumber;
+      aJson.subject = subjectStr;
       var sJson = JSON.stringify(aJson);
       xhr.onreadystatechange = () => {
           if (xhr.readyState == 4) {
-              if (xhr.status == 200) {
+              if (xhr.status == 200) {  
                 // 4번상태, 200표시 뜰때 실행
                 alert("저장되었습니다!");                
               } else {
@@ -139,6 +141,7 @@
       xhr.open("POST", "../../app/article/add", true);
       xhr.setRequestHeader("Content-type", "application/json");
       xhr.send(sJson);
+      //xhr.send(JSON.stringify(article));
   });
     
    // function addArticle(article, arrNumber) {
