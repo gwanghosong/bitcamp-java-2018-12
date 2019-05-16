@@ -1,20 +1,16 @@
 package com.eomcs.lms.service;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 import com.eomcs.lms.domain.Article;
-import com.eomcs.lms.domain.UploadFile;
+import com.eomcs.lms.domain.ArticleFile;
 
 public interface ArticleService {
-  List<Article> list();
-  Article get(int id);
-  int add(String subject, String content, ArrayList<Object> addNo) throws Exception;
-  
-  
-
+  public List<Article> list();
+  public Article get(int id);
+  public void add(String subject, String content, ArrayList<Object> addNo) throws Exception;
+  public ArticleFile viewFile(int fileId);
+  public Resource loadAsResource(String fileName) throws Exception;
+  public void preparePath(String uploadPath);
 }

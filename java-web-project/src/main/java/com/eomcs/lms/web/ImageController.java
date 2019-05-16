@@ -49,10 +49,11 @@ public class ImageController {
       try {
           UploadFile uploadedFile = imageService.load(fileId);
           HttpHeaders headers = new HttpHeaders();
+          logger.info("임시저장파일이름 ===> " + uploadedFile.getSaveFileName());
           
           Resource resource = imageService.loadAsResource(uploadedFile.getSaveFileName());
           String fileName = uploadedFile.getFileName();
-          logger.info(fileName);
+          logger.info("FileName ==> " + fileName);
           headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
 
           if (MediaUtils.containsImageMediaType(uploadedFile.getContentType())) {

@@ -25,7 +25,7 @@
               <a href="#">${article.subject}</a> <span class="pull-right text-right"> ${article.regDate} </span>
             </h3>
           </div>
-          <div id="summernote"></div>
+          <div id="summernote">${article.content}</div>
         </div>
       </div>
     </div>
@@ -35,45 +35,8 @@
   height: 300,                 // set editor height
   minHeight: null,             // set minimum height of editor
   maxHeight: null,             // set maximum height of editor
-  focus: true           // set focus to editable area after initializing summernote
+  focus: true;           // set focus to editable area after initializing summernote
 });
-  
-  var markupstr = '${article.content}';
-  $('#summernote').summernote('code', markupstr);
-  
-  $(document).ready(function() {
-    $('#summernote').summernote({
-      height: 300,
-      minHeight: null,
-      maxHeight: null,
-      focus: true,
-      callbacks: {
-        onImageUpload: function(files, editor, welEditable) {
-          for (var i = files.length - 1; i >= 0; i--) {
-            sendFile(files[i], this);
-          }
-        }
-      }
-    });
-  });
-  
-  function sendFile(file, el) {
-    var form_data = new FormData();
-    form_data.append('file', file);
-    $.ajax({
-      data: form_data,
-      type: "POST",
-      url: '/java-web-project/app/image',
-      cache: false,
-      contentType: false,
-      enctype: 'multipart/form-data',
-      processData: false,
-      success: function(url) {
-        console.log(url);
-        $(el).summernote('editor.insertImage', url);
-      }
-    });
-  }
   </script>
 </body>
 </html>

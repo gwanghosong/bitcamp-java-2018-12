@@ -17,7 +17,24 @@
     <result column="rdt" property="regDate"/>
   </resultMap>
   
-  <insert id="insert" parameterType="articleFile">
+  <select id="findOne" resultMap="articleFileMap" parameterType="int">
+    select
+      atc_file_id,
+      atc_id,
+      fn,
+      sfn,
+      fp,
+      cont_type,
+      size,
+      rdt
+    from
+      atc_file
+    where
+      atc_file_id = #{value}
+  </select>
+  
+  <insert id="insert" parameterType="articleFile"
+    useGeneratedKeys="true" keyColumn="atc_file_id" keyProperty="id">
     insert into atc_file(atc_id,fn,sfn,fp,cont_type,size) 
     values(
       #{articleId},

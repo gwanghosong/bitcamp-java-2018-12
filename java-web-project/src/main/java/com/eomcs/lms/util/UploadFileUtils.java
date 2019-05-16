@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+import com.eomcs.lms.service.impl.ArticleServiceImpl;
 
 public class UploadFileUtils {
+  
+  private static final Logger logger = LogManager.getLogger(ArticleServiceImpl.class);
   
   /**
    * @param filePath
@@ -53,7 +58,8 @@ public class UploadFileUtils {
       return makeFilePath(uploadPath, savePath, saveFileName);
   }
   
-  public static String fileCopy(String uploadPath, MultipartFile file) throws IllegalStateException, IOException {
+  public static String fileCopy(
+      String uploadPath, MultipartFile file) throws IllegalStateException, IOException {
     
     // 파일경로명으로 파일 객체 생성
     File uploadPathDir = new File(uploadPath);
@@ -87,6 +93,7 @@ public class UploadFileUtils {
    * @return 파일 이름에서 뒤의 확장자 이름만을 반환
    */
   public static String getExtension(String fileName) {
+    
       int dotPosition = fileName.lastIndexOf('.');
       
       if (-1 != dotPosition && fileName.length() - 1 > dotPosition) {
@@ -101,8 +108,14 @@ public class UploadFileUtils {
       Calendar cal = Calendar.getInstance();
       
       String yearPath = File.separator + cal.get(Calendar.YEAR);
-      String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-      String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+      String monthPath = 
+          yearPath + 
+          File.separator + 
+          new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+      String datePath = 
+          monthPath + 
+          File.separator + 
+          new DecimalFormat("00").format(cal.get(Calendar.DATE));
       
       makeDir(uploadPath, yearPath, monthPath, datePath);
       
@@ -111,7 +124,11 @@ public class UploadFileUtils {
   
   private static void makeDir(String uploadPath, String... paths) {
       
-      System.out.println(paths[paths.length - 1] + " : " + new File(paths[paths.length - 1]).exists());
+      logger.info(
+          paths[paths.length - 1] + 
+          " : " + 
+          new File(paths[paths.length - 1]).exists());
+      
       if (new File(paths[paths.length - 1]).exists()) {
           return;
       }
@@ -125,7 +142,9 @@ public class UploadFileUtils {
       }
   }
   
-  private static String makeFilePath(String uploadPath, String path, String fileName) throws IOException {
+  private static String makeFilePath(
+      String uploadPath, String path, String fileName) throws IOException {
+    
       String filePath = uploadPath + path + File.separator + fileName;
       return filePath.substring(uploadPath.length()).replace(File.separatorChar, '/');
   }

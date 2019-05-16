@@ -79,14 +79,6 @@
       }
     });
   }
-  
-    //$('#submit').click((e) => {
-     
-     
-     // console.log(markupStr);
-      
-      //addArticle(markupStr, arrNumber);
-    //});
     
     $('#submit').click((e) =>{
       e.preventDefault();
@@ -102,25 +94,12 @@
         arrNumber.push(c);
         console.log(arrNumber);
       };
-      //var sn = document.getElementById('summernote');
-      //console.log(sn);
-      //var imgs = sn.getElementsByTagName('img');
-      //for (var i = 0; i < imgs.length; i++) {
-      //  var img = imgs[i];
-   //     var url = "../article/image/" + arrNumber[i];
-  //      $('#summernote1').summernote("editor.insertImage", url);
-     //   //img.src.setAttribute("src","../article/image/" + arrNumber[i]);
-     // }
-    //  console.log(sn);
       
       var markupStr = $('#summernote').summernote('code');
       console.log(markupStr);
       var subjectStr = $('#subject').val();
       console.log(subjectStr);
-      //var article = {
-        //  subject: subjectStr,
-          //content: markupStr
-     // };
+
       var aJson = new Object();
       aJson.content = markupStr;
       aJson.noArr = arrNumber;
@@ -141,33 +120,8 @@
       xhr.open("POST", "../../app/article/add", true);
       xhr.setRequestHeader("Content-type", "application/json");
       xhr.send(sJson);
-      //xhr.send(JSON.stringify(article));
   });
-    
-   // function addArticle(article, arrNumber) {
-      //$.ajax({
-      //  data: {"article":article,"arrNumber":arrNumber},
-      ///  type: "POST",
-     //   url: '/java-web-project/app/article/add',
-    //    cache: false,
-     //   contentType: false,
-   //     enctype: 'multipart/form-data',
-  //      processData: false
-   //   });
-   // };
-    
-   // $(document.body).bind('save-file',  function saveFile(no) {
-     // $.ajax({
-       // type: "GET",
-        //url: '/java-web-project/app/article/' + no,
-        //cache: false,
-        //contentType: false,
-        //processData: false,
-      //});
-    //});
-   
-    
-  
+
   </script>
 </body>
 </html>

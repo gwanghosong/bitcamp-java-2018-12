@@ -14,7 +14,7 @@
   <div class="container">
     <h1>게시물 목록</h1>
     <p>
-      <a href='form' class="btn btn-primary btn-sm">새 글</a>
+      <a href='article/form' class="btn btn-primary btn-sm">새 글</a>
     </p>
 
     <div class="bit-list">
@@ -31,7 +31,7 @@
           <c:forEach items="${list}" var="article">
             <tr>
               <th scope="row">${article.id}</th>
-              <td><a href='${article.id}'>${article.subject}</a></td>
+              <td><a href='article/${article.id}'>${article.subject}</a></td>
               <td>${article.regDate}</td>
               <td>${article.updDate}</td>
             </tr>

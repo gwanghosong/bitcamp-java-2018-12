@@ -42,6 +42,13 @@
     insert into atc(subj,cont) 
     values(#{subject},#{content})
   </insert>
+  
+  <update id="updateContent"  parameterType="article">
+    update atc
+    set
+      cont = #{content}
+    where atc_id = #{id}
+  </update> 
  
 </mapper>
 

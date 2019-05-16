@@ -1,17 +1,16 @@
 package com.eomcs.lms.service.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import com.eomcs.lms.dao.ArticleDao;
 import com.eomcs.lms.dao.ArticleFileDao;
@@ -20,130 +19,151 @@ import com.eomcs.lms.domain.Article;
 import com.eomcs.lms.domain.ArticleFile;
 import com.eomcs.lms.domain.UploadFile;
 import com.eomcs.lms.service.ArticleService;
+import com.eomcs.lms.util.CopyFileUtils;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
   private static final Logger logger = LogManager.getLogger(ArticleServiceImpl.class);
-  
+
   ArticleDao articleDao;
   ArticleFileDao articleFileDao;
   ImageDao imageDao;
-  
+  private Path rootLocation;
+  private String uploadDir;
+
   @Autowired ServletContext servletContext;
-  
+
   public ArticleServiceImpl(ArticleDao articleDao, ArticleFileDao articleFileDao, ImageDao imageDao) {
+
     this.articleDao = articleDao;
     this.articleFileDao = articleFileDao;
     this.imageDao = imageDao;
   }
-  
+
   @Override
   public Article get(int id) {
+
     return articleDao.findByNo(id);
   }
 
   @Override
   public List<Article> list() {
+
     List<Article> articles =  articleDao.findAll();
     return articles;
   }
 
   @Override
-  public int add(String subject, String content, ArrayList<Object> addNo) {
+  public void add(String subject, String content, ArrayList<Object> addNo) {
+
     Article article = new Article();
     article.setSubject(subject);
     article.setContent(content);
     articleDao.insert(article);
+
     int count = article.getId();
     UploadFile uploadFile = new UploadFile();
     ArticleFile articleFile = new ArticleFile();
+    String changeStr = content;
+
     for (int i = 0; i < addNo.size(); i++) {
       int no = Integer.parseInt((String) addNo.get(i));
       uploadFile = imageDao.findOne(no);
+
       articleFile.setArticleId(count);
       articleFile.setFileName(uploadFile.getFileName());
       articleFile.setSaveFileName(uploadFile.getSaveFileName());
-      String filePath = uploadFile.getFilePath();
-      String changeFilePath = 
-          filePath.replaceAll("temporary", "article");
-      articleFile.setFilePath(changeFilePath);
       articleFile.setContentType(uploadFile.getContentType());
       articleFile.setSize(uploadFile.getSize());
-      
-      String saveFathName = uploadFile.getSaveFileName();
-      String sfn = saveFathName.substring(0, saveFathName.lastIndexOf("/"));
-      String year = sfn.split("/")[0];
-      String month = sfn.split("/")[1];
-      String date = sfn.split("/")[2];
-      String oldPath = changeFilePath.substring(0, changeFilePath.lastIndexOf("\\") + 1);
-      System.out.println(servletContext.getAttribute("contextRootPath"));
+
+      String savePathName = uploadFile.getSaveFileName();
+      String tempDirName = "temporary";
+      String saveDirName = "article";
+      String tempFilePath = uploadFile.getFilePath();
+      String changeFilePath = 
+          CopyFileUtils.getSavePath(tempFilePath, tempDirName, saveDirName, savePathName);
+      logger.info("changeFilePath ==>" + changeFilePath);
+
+      articleFile.setFilePath(changeFilePath);
+
+      String contextRootPath = servletContext.getRealPath("./");
       String copyPath = 
-          servletContext.getRealPath("./")
-          + "upload\\article"
-          + "\\" + year 
-          + "\\" + month 
-          + "\\" + date 
-          + "\\" + changeFilePath.substring(changeFilePath.lastIndexOf("/") + 1);
-      logger.info("oldPath ==>" + oldPath); 
-      logger.info("copyPath ==>" + copyPath);
-      if (moveFile(filePath, copyPath))
+          CopyFileUtils.getPhysicalPath(
+              contextRootPath, 
+              savePathName, 
+              changeFilePath, 
+              saveDirName);
+
+      String temporaryDirPath = tempFilePath.substring(0, tempFilePath.length() - savePathName.length());
+      logger.info("temporaryDirPath ==>" + temporaryDirPath);
+      if (CopyFileUtils.moveFile(tempFilePath, copyPath)) {
         articleFileDao.insert(articleFile);
+        CopyFileUtils.deleteTemporaryFile(temporaryDirPath);
+
+        String oldStr = 
+            ".." + File.separator + 
+            ".." + File.separator + 
+            ".." + File.separator + 
+            "java-web-project" + File.separator + 
+            "app" + File.separator + 
+            "image" + File.separator + 
+            uploadFile.getId();
+        String newStr =
+            ".." + File.separator + 
+            ".." + File.separator +
+            ".." + File.separator + 
+            "java-web-project" + File.separator + 
+            "app" + File.separator + 
+            "article" + File.separator + 
+            "image" + File.separator + 
+            articleFile.getId();
+
+        changeStr = changeStr.replaceAll(oldStr, newStr);
+
+        logger.info("oldStr ===> " + oldStr);
+        logger.info("newStr ===> " + newStr);
+        logger.info("changeStr ===> " + changeStr);
+
+      }
     }
-    return count;
+    article.setContent(changeStr);
+    articleDao.updateContent(article);
+  }
+
+  public ArticleFile viewFile(int fileId) {
+    return articleFileDao.findOne(fileId);
   }
   
-  
-//파일을 해당위치로 복사하고 지운다.
-public boolean moveFile(String source, String dest) {
-   boolean result = false;
-   
-   // 새롭게 저장할 위치에 폴더생성
-   try {
-     new File(dest).getParentFile().mkdirs();
-   } catch (Exception e) {
-     e.printStackTrace();
-   }
-       
-   // 스트림 선언
-   FileInputStream inputStream = null;
-   FileOutputStream outputStream = null;
-       
-   try {
-     // 스트림 생성
-       inputStream = new FileInputStream(source);
-       outputStream = new FileOutputStream(dest);
-   } catch (FileNotFoundException e) {
-       e.printStackTrace();
-       result = false;
-   }
-
-   // 채널 선언, 채널 생성
-   FileChannel fcin = inputStream.getChannel();
-   FileChannel fcout = outputStream.getChannel();
-       
-   // 채널을 통한 스트림 전송
-   long size = 0;
-   try {
-       size = fcin.size();
-       fcin.transferTo(0, size, fcout);
-           
-       fcout.close();
-       fcin.close();
-       outputStream.close();
-       inputStream.close();
-           
-       result = true;
-   } catch (IOException e) {
-       e.printStackTrace();
-       result = false;
-   }
-       
-   // 원본파일 삭제
-   File f = new File(source);
-   if (f.delete()) {
-       result = true;
-   }
-   return result;
+  public Resource loadAsResource(String fileName) throws Exception {
+    try {
+        if (fileName.toCharArray()[0] == '/') {
+            fileName = fileName.substring(1);
+        }
+        
+        Path file = loadPath(fileName); 
+        Resource resource = new UrlResource(file.toUri());
+        logger.info("Resource ==> " + resource);
+        if (resource.exists() || resource.isReadable()) {
+            return resource;
+        } else {
+            throw new Exception("Could not read file: " + fileName);
+        }
+    } catch (Exception e) {
+        throw new Exception("Could not read file: " + fileName);
+    }
 }
+  
+  public Path loadPath(String fileName) {
+    return rootLocation.resolve(fileName);
+}
+  
+  public void preparePath(String uploadPath) {
+    String uploadRelativePath = File.separator + "upload" + File.separator + "article";
+    this.uploadDir = servletContext.getRealPath(uploadRelativePath);
+    logger.info("PATH :: " + uploadPath);
+    logger.info("저장할경로 : " + uploadDir);
+    this.rootLocation = Paths.get(this.uploadDir);
+    logger.info(this.rootLocation);
+  }
 }

@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.servlet.ServletContext;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -36,7 +36,8 @@ public class ImageServiceImpl implements ImageService {
   }
   
   public void preparePath(String uploadPath) {
-    this.uploadDir = servletContext.getRealPath("/upload/temporary");
+    String uploadRelativePath = File.separator + "upload" + File.separator + "temporary";
+    this.uploadDir = servletContext.getRealPath(uploadRelativePath);
     logger.info("PATH :: " + uploadPath);
     logger.info("저장할경로 : " + uploadDir);
     this.rootLocation = Paths.get(this.uploadDir);
