@@ -62,7 +62,7 @@ public class ArticleController {
       e.printStackTrace();
     }
 
-    return "redirect:.";
+    return "redirect:./";
   }
   
   @GetMapping("/image/{fileId}")

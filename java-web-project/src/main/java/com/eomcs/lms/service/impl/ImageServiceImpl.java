@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService {
   public ImageServiceImpl(ImageDao imageDao) {
     this.imageDao = imageDao;
   }
-  
+
   public void preparePath(String uploadPath) {
     String uploadRelativePath = File.separator + "upload" + File.separator + "temporary";
     this.uploadDir = servletContext.getRealPath(uploadRelativePath);
@@ -58,10 +58,10 @@ public class ImageServiceImpl implements ImageService {
           if (fileName.toCharArray()[0] == '/') {
               fileName = fileName.substring(1);
           }
-          
+          logger.info("fileName ==> " + fileName);
           Path file = loadPath(fileName);
           Resource resource = new UrlResource(file.toUri());
-          logger.info(resource);
+          logger.info("Resource ===> " + resource);
           if (resource.exists() || resource.isReadable()) {
               return resource;
           } else {
@@ -82,10 +82,16 @@ public class ImageServiceImpl implements ImageService {
             throw new Exception("Failed to store empty file " + file.getOriginalFilename());
         }
         
+        // green.jpg
         String saveFileName = UploadFileUtils.fileSave(uploadDir, file);
+        logger.info("checkOs ==>" + saveFileName);
         
         if (saveFileName.toCharArray()[0] == '/') {
             saveFileName = saveFileName.substring(1);
+        }
+        
+        if (saveFileName.toCharArray()[0] == File.separatorChar) {
+          saveFileName = saveFileName.substring(1);
         }
         
         Resource resource = loadAsResource(saveFileName);

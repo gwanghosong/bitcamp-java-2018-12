@@ -71,11 +71,20 @@ public class CopyFileUtils {
       String subPath) {
 
     String savePath = 
-        source.substring(0, source.lastIndexOf(File.separator) + 1).
-        replaceAll(originDir, changeDir) 
-        + subPath.substring(subPath.lastIndexOf(File.separator) + 1, subPath.length());
-
-    return savePath;
+        source.substring(0, source.lastIndexOf(File.separator) + 1);
+    
+    // 시스템에 win이 포함되어 있는 windows 운영체제인지 확인
+    if (System.getProperty("os.name").indexOf("Win") >= 0) {
+      logger.info("Windows입니다!");
+      savePath = UploadFileUtils.changeWindowPath(savePath);
+    } 
+    
+    String saveOsPath = 
+        savePath.replaceAll(originDir, changeDir) + 
+        subPath.substring(
+            subPath.lastIndexOf(File.separator) + 1, subPath.length());
+    logger.info("saveOsPath!! ==> " + saveOsPath);
+    return saveOsPath;
   }
 
   // 저장할 물리경로 구하기
@@ -84,11 +93,18 @@ public class CopyFileUtils {
       String subPathName, 
       String absolutePath,
       String parentDirName) {
+    
+    // 시스템에 win이 포함되어 있는 windows 운영체제인지 확인
+    if (System.getProperty("os.name").indexOf("Win") >= 0) {
+      logger.info("Windows입니다!");
+      subPathName = UploadFileUtils.reverseSlashPath(subPathName);
+      absolutePath = UploadFileUtils.reverseSlashPath(absolutePath);
+    }
 
-    String spn = subPathName.substring(0, subPathName.lastIndexOf(File.separator));
-    String year = spn.split(File.separator)[0];
-    String month = spn.split(File.separator)[1];
-    String date = spn.split(File.separator )[2];
+    String spn = subPathName.substring(0, subPathName.lastIndexOf("/"));
+    String year = spn.split("/")[0];
+    String month = spn.split("/")[1];
+    String date = spn.split("/")[2];
     String copyPath = 
         contextRootPath
         + "upload" + File.separator + parentDirName
@@ -96,6 +112,7 @@ public class CopyFileUtils {
         + File.separator  + month 
         + File.separator  + date 
         + File.separator  + absolutePath.substring(absolutePath.lastIndexOf("/") + 1);
+    logger.info("copyPath ==> " + copyPath);
     return copyPath;
   }
 

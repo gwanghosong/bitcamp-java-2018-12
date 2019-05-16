@@ -31,8 +31,8 @@ public class ImageController {
   public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
       try {
           String ofn = file.getOriginalFilename();
-          logger.info("파일경로" + ofn);
-          imageService.preparePath(ofn);
+          logger.info("파일경로" + ofn); // green.jpg
+          imageService.preparePath(ofn); // 업로드 Path 설정
           UploadFile uploadedFile = imageService.store(file);
           ResponseEntity<String> callUrl = ResponseEntity.ok().body("../../../java-web-project/app/image/" + uploadedFile.getId());
           logger.info(callUrl);

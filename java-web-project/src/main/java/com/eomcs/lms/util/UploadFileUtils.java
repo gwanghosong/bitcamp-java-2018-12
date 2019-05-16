@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
+import java.util.regex.Matcher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.FileCopyUtils;
@@ -37,25 +38,34 @@ public class UploadFileUtils {
       genId = genId.replace("-", "");
       
       // 파일명 꺼내기
-      String originalfileName = file.getOriginalFilename();
+      String originalfileName = file.getOriginalFilename(); // green.jpg
       
       // 확장자명 꺼내기
-      String fileExtension = getExtension(originalfileName);
+      String fileExtension = getExtension(originalfileName); // jpg
       
       // UUID + 확장자명으로 파일명 생성
       String saveFileName = genId + "." + fileExtension;
       
-      // 저장경로 하위에 .../년/월/일/ 디렉토리 생성
+      // 저장경로 하위에 .../년/월/일 디렉토리 생성
       String savePath = calcPath(uploadPath);
       
-      // /년/월/일 디렉토리경로를 포함하여 경로를 설정하고 UUID로 설정한 파일명으로 파일객체 생성
+      // /년/월/일 를 포함하여 경로를 설정하고 UUID로 설정한 파일명으로 빈 파일객체 생성
       File target = new File(uploadPath + savePath, saveFileName);
       
-      // 파일복사
+      // 파일 내용 복사
       FileCopyUtils.copy(file.getBytes(), target);
       
-      // /년/월/일/UUID파일명 경로 리턴
-      return makeFilePath(uploadPath, savePath, saveFileName);
+      // /년/월/일/UUID파일명 Unix 저장경로지정
+      String UnixPath = makeFilePath(uploadPath, savePath, saveFileName);
+      
+      // 시스템에 win이 포함되어 있는 windows 운영체제인지 확인
+      if (System.getProperty("os.name").indexOf("Win") >= 0) {
+        logger.info("Windows입니다!");
+        return changeWindowPath(UnixPath);
+      } else {
+        logger.info("Unix입니다!");
+        return UnixPath;
+      }
   }
   
   public static String fileCopy(
@@ -82,7 +92,16 @@ public class UploadFileUtils {
     FileCopyUtils.copy(file.getBytes(), target);
     
     // /년/월/일/파일명 경로 리턴
-    return makeFilePath(uploadPath, savePath, originalfileName);
+    String UnixPath = makeFilePath(uploadPath, savePath, originalfileName);
+    
+    // 시스템에 win이 포함되어 있는 windows 운영체제인지 확인
+    if (System.getProperty("os.name").indexOf("Win") >= 0) {
+      logger.info("Windows입니다!");
+      return changeWindowPath(UnixPath);
+    } else {
+      logger.info("Unix입니다!");
+      return UnixPath;
+    }
 }
   
   /**
@@ -127,7 +146,7 @@ public class UploadFileUtils {
       logger.info(
           paths[paths.length - 1] + 
           " : " + 
-          new File(paths[paths.length - 1]).exists());
+          new File(paths[paths.length - 1]).exists()); // ex) \2019\05\16
       
       if (new File(paths[paths.length - 1]).exists()) {
           return;
@@ -142,12 +161,30 @@ public class UploadFileUtils {
       }
   }
   
+  // 유닉스 운영체제 파일 저장 경로
   private static String makeFilePath(
       String uploadPath, String path, String fileName) throws IOException {
     
       String filePath = uploadPath + path + File.separator + fileName;
+      
       return filePath.substring(uploadPath.length()).replace(File.separatorChar, '/');
   }
   
+  // 윈도우 운영체제 파일 저장 경로
+  public static String changeWindowPath(String testPath) {
+    String OsFilePath = testPath.replaceAll(
+        "/", Matcher.quoteReplacement(File.separator));
+    logger.info("WindowOsPath ===> " + OsFilePath);
+    return OsFilePath;
+
+  }
+  
+  // 윈도우 경로 역으로 다시 변환
+  public static String reverseSlashPath(String testPath) {
+    String reverseSlashPath = 
+        testPath.replaceAll(Matcher.quoteReplacement(File.separator), "/");
+    logger.info("reverseSlashPath ===> " + reverseSlashPath);
+    return reverseSlashPath;
+  }
 
 }

@@ -25,12 +25,19 @@
               <a href="#">${article.subject}</a> <span class="pull-right text-right"> ${article.regDate} </span>
             </h3>
           </div>
-          <div>${article.content}</div>
+          <div id="summernote">${article.content}</div>
         </div>
-          <a href="update">변경</a>
       </div>
     </div>
   </div>
+  <script>
+  $('#summernote').summernote({
+  height: 300,                 // set editor height
+  minHeight: null,             // set minimum height of editor
+  maxHeight: null,             // set maximum height of editor
+  focus: true           // set focus to editable area after initializing summernote
+});
+  </script>
 </body>
 </html>
 

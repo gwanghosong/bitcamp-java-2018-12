@@ -20,6 +20,7 @@ import com.eomcs.lms.domain.ArticleFile;
 import com.eomcs.lms.domain.UploadFile;
 import com.eomcs.lms.service.ArticleService;
 import com.eomcs.lms.util.CopyFileUtils;
+import com.eomcs.lms.util.UploadFileUtils;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -95,7 +96,8 @@ public class ArticleServiceImpl implements ArticleService {
               changeFilePath, 
               saveDirName);
 
-      String temporaryDirPath = tempFilePath.substring(0, tempFilePath.length() - savePathName.length());
+      String temporaryDirPath = 
+          tempFilePath.substring(0, tempFilePath.length() - savePathName.length());
       logger.info("temporaryDirPath ==>" + temporaryDirPath);
       if (CopyFileUtils.moveFile(tempFilePath, copyPath)) {
         articleFileDao.insert(articleFile);
@@ -118,6 +120,21 @@ public class ArticleServiceImpl implements ArticleService {
             "article" + File.separator + 
             "image" + File.separator + 
             articleFile.getId();
+        
+        logger.info("content before ==> " + content);
+        logger.info("oldStr before ==> " + oldStr);
+        logger.info("newStr before ==> " + newStr);
+        
+        // 시스템에 win이 포함되어 있는 windows 운영체제인지 확인
+        if (System.getProperty("os.name").indexOf("Win") >= 0) {
+          logger.info("Windows입니다!");
+          oldStr = UploadFileUtils.reverseSlashPath(oldStr);
+          newStr = UploadFileUtils.reverseSlashPath(newStr);
+        }
+        
+        logger.info("content after ==> " + content);
+        logger.info("oldStr after ==> " + oldStr);
+        logger.info("newStr after ==> " + newStr);
 
         changeStr = changeStr.replaceAll(oldStr, newStr);
 
