@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eomcs.lms.dao.ImageDao">
+  
+  <resultMap type="uploadFile" id="uploadFileMap">
+    <id column="img_tmp_id"  property="id"/>
+    <result column="fn"   property="fileName"/>
+    <result column="sfn"  property="saveFileName"/>
+    <result column="sfp"  property="filePath"/>
+    <result column="cont_type"  property="ContentType"/>
+    <result column="size"  property="size"/>
+    <result column="rdt"  property="regDate"/>
+  </resultMap>
+  
+  <select id="findAll" resultMap="uploadFileMap">
+    select 
+      img_tmp_id,
+      fn,
+      sfn,
+      sfp,
+      cont_type,
+      size,
+      rdt
+    from 
+      img_tmp
+    order by 
+      img_tmp_id asc
+  </select>
+  
+  <select id="findOne" resultMap="uploadFileMap" parameterType="int">
+    select 
+      img_tmp_id,
+      fn,
+      sfn,
+      sfp,
+      cont_type,
+      size,
+      rdt
+    from 
+      img_tmp
+    where
+      img_tmp_id = #{value}
+     
+  </select>
+  
+  <select id="findOneByFileName" resultMap="uploadFileMap" parameterType="string">
+    select 
+      img_tmp_id,
+      fn,
+      sfn,
+      sfp,
+      cont_type,
+      size,
+      rdt
+    from 
+      img_tmp
+    where
+      fn = #{value}
+     
+  </select>
+    
+  <select id="findOneBySaveFilePath" resultMap="uploadFileMap" parameterType="string">
+    select 
+      img_tmp_id,
+      fn,
+      sfn,
+      sfp,
+      cont_type,
+      size,
+      rdt
+    from 
+      img_tmp
+    where
+      sfp = #{value}
+     
+  </select>
+  
+  <insert id="save" parameterType="uploadFile"
+      useGeneratedKeys="true" keyColumn="img_tmp_id" keyProperty="id">
+    insert into img_tmp(
+      fn,
+      sfn,
+      sfp,
+      cont_type,
+      size) 
+    values(
+      #{fileName},
+      #{saveFileName},
+      #{filePath},
+      #{ContentType},
+      #{size}
+    )
+  </insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+

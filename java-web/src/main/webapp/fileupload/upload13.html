@@ -45,7 +45,7 @@ $('#fileupload').fileupload({
   previewMaxWidth: 100,   // 미리보기 이미지 너비
   previewMaxHeight: 100,  // 미리보기 이미지 높이 
   previewCrop: true,      // 미리보기 이미지를 출력할 때 원본에서 지정된 크기로 자르기
-  processalways: function(e, data) {
+  processalways: function(e, data) { //Callback for the end (done or fail) of an individual file processing queue.
       console.log('fileuploadprocessalways()...');
       console.log(data.files);
       var imagesDiv = $('#images-div');

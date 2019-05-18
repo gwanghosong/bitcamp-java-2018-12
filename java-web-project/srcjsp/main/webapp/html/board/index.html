@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시물 목록</title>
+<link href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+<link href="/java-web-project/node_modules/summernote/dist/summernote.css" rel="stylesheet">
+<link rel="stylesheet" href="/java-web-project/css/common.css">
+<link rel="stylesheet" href="/java-web-project/css/header.css">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<header class="bit-main-header"></header>
+
+<div class="container">
+    <h1>게시물 목록</h1>
+    <p>
+      <a href='view.html' class="btn btn-primary btn-sm">새 글</a>
+    </p>
+
+    <div class="bit-list">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+          <!--  Ux를 좋게하기 위해서 width를 고정하여 UI를 흔들리지 않도록 width 설정함. -->
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">등록일</th>
+            <th scope="col">조회수</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <!-- .bit-list -->
+    <div id="summernote"></div>
+
+    <nav aria-label="목록 페이지 이동">
+      <ul class="pagination justify-content-center pager">
+        <li id="prevPage" class="page-item">
+        <a class="page-link" href="#">이전</a></li>
+        <li id="currPage" class="page-item active">
+        <span class="page-link">1</span></li>
+        <li id="nextPage" class="page-item">
+        <a class="page-link" href="#">다음</a></li>
+      </ul>
+    </nav>
+  </div>
+  <!-- .container -->
+  
+<!-- Handlebars에서 사용할 HTML 템플릿 데이터를 준비한다. -->  
+<script id="tr-template" type="text/x-handlebars-template">
+{{#each list}}
+<tr>
+  <th scope='row'>{{no}}</th>
+  <td><a class='bit-view-link' href='#' data-no='{{no}}'>{{contents}}</a></td>
+  <td>{{createdDate}}</td>
+  <td>{{viewCount}}</td>
+</tr>
+{{/each}}
+</script>
+
+<script src="/java-web-project/node_modules/jquery/dist/jquery.js"></script>
+<script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/java-web-project/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="/java-web-project/node_modules/summernote/dist/summernote.js"></script>
+<script src="/java-web-project/node_modules/summernote/dist/lang/summernote-ko-KR.js"></script>
+<script src="../header.js"></script>
+<script src="index.js"></script>
+
+<script>
+// summernote 시작
+$(document).ready(function() {
+  $('#summernote').summernote();
+});
+
+$('#summernote').summernote({
+  height: 300,                 // set editor height
+  minHeight: null,             // set minimum height of editor
+  maxHeight: null,             // set maximum height of editor
+  focus: true            // set focus to editable area after initializing summernote
+});
+
+var markupStr = $('#summernote').summernote('code');
+
+var contents = "contents";
+
+$('#summernote').summernote('code', contents);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

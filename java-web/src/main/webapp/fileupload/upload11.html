@@ -32,11 +32,19 @@ $('#fileupload').fileupload({
   singleFileUploads: false, // 한 요청에 여러 개의 파일을 전송시키기.   
   add: function (e, data) {
     console.log('add()...');
+    
     $.each(data.files, function (index, file) {
         console.log('선택한 파일: ' + file.name);
     });
+    
     $('#upload-btn').click(function() {
         // data 객체의 formData 프로퍼티에 일반 파라미터 값을 설정한다.
+        // 주의! 이 방식의 문제점
+        // => add는 파일을 선택할 때 호출되는 callback 함수이다.
+        //    즉 이 때를 기준으로 data.formData를 형성하게 되면
+        //    제대로 값이 안들어올 수 있는 문제점이 생길 수 있다.
+        // 해결책!
+        // => submit 이벤트에 콜백함수에 등록하라!
         data.formData = {
             name: $('#name').val(),
             age: $('#age').val()

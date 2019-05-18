@@ -50,7 +50,7 @@ $('#fileupload').fileupload({
     // 그러면 업로드 중간에 상태 보고를 위해 이 함수를 호출해 줄 것이다.
     progressall: function (e, data) { 
       console.log('progressall()...', data.loaded, data.total);
-        var progress = parseInt(data.loaded / data.total * 100, 10);
+        var progress = parseInt(data.loaded / data.total * 100, 10); // 해당 값을 10진수로 변환
         $('#progress .bar').css(
             'width',
             progress + '%'

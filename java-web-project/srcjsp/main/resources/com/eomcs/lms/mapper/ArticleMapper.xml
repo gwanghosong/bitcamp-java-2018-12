@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eomcs.lms.dao.ArticleDao">
+  
+  <resultMap type="article" id="articleMap">
+    <id column="atc_id" property="id"/>
+    <result column="subj" property="subject"/>
+    <result column="cont" property="content"/>
+    <result column="rdt" property="regDate"/>
+    <result column="udt" property="updDate"/>
+  </resultMap>
+  
+  <sql id="select1">
+    select 
+      atc_id, 
+      subj,
+      cont,
+      rdt,
+      udt
+    from 
+      atc
+  </sql>
+  
+  <select id="findAll" resultMap="articleMap">
+    <include refid="select1"/>
+    order by 
+      atc_id desc
+  </select>
+  
+  <select id="findByNo" resultMap="articleMap" parameterType="int">
+    <include refid="select1"/>
+    where 
+      atc_id = #{value}
+  </select>
+  
+  <insert id="insert" parameterType="article"
+      useGeneratedKeys="true" keyColumn="atc_id" keyProperty="id">
+    insert into atc(subj,cont) 
+    values(#{subject},#{content})
+  </insert>
+  
+  <update id="updateContent"  parameterType="article">
+    update atc
+    set
+      cont = #{content}
+    where atc_id = #{id}
+  </update> 
+ 
+</mapper>
+
+
+
+
+
+
+
+
+
+
