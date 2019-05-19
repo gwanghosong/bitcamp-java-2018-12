@@ -47,7 +47,7 @@ public class Controller05_2 {
   @GetMapping(value="h2", produces = "text/plain;charset=UTF-8")
   public String handler2() {
     return "안녕하세요!"; // String 타입은 그대로 출력한다. 
-                               // 출력 문자열의 인코딩을 지정해야 한글이 깨지지 않는다.
+                               // 주의! 출력 문자열의 인코딩을 지정해야 한글이 깨지지 않는다.
   }
   
   // 테스트:
