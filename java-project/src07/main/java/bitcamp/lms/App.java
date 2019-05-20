@@ -22,11 +22,11 @@ public class App {
      * Lesson lesson4 = new Lesson[LENGTH];
      * Lesson lesson5 = new Lesson[LENGTH];
       * .....
-     * Lesson lesson100 = new Lesson[LENGTH];
+     * Lesson lesson10 = new Lesson[LENGTH];
      너무 힘들어
      
      */
-    // Lesson 인스턴스의 주소를 담을 레퍼런스를 먼저 100개 생성한다.
+    // Lesson 인스턴스의 주소를 담을 레퍼런스를 먼저 10개 생성한다.
     // 레퍼런스들을 저장할 레퍼런스배열을 만들자
     Lesson[] lessons = new Lesson[LENGTH];
     

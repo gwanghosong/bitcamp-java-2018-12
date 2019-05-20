@@ -13,8 +13,9 @@ public class App {
     
     final int LENGTH = 10;
     // 왜 변수가 바깥에 while문 블록 바깥으로 나왔을까?
-    // 변수가 블록을 벗어나는 순간, 블록 바깥에서 그 변수를 사용할 수 없다.
-    // 따라서 바깥쪽에서 변수를 선언하고 쓴다.
+    // 변수를 while문 블록 바깥에 선언한 이유
+    // => 변수가 블록을 벗어나는 순간, 블록 바깥에서 그 변수를 사용할 수 없다.
+    //    따라서 바깥쪽에서 변수를 선언하고 쓴다.
     int[] no = new int[LENGTH];
     String[] name = new String[LENGTH];
     String[] contents = new String[LENGTH];
