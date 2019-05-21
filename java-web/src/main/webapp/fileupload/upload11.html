@@ -43,6 +43,8 @@ $('#fileupload').fileupload({
         // => add는 파일을 선택할 때 호출되는 callback 함수이다.
         //    즉 이 때를 기준으로 data.formData를 형성하게 되면
         //    제대로 값이 안들어올 수 있는 문제점이 생길 수 있다.
+        //    또한 파일을 add하지 않는다면 data를 입력하지 않기 때문에 
+        //    값이 들어오지 않는다.
         // 해결책!
         // => submit 이벤트에 콜백함수에 등록하라!
         data.formData = {
