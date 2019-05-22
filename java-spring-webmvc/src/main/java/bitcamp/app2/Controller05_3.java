@@ -38,6 +38,7 @@ public class Controller05_3 {
   //      http://localhost:8080/java-spring-webmvc/html/app2/c05_3.html
   // 웹 환경에서 라우터 경로마다 설정된 유니코드가 달라지면 값이 깨질 수있다.
   // 따라서 보낼 때는 인코딩, 받을 때는 디코딩을 설정해서 값을 전송하라.
+  // 받는 값 : {"no":1,"title":"제목입니다!","content":"내용입니다","writer":"홍길동","viewCount":100,"createdDate":"2019-5-1"}
   @RequestMapping(value="h3", produces="text/plain;charset=UTF-8")
   public Object handler3(@RequestBody String content) throws Exception {
     // System.out.println(content); // 이렇게 직접 받지 말고 디코딩해라.
@@ -53,6 +54,7 @@ public class Controller05_3 {
   // 테스트:
   //      http://localhost:8080/java-spring-webmvc/html/app2/c05_3.html
   // 주의! Date 객체인 경우 String 문자열로 넘어온다.
+  // {no=1, title=제목입니다!, content=내용입니다, writer=홍길동, viewCount=100, createdDate=2019-5-1}
   @RequestMapping(value="h4", produces="text/plain;charset=UTF-8")
   public Object handler4(@RequestBody Map<String,Object> content) throws Exception {
     System.out.println(content);
@@ -67,7 +69,7 @@ public class Controller05_3 {
   //      http://localhost:8080/java-spring-webmvc/html/app2/c05_3.html
   // 기본 타입이 아닌 타입은 변환이 안되서 에러가 뜬다.
   // 참고 : JSON 형태로 오는 경우 initBinder는 안 먹는다. 변수=값 형태로 올때만 된다.
-  // 해결책 : 
+  // Board [no=1, title=제목입니다!, content=내용입니다, writer=홍길동, viewCount=100, createdDate=Wed May 01 09:00:00 KST 2019]
   @RequestMapping(value="h5", produces="text/plain;charset=UTF-8")
   public Object handler5(@RequestBody Board content) throws Exception {
     System.out.println(content);

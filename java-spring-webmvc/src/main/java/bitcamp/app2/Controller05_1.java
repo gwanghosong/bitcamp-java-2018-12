@@ -32,6 +32,11 @@ public class Controller05_1 {
     list.add(new Board(13, "제목입니다13", "내용13", "홍길동13", 22, Date.valueOf("2019-5-13")));
   }
   
+  // ArrayList에 객체를 담아서 리턴하면
+  // 리스트를 for문 돌려서
+  // [ {"프로퍼티명":숫자or"문자열",...}, {"프로퍼티명":숫자or"문자열",...}, {...} ]
+  // 이런 json 형식의 객체를 만들 수 있다.
+  
   // 1) JSP에서 JSON 형식의 콘텐트 출력하기 I
   // 테스트:
   //      http://localhost:8080/java-spring-webmvc/app2/c05_1/h1

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 // => 페이지 컨트롤러를 @RestController로 선언하면,
 //      리턴 값은 HttpMessageConverter에 의해 자동으로 변환된다.
+// @RestController 에서 return 되는 값은 View Page를 통해 출력되는 것이 아니라 HTTP ResponseBody에 직접 쓰여지게 된다.
 // => @ResponseBody를 붙일 필요가 없다.
 // 실무에서는 이 방법을 쓴다.
 //
