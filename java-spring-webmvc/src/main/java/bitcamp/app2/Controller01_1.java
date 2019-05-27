@@ -65,7 +65,7 @@ public class Controller01_1 {
    map.put("age", "40");
    
    // Map 객체에 값을 담아 리턴하면
-   // 프론트 컨트롤러는 Map 객체에 보관되어 있는 값들을 ServletRequest 보관소로 옮긴다.
+   // 프론트 컨트롤러는 Map 객체에 보관되어 있는 값들을 ServletRequest(Application) 보관소로 옮긴다.
    // 그리고 view URL은 request handler의 URL을 사용한다.
    return map;
  }
