@@ -6,6 +6,7 @@
 <head>
 <title>게시물 목록</title>
 <jsp:include page="../commonCss.jsp" />
+
 </head>
 <body>
 
@@ -42,14 +43,16 @@
     </div>
     <!-- .bit-list -->
     
-    <div id="test">
-        <select id="selectBox">
-          <option>소속팀 선택</option>
-      <c:forEach items="${list}" var="board">
-          <option value="${board.no}">${board.viewCount}</option>
+    <div id='test'>
+      <select class='selectBox'>
+        <option>소속팀 선택</option>
+      <c:forEach items='${list}' var='board'>
+        <option value='${board.no}'>${board.viewCount}</option>
       </c:forEach>
-        </select>
+      </select>
     </div>
+    
+    
 
     <nav aria-label="목록 페이지 이동">
       <ul class="pagination justify-content-center pager">
@@ -64,39 +67,27 @@
   </div>
   <!-- .container -->
 
+ 
   <jsp:include page="../javascript.jsp" />
-  
+
+
 <script>
 
+
+/*
 var abc = contentReturn();
-
-
 var list = new Array(); 
 <c:forEach items="${list}" var="board">
 list.push("${board.no}");
 </c:forEach>
+*/
 
-
-$(function () {
-  $('[data-toggle="popover"]').popover({
-    html : true,
-    trigger : 'click',
-    container : 'body',
-    content: String($('#test').html())
-  }).on('shown.bs.popover', function(){
-  });
-  
-})
-
-function contentReturn() {
-  var content = '';
-  content = $('#test').html();
-  str = String(content);
-  console.log(content);
-  console.log(str);
-  return str;
-}
-
+$(document).ready(function() {  
+$('[data-toggle="popover"]').popover({
+  html: true,
+  content: $('#test')
+});
+});
 
 </script>
 </body>
