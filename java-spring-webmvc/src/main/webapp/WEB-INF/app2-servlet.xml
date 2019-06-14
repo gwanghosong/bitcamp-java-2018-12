@@ -5,6 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:task="http://www.springframework.org/schema/task"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -12,7 +13,9 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
 
   <context:component-scan base-package="bitcamp.app2"/>
   
@@ -57,5 +60,10 @@
     </mvc:interceptor>
     
   </mvc:interceptors>
+  
+  <!-- @Scheduled 애노테이션을 처리하는 객체 등록하기 -->
+  <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+  <task:executor id="myExecutor" pool-size="5"/>
+  <task:scheduler id="myScheduler" pool-size="10"/>
   
 </beans>
