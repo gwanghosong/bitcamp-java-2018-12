@@ -119,7 +119,6 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     // 전체 게시물의 개수
     return boardDao.countAll();
   }
-  
 }
 
 

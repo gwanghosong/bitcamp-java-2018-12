@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body {
+	font-size: small;
+}
+
+body > header {
+	min-height: 60px;
+}
+
+.container > h1 {
+	height: 40px;
+	margin: 30px 0
+	/* text-align: center; */
+	
+}
+
+div.bit-list {
+	min-height: 200px;
+}
+
+div.container {
+	width: 800px;
+}
+
+.bit-invisible {
+	display: none;
+}
+
+#bit-login-state {
+	margin: 0px 10px;
+}
+
+div#member-search {
+	display: inline;
+}

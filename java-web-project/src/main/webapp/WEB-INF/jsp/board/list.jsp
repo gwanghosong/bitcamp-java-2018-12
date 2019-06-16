@@ -6,7 +6,6 @@
 <head>
 <title>게시물 목록</title>
 <jsp:include page="../commonCss.jsp" />
-
 </head>
 <body>
 
@@ -34,25 +33,13 @@
               <th scope="row">${board.no}</th>
               <td><a href='${board.no}'>${board.contents}</a></td>
               <td>${board.createdDate}</td>
-              <td data-toggle='popover' title="title">${board.viewCount}</td>
+              <td>${board.viewCount}</td>
             </tr>
           </c:forEach>
         </tbody>
       </table>
-      <a href="javascript:;" data-toggle='popover' title="title">hahaha</a>
     </div>
     <!-- .bit-list -->
-    
-    <div id='test'>
-      <select class='selectBox'>
-        <option>소속팀 선택</option>
-      <c:forEach items='${list}' var='board'>
-        <option value='${board.no}'>${board.viewCount}</option>
-      </c:forEach>
-      </select>
-    </div>
-    
-    
 
     <nav aria-label="목록 페이지 이동">
       <ul class="pagination justify-content-center pager">
@@ -67,29 +54,7 @@
   </div>
   <!-- .container -->
 
- 
   <jsp:include page="../javascript.jsp" />
-
-
-<script>
-
-
-/*
-var abc = contentReturn();
-var list = new Array(); 
-<c:forEach items="${list}" var="board">
-list.push("${board.no}");
-</c:forEach>
-*/
-
-$(document).ready(function() {  
-$('[data-toggle="popover"]').popover({
-  html: true,
-  content: $('#test')
-});
-});
-
-</script>
 </body>
 </html>
 

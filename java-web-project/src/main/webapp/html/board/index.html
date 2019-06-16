@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 목록</title>
-<link href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-<link href="/java-web-project/node_modules/summernote/dist/summernote.css" rel="stylesheet">
+<link rel="stylesheet" href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/java-web-project/css/common.css">
 <link rel="stylesheet" href="/java-web-project/css/header.css">
 <link rel="stylesheet" href="index.css">
@@ -34,7 +33,6 @@
       </table>
     </div>
     <!-- .bit-list -->
-    <div id="summernote"></div>
 
     <nav aria-label="목록 페이지 이동">
       <ul class="pagination justify-content-center pager">
@@ -61,34 +59,12 @@
 {{/each}}
 </script>
 
-<script src="/java-web-project/node_modules/jquery/dist/jquery.js"></script>
+<script src="/java-web-project/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/java-web-project/node_modules/handlebars/dist/handlebars.min.js"></script>
-<script src="/java-web-project/node_modules/summernote/dist/summernote.js"></script>
-<script src="/java-web-project/node_modules/summernote/dist/lang/summernote-ko-KR.js"></script>
 <script src="../header.js"></script>
 <script src="index.js"></script>
-
-<script>
-// summernote 시작
-$(document).ready(function() {
-  $('#summernote').summernote();
-});
-
-$('#summernote').summernote({
-  height: 300,                 // set editor height
-  minHeight: null,             // set minimum height of editor
-  maxHeight: null,             // set maximum height of editor
-  focus: true            // set focus to editable area after initializing summernote
-});
-
-var markupStr = $('#summernote').summernote('code');
-
-var contents = "contents";
-
-$('#summernote').summernote('code', contents);
-</script>
 </body>
 </html>
 

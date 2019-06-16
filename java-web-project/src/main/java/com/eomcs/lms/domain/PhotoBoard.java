@@ -14,8 +14,6 @@ public class PhotoBoard implements Serializable {
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   
-  private String content;
-  
   private int viewCount;
   private int lessonNo;
   
@@ -64,12 +62,6 @@ public class PhotoBoard implements Serializable {
   }
   public void setLesson(Lesson lesson) {
     this.lesson = lesson;
-  }
-  public String getContent() {
-    return content;
-  }
-  public void setContent(String content) {
-    this.content = content;
   }
   
 }

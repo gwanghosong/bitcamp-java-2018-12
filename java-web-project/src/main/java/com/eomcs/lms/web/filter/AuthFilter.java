@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.lms.domain.Member;
 
-@WebFilter("/app/aaa/aaa")
+@WebFilter("/app/*")
 public class AuthFilter implements Filter {
   
   FilterConfig filterConfig;

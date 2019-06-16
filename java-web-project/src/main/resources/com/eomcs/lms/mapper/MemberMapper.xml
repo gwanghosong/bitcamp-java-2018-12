@@ -46,16 +46,6 @@
       member_id = #{value}
   </select>
   
-    <select id="findByEmail" resultMap="memberMap" parameterType="string">
-    select 
-      <include refid="default-columns"/>, 
-      photo
-    from 
-      lms_member
-    where 
-      email = #{value}
-  </select>
-  
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
     select 
       <include refid="default-columns"/>, 
@@ -80,8 +70,7 @@
     order by name asc
   </select>
   
-  <insert id="insert" parameterType="member"
-  useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
+  <insert id="insert" parameterType="member">
     insert into lms_member(
       name,
       email,

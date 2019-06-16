@@ -18,6 +18,5 @@ public class AppInitListener implements ServletContextListener {
     // ServletContext 보관소에 저장한다.
     ServletContext sc = sce.getServletContext();
     sc.setAttribute("contextRootPath", sc.getContextPath());
-    
   }
 }

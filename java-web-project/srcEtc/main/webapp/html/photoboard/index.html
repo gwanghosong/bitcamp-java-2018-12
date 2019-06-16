@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사진 목록</title>
+<link rel="stylesheet" href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/java-web-project/css/common.css">
+<link rel="stylesheet" href="/java-web-project/css/header.css">
+</head>
+<body>
+
+<header class="bit-main-header"></header>
+
+<div class="container">
+    <h1>사진 목록</h1>
+    <p>
+      <a href='view.html' class="btn btn-primary btn-sm">새 사진</a>
+    </p>
+    <div class="bit-list">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">등록일</th>
+            <th scope="col">조회수</th>
+            <th scope="col">수업</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <!-- .bit-list -->
+
+
+    <nav class="navbar navbar-dark">
+      <form action="search" class="form-inline">
+        수업번호 :&nbsp;  <input type="text" class="form-control" name="lessonNo" placeholder="수업번호"> &nbsp;
+        검색어 : &nbsp;  <input type="text" class="form-control" name="keyword" placeholder="검색어"> &nbsp;
+          <button class="btn btn-primary">검색</button>
+      </form>
+    </nav>
+
+    <nav aria-label="목록 페이지 이동">
+      <ul class="pagination justify-content-center pager">
+        <li id="prevPage" class="page-item">
+        <a class="page-link" href="#">이전</a></li>
+        <li id="currPage" class="page-item active">
+        <span class="page-link">1</span></li>
+        <li id="nextPage" class="page-item">
+        <a class="page-link" href="#">다음</a></li>
+      </ul>
+    </nav>
+  </div><!-- .container -->
+
+<script src="/java-web-project/node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../header.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
