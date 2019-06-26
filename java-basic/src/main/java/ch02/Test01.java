@@ -7,11 +7,11 @@ public class Test01 {
     // => 10진수
     System.out.println(78);
     
-    // => 8진수
+    // => 8진수 : 앞에 0을 붙여서 표시
     System.out.println(0116);
-    // => 16진수
+    // => 16진수 : 0x
     System.out.println(0x4e);
-    // => 2진수
+    // => 2진수 : 0b
     System.out.println(0b01001110);
     // 2) 부동소수점을 출력하라.
     // => 12.345

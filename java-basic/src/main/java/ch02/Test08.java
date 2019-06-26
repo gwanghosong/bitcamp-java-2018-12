@@ -15,6 +15,7 @@ public class Test08 {
     } else {
       System.out.println("아니다!");
     }
+    
     /* 컴파일 오류!
     if (10 - 10) { // c언어에서는 0은 false, 그 외의 모든 수는 true이다. 자바는 아니다!
       System.out.println("참이다!");

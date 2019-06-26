@@ -29,11 +29,11 @@ public class Test13 {
     // a : 날짜 및 시각데이터에서 요일을 추출하여 짧은 이름으로 표현한다. Sun
     System.out.printf("%1$tA %1$ta\n", today);
     
-    // H : 날짜 및 시각데이터에서 시각을 추출하여 24시로 표현한다.
-    // I : 날짜 및 시각데이터에서 시각을 추출하여 12시로 표현한다. 
+    // H : 날짜 및 시각데이터에서 시각(시간)을 추출하여 24시로 표현한다.
+    // I : 날짜 및 시각데이터에서 시각(시간)을 추출하여 12시로 표현한다. 
     System.out.printf("%1$tH %1$tI\n", today);
     
-    // M : 날짜 및 시각데이터에서 시각을 추출하여 12시로 표현한다. 
+    // M : 날짜 및 시각데이터에서 시각(분)을 추출하여 12시로 표현한다. 
     System.out.printf("%1$tM\n", today);
     // S : 초
     System.out.printf("%1$tS\n", today);
@@ -49,7 +49,7 @@ public class Test13 {
     // 한글은 의미없다.
     System.out.printf("%1$tp\n", today);
     
-    // 년-월-일-시:분:초 출력  2019-01-04 12:04:30
+    // 년-월-일-시:분:초 출력  ex) 2019-01-04 12:04:30
     System.out.printf("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS\n", today);
 
     
